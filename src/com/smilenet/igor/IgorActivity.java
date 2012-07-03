@@ -1,4 +1,3 @@
-//author: SmileNet
 package com.smilenet.igor;
 
 import android.os.Bundle;
