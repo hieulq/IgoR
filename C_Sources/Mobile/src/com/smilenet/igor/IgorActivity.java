@@ -1,3 +1,8 @@
+/*
+ * Author: SmileNet Team
+ * CyberAgent Contest
+ */
+
 package com.smilenet.igor;
 
 import android.os.Bundle;
