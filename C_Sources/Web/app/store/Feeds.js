@@ -3,6 +3,7 @@ Ext.define("Igor.store.Feeds", {
 
     config: {
         model: 'Igor.model.Feed',
+        pageSize: 5,
         autoLoad: true,
         sorters: 'firstName',
         grouper: {

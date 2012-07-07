@@ -8,6 +8,7 @@ Ext.define("Igor.view.News", {
 
     config: {
         autoDestroy: false,
+        
 
         navigationBar: {
             items: [
@@ -35,13 +36,27 @@ Ext.define("Igor.view.News", {
                 xtype: 'list',
                 title: 'News',
                 cls: 'x-feeds',
+                disclosure: true, 
+                limit: 5,
+                disableSelection: true,
+
+                plugins: [
+                    { xclass: 'Ext.plugin.ListPaging' },
+                    { xclass: 'Ext.plugin.PullRefresh' }
+                ],               
 
                 store: 'Feeds',
                 itemTpl: [
-                    '<div class="headshot" style="background-image:url(resources/images/headshots/{headshot});"></div>',
+                    '<div class="feed" style="background-image:url(resources/images/headshots/{headshot});"></div>',
                     '{firstName} {lastName}',
                     '<span>{title}</span>'
-                ].join('')
+                ].join(''),
+
+                onItemDisclosure: function(record, item, index, e) {
+                //show a messagebox alert which shows the persons firstName
+                e.stopEvent();
+                Ext.Msg.alert('Test', 'Redirect to page ' + record.get('firstName'));
+                }
             }
         ]
     }
