@@ -53,9 +53,18 @@ Ext.define("Igor.view.News", {
                 ].join(''),
 
                 onItemDisclosure: function(record, item, index, e) {
-                //show a messagebox alert which shows the persons firstName
-                e.stopEvent();
-                Ext.Msg.alert('Test', 'Redirect to page ' + record.get('firstName'));
+                    //show a messagebox alert which shows the persons firstName
+                    e.stopEvent();
+                    Ext.Msg.alert('Test', 'Redirect to page ' + record.get('firstName'));
+                },
+
+                listeners: {
+                    itemtap: function(list, index, target, record) {
+                        //console.log('onItemTap: index = ' + index);
+                        var rec = list.getStore().getAt(index);
+                        //console.log(rec.data);
+                        Ext.Msg.alert('Test', 'Redirect to page ' + rec.get('firstName'));
+                    }
                 }
             }
         ]
