@@ -24,18 +24,6 @@ $tabs-bottom-active-gradient: 'glossy';
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-loading-spinner;
-
-.tweet-wrapper {
-  h2 { font-weight: bold; padding-bottom: 3px; }
-  img { border-radius: 5px; float: left; }
-  .tweet {
-    font-size: 70%;
-    margin-left: 60px;
-    min-height: 50px;
-  }
-  .posted { float: right; }
-}
-
-@include pictos-iconmask('list');
+@include pictos-iconmask('rss');
 @include pictos-iconmask('time_repeat');
-@include pictos-iconmask('twitter2');
+@include pictos-iconmask('add_black');
