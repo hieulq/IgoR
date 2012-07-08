@@ -10,7 +10,11 @@ Ext.define("Igor.view.Main", {
         fullscreen: true,
         tabBarPosition: 'bottom',
         ui: 'dark',
-        
+
+        layout: {
+            animation: 'fade',
+            type: 'card'
+        },
 
         items: [
             // This is the home page, just some simple html
