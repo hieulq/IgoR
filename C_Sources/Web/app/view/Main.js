@@ -12,7 +12,7 @@ Ext.define("Igor.view.Main", {
         ui: 'dark',
 
         layout: {
-            animation: 'fade',
+            animation: 'slide',
             type: 'card'
         },
 
