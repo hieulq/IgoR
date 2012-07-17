@@ -1,34 +1,44 @@
-Ext.define("Igor.view.Login", {
+Ext.define("Igor.view.Register", {
     extend: 'Ext.form.Panel',
-    xtype: 'loginpage',
+    xtype: 'registerpage',
 
     config: {
-        title: 'Login',
+        title: 'Register',
         iconCls: 'team',
         layout: 'vbox',
 
         items: [
             {
                 xtype: 'fieldset',
-                title: 'Login',
+                title: 'Register',
                 instructions: 'Email and Password are required.',
 
                 items: [
                     {
-                        xtype: 'emailfield',
-                        label: 'Email',
-                        name: 'email'
+                        xtype: 'textfield',
+                        label: 'Full Name',
+                        name: 'fullname'
                     },
                     {
-                        xtype: 'passwordfield',
-                        label: 'Password',
-                        name: 'password'
+                        xtype: 'textfield',
+                        label: 'Student ID',
+                        name: 'studentid'
+                    },
+                    {
+                        xtype: 'textfield',
+                        label: 'Course',
+                        name: 'course'
+                    },
+                    {
+                        xtype: 'textfield',
+                        label: 'Group',
+                        name: 'group'
                     }
                 ]
             },
             {
                 xtype: 'button',
-                text: 'Login',
+                text: 'Register',
                 ui: 'confirm',
 
                 // The handler is called when the button is tapped
