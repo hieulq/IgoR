@@ -1,0 +1,72 @@
+[
+    {
+        "userid": "1",
+        "username": "phucnh",
+        "fullname": "Nguyen Hong Phuc",
+        "password": "123456",
+        "avatar": "1.jpeg",
+        "studentid": "20071234",
+        "email": "phucnh@gmail.com",
+        "group": "TTM"
+    },
+    {
+        "userid": "2",
+        "username": "hieulq",
+        "fullname": "Le Quang Hieu",
+        "password": "123456",
+        "avatar": "2.jpeg",
+        "studentid": "20071234",
+        "email": "hieulq@gmail.com",
+        "group": "HTTT"
+    },
+    {
+        "userid": "3",
+        "username": "tuna",
+        "fullname": "Nguyen Anh Tu",
+        "password": "123456",
+        "avatar": "3.jpeg",
+        "studentid": "20071234",
+        "email": "tuna@gmail.com",
+        "group": "TTM"
+    },
+    {
+        "userid": "4",
+        "username": "trungvt",
+        "fullname": "Vu Thanh Trung",
+        "password": "123456",
+        "avatar": "4.jpeg",
+        "studentid": "20071234",
+        "email": "trungvt@gmail.com",
+        "group": "TTM"
+    },
+    {
+        "userid": "5",
+        "username": "mizuho",
+        "fullname": "Mizuho Nishikawa",
+        "password": "123456",
+        "avatar": "5.jpeg",
+        "studentid": "20071234",
+        "email": "mizuho@gmail.com",
+        "group": "HTTT"
+    },
+    {
+        "userid": "6",
+        "username": "mo",
+        "fullname": "Maria Ozawa",
+        "password": "123456",
+        "avatar": "6.jpeg",
+        "studentid": "20071234",
+        "email": "mo@gmail.com",
+        "group": "HTTT"
+    },
+    {
+        "userid": "7",
+        "username": "sa",
+        "fullname": "Sora Aoi",
+        "password": "123456",
+        "avatar": "7.jpeg",
+        "studentid": "20071234",
+        "email": "sa@gmail.com",
+        "group": "HTTT"
+    }
+]

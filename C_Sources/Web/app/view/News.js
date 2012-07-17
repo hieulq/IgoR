@@ -45,17 +45,17 @@ Ext.define("Igor.view.News", {
                     { xclass: 'Ext.plugin.PullRefresh' }
                 ],               
 
-                store: 'Feeds',
+                store: 'Notifications',
                 itemTpl: [
-                    '<div class="feed" style="background-image:url(resources/images/headshots/{headshot});"></div>',
-                    '{firstName} {lastName}',
-                    '<span>{title}</span>'
+                    '<div class="feed" style="background-image:url(resources/images/headshots/{avatar});"></div>',
+                    '{username}',
+                    '<span>{action} <a href="">{object}</a></span>'
                 ].join(''),
 
                 onItemDisclosure: function(record, item, index, e) {
                     //show a messagebox alert which shows the persons firstName
                     e.stopEvent();
-                    Ext.Msg.alert('Test', 'Redirect to page ' + record.get('firstName'));
+                    Ext.Msg.alert('Test', 'Redirect to objectid ' + record.get('objectid'));
                 },
 
                 listeners: {
@@ -63,7 +63,7 @@ Ext.define("Igor.view.News", {
                         //console.log('onItemTap: index = ' + index);
                         var rec = list.getStore().getAt(index);
                         //console.log(rec.data);
-                        Ext.Msg.alert('Test', 'Redirect to page ' + rec.get('firstName'));
+                        Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('objectid'));
                     }
                 }
             }

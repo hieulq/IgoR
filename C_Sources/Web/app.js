@@ -9,8 +9,8 @@ Ext.application({
 
     controllers: [],
     views: ['Main'],
-    stores: ['Feeds'],
-    models: ['Feed'],
+    stores: ['Notifications'],
+    models: ['Notification'],
 
     icon: {
         57: 'resources/icons/icon.png',
