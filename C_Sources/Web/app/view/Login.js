@@ -3,7 +3,7 @@ Ext.define("Igor.view.Login", {
     xtype: 'loginpage',
 
     config: {
-        title: 'Me',
+        title: 'Login',
         iconCls: 'team',
         layout: 'vbox',
 
@@ -37,16 +37,24 @@ Ext.define("Igor.view.Login", {
                     // This looks up the items stack above, getting a reference to the first form it see
                     var form = this.up('formpanel');
 
-                    // Sends an AJAX request with the form data to the url specified above (contact.php).
-                    // The success callback is called if we get a non-error response from the server
-                    form.submit({
-                        success: function() {
-                            // The callback function is run when the user taps the 'ok' button
-                            Ext.Msg.alert('Thank You', 'Your message has been received', function() {
-                                form.reset();
-                            });
-                        }
-                    });
+                    var values = form.getValues();
+
+                    if (values['email']=='hieulq@gmail.com' && values['password']=='123456') {
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                    }
+                    else {
+                        Ext.Msg.alert('Sorry', 'Incorrect email/password!');
+                    }
+                }
+            },
+            {
+                xtype: 'button',
+                text: 'Signup',
+                ui: 'confirm',
+
+                // The handler is called when the button is tapped
+                handler: function() {
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Register'));
                 }
             }
         ]

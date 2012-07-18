@@ -8,12 +8,12 @@ Ext.define("Igor.store.Feeds", {
         sorters: 'firstName',
         grouper: {
             groupFn: function(record) {
-                return record.get('lastName')[0];
+                return record.get('!lastName');
             }
         },
         proxy: {
             type: 'ajax',
-            url: 'feeds.json'
+            url: 'data/feeds.json'
         }
     }
 });

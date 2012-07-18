@@ -4,6 +4,7 @@ Ext.define("Igor.view.Main", {
 
     requires: [
         'Igor.view.News',
+        'Igor.view.Profile'
     ],
 
     config: {
@@ -17,7 +18,6 @@ Ext.define("Igor.view.Main", {
         },
 
         items: [
-            // This is the home page, just some simple html
             {
                 title: 'News',
                 iconCls: 'rss',
@@ -26,11 +26,10 @@ Ext.define("Igor.view.Main", {
                 xtype: 'news'
             },
 
-            // This is the recent blogs page. It uses a tree store to load its data from blog.json
             {
                 xtype: 'nestedlist',
                 title: 'Task',
-                iconCls: 'compose',
+                iconCls: 'calendar2',
                 cls: 'blog',
                 displayField: 'title',
 
@@ -69,11 +68,17 @@ Ext.define("Igor.view.Main", {
                 }
             },
 
-            // This is the contact page, which features a form and a button. The button submits the form
             {
-                xtype: 'formpanel',
                 title: 'Me',
                 iconCls: 'team',
+                cls: 'profile',
+                xtype: 'profile'
+            },
+
+            {
+                xtype: 'formpanel',
+                title: 'Contact',
+                iconCls: 'chat_black2',
                 layout: 'vbox',
 
                 items: [

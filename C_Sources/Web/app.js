@@ -8,9 +8,9 @@ Ext.application({
     ],
 
     controllers: [],
-    views: ['Main'],
-    stores: ['Feeds'],
-    models: ['Feed'],
+    views: ['Main','Login'],
+    stores: ['Notifications'],
+    models: ['Notification'],
 
     icon: {
         57: 'resources/icons/icon.png',
@@ -28,7 +28,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add({
-            xclass: 'Igor.view.Main'
+            xclass: 'Igor.view.Login'
         });
     },
 
