@@ -46,6 +46,16 @@ Ext.define("Igor.view.Login", {
                         Ext.Msg.alert('Sorry', 'Incorrect email/password!');
                     }
                 }
+            },
+            {
+                xtype: 'button',
+                text: 'Signup',
+                ui: 'confirm',
+
+                // The handler is called when the button is tapped
+                handler: function() {
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Register'));
+                }
             }
         ]
     }

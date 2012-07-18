@@ -8,7 +8,7 @@ Ext.application({
     ],
 
     controllers: [],
-    views: ['Main'],
+    views: ['Main','Login'],
     stores: ['Notifications'],
     models: ['Notification'],
 
