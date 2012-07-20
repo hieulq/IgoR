@@ -8,9 +8,9 @@ Ext.application({
     ],
 
     controllers: [],
-    views: ['Main','Login'],
-    stores: ['Notifications'],
-    models: ['Notification'],
+    views: ['Main','AuthenForm'],
+    stores: ['Notifications','Users','Profiles'],
+    models: ['Notification','User'],
 
     icon: {
         57: 'resources/icons/icon.png',
@@ -28,7 +28,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add({
-            xclass: 'Igor.view.Login'
+            xclass: 'Igor.view.AuthenForm'
         });
     },
 
