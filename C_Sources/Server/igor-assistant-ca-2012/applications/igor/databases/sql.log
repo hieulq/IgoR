@@ -1,0 +1,87 @@
+timestamp: 2012-07-19T22:13:08.785000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-07-19T22:13:08.826000
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-07-19T22:13:08.852000
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-07-19T22:13:08.883000
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-07-19T22:13:08.916000
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-07-19T22:13:08.947000
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-07-20T21:47:56.777000
+CREATE TABLE subjectt(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(50) NOT NULL,
+    note TEXT,
+    term INTEGER,
+    duration INTEGER,
+    teacher INTEGER
+);
+success!
+timestamp: 2012-07-20T21:47:56.822000
+CREATE TABLE subject(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(50) NOT NULL,
+    note TEXT,
+    term INTEGER,
+    duration INTEGER,
+    teacher INTEGER
+);
+success!
+timestamp: 2012-07-20T21:52:54.440000
+CREATE TABLE class_subject(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
+    location CHAR(512),
+    period CHAR(512),
+    duration INTEGER,
+    is_finished CHAR(1),
+    day_of_week INTEGER,
+    term INTEGER
+);
+success!
