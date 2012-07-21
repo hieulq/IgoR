@@ -48,7 +48,7 @@ Ext.define("Igor.view.AuthenForm", {
 
                             var values = form.getValues();
 
-                            if (values['email']=='hieulq@gmail.com' && values['password']=='123456') {
+                            if (values['email']=='hieulq89@gmail.com' && values['password']=='123456') {
                                 Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
                             }
                             else {

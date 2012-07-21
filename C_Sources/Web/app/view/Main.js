@@ -4,7 +4,8 @@ Ext.define("Igor.view.Main", {
 
     requires: [
         'Igor.view.News',
-        'Igor.view.Profile'
+        'Igor.view.Profile',
+        'Igor.view.Task'
     ],
 
     config: {
@@ -27,45 +28,10 @@ Ext.define("Igor.view.Main", {
             },
 
             {
-                xtype: 'nestedlist',
+                xtype: 'tasks',
                 title: 'Task',
                 iconCls: 'calendar2',
-                cls: 'blog',
-                displayField: 'title',
-
-                store: {
-                    type: 'tree',
-
-                    fields: ['title', 'link', 'author', 'contentSnippet', 'content', {
-                        name: 'leaf',
-                        defaultValue: true
-                    }],
-
-                    root: {
-                        leaf: false
-                    },
-
-                    proxy: {
-                        type: 'jsonp',
-                        url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://feeds.feedburner.com/SenchaBlog',
-                        reader: {
-                            type: 'json',
-                            rootProperty: 'responseData.feed.entries'
-                        }
-                    }
-                },
-
-                detailCard: {
-                    xtype: 'panel',
-                    scrollable: true,
-                    styleHtmlContent: true
-                },
-
-                listeners: {
-                    itemtap: function(nestedList, list, index, element, post) {
-                        this.getDetailCard().setHtml(post.get('content'));
-                    }
-                }
+                cls: 'task'
             },
 
             {
