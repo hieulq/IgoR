@@ -3,11 +3,10 @@ Ext.define("Igor.model.Task", {
 
     config: {
         fields: [
-            'userid',
+            'class_code',
             'subject_name',
             'num_of_day',//Monday, ...
             'period',//morning,..
-            'subjectid',
             'subject_code',
             'session_start',
             'total_session',
