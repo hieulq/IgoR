@@ -1,0 +1,36 @@
+[
+    {
+        "class_code": "DSA_3568",
+        "subject_name": "Data Structure and Algorithm",
+        "num_of_day": "0", //Monday
+        "period": "Morning",
+        "subject_code": "IT1110",
+        "session_start": "1",
+        "total_session": "3",
+        "teacher_name": "Vu Tuyet Trinh",
+        "location": "D3-501"
+    },
+    {
+        "class_code": "SDA_3417",
+        "subject_name": "System Design and Analysis",
+        "num_of_day": "0", //Monday
+        "period": "Morning",
+        "subject_code": "IT1125",
+        "session_start": "4",
+        "total_session": "2",
+        "teacher_name": "Nguyen Thi Oanh",
+        "location": "D9-301"
+    },
+    {
+        "class_code": "EXC_1452",
+        "subject_name": "Basketball I",
+        "num_of_day": "0", //Monday
+        "period": "Afternoon",
+        "subject_code": "ET2412",
+        "session_start": "1",
+        "total_session": "2",
+        "teacher_name": "Nguyen Dinh Phat",
+        "location": "Bach Khoa Stadium"
+    }
+]
+

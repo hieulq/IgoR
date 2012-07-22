@@ -8,12 +8,12 @@ Ext.define("Igor.store.Tasks", {
         sorters: 'date',
         grouper: {
             groupFn: function(record) {
-                return record.get('!username');
+                return record.get('!period');
             }
         },
         proxy: {
             type: 'ajax',
-            url: 'data/profiles.json'
+            url: 'data/tasks.json'
         }
     }
 });

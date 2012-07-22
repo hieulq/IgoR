@@ -15,7 +15,24 @@ Ext.define("Igor.view.Task", {
             items: [
                 {
                     xtype: 'button',
-                    id: 'addTask',
+                    id: 'searchBtn',
+                    iconCls: 'doc_drawer',
+                    iconMask: true,
+                    ui: 'plain',
+                    align: 'right',
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+                },
+
+                {
+                    xtype: 'button',
+                    id: 'addTaskBtn',
                     iconCls: 'add',
                     iconMask: true,
                     ui: 'plain',
@@ -104,8 +121,9 @@ Ext.define("Igor.view.Task", {
         this.callParent();
 
         var segmentedButton = this.down('segmentedbutton');
-        var date = new Date().getDay() - 1;
+        var date = new Date().getDay();
 
-        segmentedButton.setPressedButtons(date);
+        if (date == 0) segmentedButton.setPressedButtons(6);
+        else segmentedButton.setPressedButtons(date - 1);
     }
 });
