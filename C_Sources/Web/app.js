@@ -9,8 +9,8 @@ Ext.application({
 
     controllers: [],
     views: ['Main','AuthenForm'],
-    stores: ['Notifications','Users','Profiles'],
-    models: ['Notification','User'],
+    stores: ['Notifications','Users','Profiles','Tasks'],
+    models: ['Notification','User','Task'],
 
     icon: {
         57: 'resources/icons/icon.png',

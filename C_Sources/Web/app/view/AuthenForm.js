@@ -17,6 +17,14 @@ Ext.define("Igor.view.AuthenForm", {
 
                 items: [
                     {
+                        xtype: 'image',
+                        cls: 'logo',
+                        ui: 'light',
+                        width: 100,
+                        height: 45,
+                        src: 'resources/images/Igor.png'
+                    },
+                    {
                         xtype: 'fieldset',
                         title: 'Login',
                         instructions: 'Email and Password are required.',

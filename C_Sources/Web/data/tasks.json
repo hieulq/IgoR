@@ -6,7 +6,7 @@
         "period": "Morning",
         "subject_code": "IT1110",
         "session_start": "1",
-        "total_session": "3",
+        "total_session": "Session 1-2-3",
         "teacher_name": "Vu Tuyet Trinh",
         "location": "D3-501"
     },
@@ -17,7 +17,7 @@
         "period": "Morning",
         "subject_code": "IT1125",
         "session_start": "4",
-        "total_session": "2",
+        "total_session": "Session 4-5",
         "teacher_name": "Nguyen Thi Oanh",
         "location": "D9-301"
     },
@@ -28,9 +28,8 @@
         "period": "Afternoon",
         "subject_code": "ET2412",
         "session_start": "1",
-        "total_session": "2",
+        "total_session": "Session 1-2",
         "teacher_name": "Nguyen Dinh Phat",
         "location": "Bach Khoa Stadium"
     }
 ]
-

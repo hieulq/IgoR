@@ -5,7 +5,10 @@ Ext.define("Igor.store.Tasks", {
         model: 'Igor.model.Task',
         pageSize: 5,
         autoLoad: true,
-        sorters: 'date',
+        sorters: 'period',
+        groupField: 'period',
+        groupDir: 'DESC',
+
         grouper: {
             groupFn: function(record) {
                 return record.get('!period');

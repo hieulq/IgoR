@@ -7,6 +7,67 @@ $tabs-dark-active-color: $active-color;
 $tabs-bottom-active-gradient: 'glossy';
 
 
+
+@import 'sencha-touch/default/all';
+
+// You may remove any of the following modules that you
+// do not use in order to create a smaller css file.
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-list-paging;
+@include sencha-list-pullrefresh;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-loading-spinner;
+@include pictos-iconmask('rss');
+@include pictos-iconmask('time_repeat');
+@include pictos-iconmask('add_black');
+@include pictos-iconmask('calendar2');
+@include pictos-iconmask('calendar_add');
+@include pictos-iconmask('chat_black2');
+@include pictos-iconmask('doc_drawer');
+
+//logo
+.logo {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.x-list-item-label > .session {
+
+    @include display-box;
+    @include box-orient(horizontal);
+    @include box-align(center);
+
+    .title {
+        @include box-flex(1);
+        font-weight: bold;
+        font-size: 95%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .room {
+        font-size: 75% !important;
+        color: #900;
+        margin-left: .5em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+}
+
 // notify
 .x-feeds {
     .x-list-item-label {
@@ -38,31 +99,3 @@ $tabs-bottom-active-gradient: 'glossy';
         border-top-color: #D1D1D1 !important;
     }
 }
-
-@import 'sencha-touch/default/all';
-
-// You may remove any of the following modules that you
-// do not use in order to create a smaller css file.
-@include sencha-panel;
-@include sencha-buttons;
-@include sencha-sheet;
-@include sencha-picker;
-@include sencha-tabs;
-@include sencha-toolbar;
-@include sencha-toolbar-forms;
-@include sencha-indexbar;
-@include sencha-list;
-@include sencha-list-paging;
-@include sencha-list-pullrefresh;
-@include sencha-layout;
-@include sencha-carousel;
-@include sencha-form;
-@include sencha-msgbox;
-@include sencha-loading-spinner;
-@include pictos-iconmask('rss');
-@include pictos-iconmask('time_repeat');
-@include pictos-iconmask('add_black');
-@include pictos-iconmask('calendar2');
-@include pictos-iconmask('calendar_add');
-@include pictos-iconmask('chat_black2');
-@include pictos-iconmask('doc_drawer');

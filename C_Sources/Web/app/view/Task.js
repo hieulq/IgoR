@@ -14,8 +14,16 @@ Ext.define("Igor.view.Task", {
         navigationBar: {
             items: [
                 {
+                    xtype: 'image',
+                    docked: 'top',
+                    ui: 'light',
+                    width: 100,
+                    height: 45,
+                    src: 'resources/images/Igor.png'
+                },
+                {
                     xtype: 'button',
-                    id: 'searchBtn',
+                    id: 'termSelectBtn',
                     iconCls: 'doc_drawer',
                     iconMask: true,
                     ui: 'plain',
@@ -27,9 +35,33 @@ Ext.define("Igor.view.Task", {
                     showAnimation: Ext.os.is.Android ? false : {
                         type: 'fadeIn',
                         duration: 200
+                    },
+                    handler: function() {
+                        if (!this.picker) {
+                            this.picker = Ext.Viewport.add({
+                                xtype: 'picker',
+                                title: 'Select Term',
+                                toolbar: {
+                                    title: 'Select Term'
+                                },
+                                slots: [
+                                    {
+                                        name : 'term',
+                                        title: 'Term',
+                                        data : [
+                                            {text: '20111', value: 20111},
+                                            {text: '20112', value: 20112},
+                                            {text: '20113', value: 20113},
+                                            {text: '20121', value: 20121}
+                                        ]
+                                    }
+                                ]
+                            });
+                        }
+
+                        this.picker.show();
                     }
                 },
-
                 {
                     xtype: 'button',
                     id: 'addTaskBtn',
@@ -55,12 +87,15 @@ Ext.define("Igor.view.Task", {
                 ui: 'round',
                 title: 'Tasks',                
                 itemTpl: '{title}',
-                data: [
-                    { title: 'Subject 1' },
-                    { title: 'Subject 2' },
-                    { title: 'Subject 3' },
-                    { title: 'Subject 4' }
-                ],
+                limit: 5,
+
+                store: 'Tasks',
+                grouped: true,
+                itemTpl: [
+                    '<div class="session"><div class="title">{subject_name}</div>',                    
+                    '<div class="room">{total_session}</div></div>',
+                    '<span style="font-size: 70%">{location}</span>'
+                ].join(''),
 
                 items: [
                     {
