@@ -27,7 +27,7 @@ db.define_table('class_subject',
 # Define scheduler table
 db.define_table('scheduler',
     Field('owner', 'integer'),
-    Field('class', db.class_subject),
+    Field('class_subject', db.class_subject),
     Field('day_of_week', 'integer', requires=IS_IN_SET(DAY_OF_WEEK_CONST)),
     Field('period', 'string'),
     Field('term', 'integer')
@@ -45,7 +45,7 @@ db.define_table('notification',
 
 # Define test table
 db.define_table('test',
-    Field('class', db.class_subject),
+    Field('class_subject', db.class_subject),
     Field('test_type', 'integer'),
     Field('time', 'integer'),
     Field('location', 'string'),
@@ -54,7 +54,7 @@ db.define_table('test',
 
 # Define project member
 db.define_table('project_member',
-    Field('class', db.class_subject),
+    Field('class_subject', db.class_subject),
     Field('user', 'integer'),
     Field('note', 'text')
     )

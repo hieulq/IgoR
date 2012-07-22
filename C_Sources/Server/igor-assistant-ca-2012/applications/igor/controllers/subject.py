@@ -9,16 +9,19 @@
 from message_packager import *
 
 @request.restful()
-def get_subjects():
+def get_all_subjects():
 	response.view = 'generic.json'
 	def GET():
 		subjects = db(db.subject).select()
+
+		client = dict()
+		
 		return MessagePackager.get_packaged_message(MessageStatus.OK, subjects)
 
 	return locals()
 
 @request.restful()
-def get_subject_by_id():
+def get_subject_detail():
 	response.view = 'generic.json'
 	def GET(id):
 		subject = db(db.subject.id == id).select()
