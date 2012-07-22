@@ -13,6 +13,14 @@ Ext.define("Igor.view.News", {
         navigationBar: {
             items: [
                 {
+                    xtype: 'image',
+                    docked: 'top',
+                    ui: 'light',
+                    width: 100,
+                    height: 45,
+                    src: 'resources/images/Igor.png'
+                },
+                {
                     xtype: 'button',
                     id: 'refreshNewsButton',
                     iconCls: 'time_repeat',
@@ -49,7 +57,7 @@ Ext.define("Igor.view.News", {
                 itemTpl: [
                     '<div class="feed" style="background-image:url(resources/images/headshots/{avatar});"></div>',
                     '{username}',
-                    '<span>{action} <a href="">{object}</a></span>'
+                    '<span>{action} <a href="">{object}</a></span>',
                 ].join(''),
 
                 onItemDisclosure: function(record, item, index, e) {
