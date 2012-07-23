@@ -4,7 +4,8 @@ Ext.define("Igor.view.profile.Profile", {
 
     requires: [
         'Ext.List',
-        'Igor.store.Users'
+        'Igor.store.Users',
+        'Igor.view.profile.Edit'
     ],
 
     config: {
@@ -34,6 +35,12 @@ Ext.define("Igor.view.profile.Profile", {
                     showAnimation: Ext.os.is.Android ? false : {
                         type: 'fadeIn',
                         duration: 200
+                    },
+                    handler: function() {
+                        var navView = this.up('navigationview');
+
+                        navView.push({xtype: 'profileEdit'});
+                        this.hide();
                     }
                 }
             ]
