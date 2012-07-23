@@ -7,7 +7,8 @@
         "avatar": "1.jpeg",
         "studentid": "20071234",
         "email": "phucnh@gmail.com",
-        "group": "TTM"
+        "group": "TTM",
+        "course": "52"
     },
     {
         "userid": "2",
@@ -17,7 +18,8 @@
         "avatar": "2.jpeg",
         "studentid": "20071234",
         "email": "hieulq@gmail.com",
-        "group": "HTTT"
+        "group": "HTTT",
+        "course": "52"
     },
     {
         "userid": "3",
@@ -27,7 +29,8 @@
         "avatar": "3.jpeg",
         "studentid": "20071234",
         "email": "tuna@gmail.com",
-        "group": "TTM"
+        "group": "TTM",
+        "course": "52"
     },
     {
         "userid": "4",
@@ -37,7 +40,8 @@
         "avatar": "4.jpeg",
         "studentid": "20071234",
         "email": "trungvt@gmail.com",
-        "group": "TTM"
+        "group": "TTM",
+        "course": "52"
     },
     {
         "userid": "5",
@@ -47,7 +51,8 @@
         "avatar": "5.jpeg",
         "studentid": "20071234",
         "email": "mizuho@gmail.com",
-        "group": "HTTT"
+        "group": "HTTT",
+        "course": "52"
     },
     {
         "userid": "6",
@@ -57,7 +62,8 @@
         "avatar": "6.jpeg",
         "studentid": "20071234",
         "email": "mo@gmail.com",
-        "group": "HTTT"
+        "group": "HTTT",
+        "course": "52"
     },
     {
         "userid": "7",
@@ -67,6 +73,7 @@
         "avatar": "7.jpeg",
         "studentid": "20071234",
         "email": "sa@gmail.com",
-        "group": "HTTT"
+        "group": "HTTT",
+        "course": "52"
     }
 ]

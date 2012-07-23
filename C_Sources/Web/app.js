@@ -8,7 +8,7 @@ Ext.application({
     ],
 
     controllers: [],
-    views: ['Main','AuthenForm'],
+    views: ['Main','authenticate.Authenticate'],
     stores: ['Notifications','Users','Profiles','Tasks'],
     models: ['Notification','User','Task'],
 
