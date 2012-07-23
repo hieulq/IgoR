@@ -1,4 +1,4 @@
-Ext.define("Igor.view.Task", {
+Ext.define("Igor.view.task.Task", {
     extend: 'Ext.NavigationView',
     xtype: 'tasks',
 
@@ -92,8 +92,8 @@ Ext.define("Igor.view.Task", {
                 store: 'Tasks',
                 grouped: true,
                 itemTpl: [
-                    '<div class="session"><div class="title">{subject_name}</div>',                    
-                    '<div class="room">{total_session}</div></div>',
+                    '<div class="class"><div class="title">{subject_name}</div>',                    
+                    '<div class="session">{total_session}</div></div>',
                     '<span style="font-size: 70%">{location}</span>'
                 ].join(''),
 

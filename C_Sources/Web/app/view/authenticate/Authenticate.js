@@ -1,9 +1,9 @@
-Ext.define("Igor.view.AuthenForm", {
+Ext.define("Igor.view.authenticate.Authenticate", {
     extend: 'Ext.navigation.View',
     xtype: 'authenform',
 
     requires: [
-        'Igor.view.Register'
+        'Igor.view.authenticate.Register'
     ],
 
     config: {

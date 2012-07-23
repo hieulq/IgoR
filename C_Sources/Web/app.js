@@ -8,7 +8,7 @@ Ext.application({
     ],
 
     controllers: [],
-    views: ['Main','AuthenForm'],
+    views: ['Main','authenticate.Authenticate'],
     stores: ['Notifications','Users','Profiles','Tasks'],
     models: ['Notification','User','Task'],
 
@@ -28,7 +28,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add({
-            xclass: 'Igor.view.Main'
+            xclass: 'Igor.view.authenticate.Authenticate'
         });
     },
 

@@ -1,4 +1,4 @@
-Ext.define("Igor.view.Register", {
+Ext.define("Igor.view.authenticate.Register", {
     extend: 'Ext.form.Panel',
     xtype: 'registerpage',
 

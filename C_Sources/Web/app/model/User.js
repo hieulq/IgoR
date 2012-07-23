@@ -10,7 +10,8 @@ Ext.define("Igor.model.User", {
             'avatar',
             'studentid',
             'email',
-            'group'
+            'group',
+            'course'
         ]
     }
 });

@@ -3,9 +3,10 @@ Ext.define("Igor.view.Main", {
     xtype: 'mainpanel',
 
     requires: [
-        'Igor.view.News',
-        'Igor.view.Profile',
-        'Igor.view.Task'
+        'Igor.view.notification.News',
+        'Igor.view.profile.Profile',
+        'Igor.view.task.Task',
+        'Igor.view.about.About'
     ],
 
     config: {
@@ -39,6 +40,13 @@ Ext.define("Igor.view.Main", {
                 iconCls: 'team',
                 cls: 'profile',
                 xtype: 'profile'
+            },
+
+            {
+                title: 'About',
+                iconCls: 'info',
+                cls: 'about',
+                xtype: 'aboutPage'
             },
 
             {

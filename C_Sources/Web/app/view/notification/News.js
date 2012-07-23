@@ -1,4 +1,4 @@
-Ext.define("Igor.view.News", {
+Ext.define("Igor.view.notification.News", {
     extend: 'Ext.navigation.View',
     xtype: 'news',
 
