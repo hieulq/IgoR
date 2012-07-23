@@ -85,3 +85,158 @@ CREATE TABLE class_subject(
     term INTEGER
 );
 success!
+timestamp: 2012-07-23T21:40:13.371000
+CREATE TABLE scheduler(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner INTEGER,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    day_of_week INTEGER,
+    period CHAR(512),
+    term INTEGER
+);
+success!
+timestamp: 2012-07-23T21:40:13.415000
+CREATE TABLE notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    notification_class INTEGER,
+    owner INTEGER,
+    user_share INTEGER,
+    is_read CHAR(1),
+    type INTEGER,
+    date INTEGER
+);
+success!
+timestamp: 2012-07-23T21:40:13.453000
+CREATE TABLE test(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    test_type INTEGER,
+    time INTEGER,
+    location CHAR(512),
+    project_due_date INTEGER
+);
+success!
+timestamp: 2012-07-23T21:40:13.880000
+CREATE TABLE project_member(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    user INTEGER,
+    note TEXT
+);
+success!
+timestamp: 2012-07-23T21:40:13.927000
+CREATE TABLE job(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(50) NOT NULL,
+    start_time INTEGER,
+    end_time INTEGER,
+    job_type INTEGER,
+    subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
+    date INTEGER,
+    repeat_date CHAR(512),
+    owner INTEGER,
+    note TEXT,
+    location CHAR(512),
+    test INTEGER REFERENCES test(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-07-23T21:40:13.970000
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    group CHAR(512),
+    student_code CHAR(512) NOT NULL UNIQUE,
+    course INTEGER,
+    avatar CHAR(512)
+);
+timestamp: 2012-07-23T21:41:48.879000
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    group CHAR(512),
+    student_code CHAR(512) NOT NULL UNIQUE,
+    course INTEGER,
+    avatar CHAR(512)
+);
+timestamp: 2012-07-23T21:42:04.215000
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512)
+);
+success!
+timestamp: 2012-07-23T21:42:10.276000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:16.871000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:17.818000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:27.068000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:27.879000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:28.121000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:28.286000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:28.458000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:33.359000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:44.588000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:42:44.626000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:45.359000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:42:45.598000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:42:45.701000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:42:55.839000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:42:59.681000
+ALTER TABLE user ADD group CHAR(512);
+timestamp: 2012-07-23T21:43:12.062000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:12.929000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:13.159000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:13.356000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:13.463000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:17.539000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:18.196000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:18.467000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:18.574000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:18.753000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:25.178000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:43:28.762000
+ALTER TABLE user ADD avatar CHAR(512);
+timestamp: 2012-07-23T21:43:33.390000
+ALTER TABLE user ADD class_group CHAR(512);
+timestamp: 2012-07-23T21:43:38.106000
+ALTER TABLE user ADD student_code CHAR(512) NOT NULL UNIQUE;
+timestamp: 2012-07-23T21:43:44.038000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:44:16.839000
+ALTER TABLE user ADD course INTEGER;
+timestamp: 2012-07-23T21:45:32.829000
+ALTER TABLE user ADD user_course INTEGER;
+timestamp: 2012-07-23T21:45:40.840000
+ALTER TABLE user ADD student_code CHAR(512) NOT NULL UNIQUE;
+timestamp: 2012-07-23T21:46:02.703000
+ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
+timestamp: 2012-07-23T21:46:03.555000
+ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
+timestamp: 2012-07-23T21:46:03.789000
+ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
+timestamp: 2012-07-23T21:46:15.192000
+ALTER TABLE user ADD student_code CHAR(512);

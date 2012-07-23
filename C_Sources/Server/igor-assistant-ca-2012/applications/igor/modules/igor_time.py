@@ -21,9 +21,9 @@ class JgorTime:
 
 		diff = int (today - timestamp)
 
-		if (diff <= 60):
+		if (diff < 60):
 			time_string = create_second_string (diff)
-		else if (diff > 60 and diff < 60*60):
+		else if (diff >= 60 and diff < 60*60):
 			time_string = get_minute_string (diff)
 		else if (diff >= 60*60 and diff < 60*60*24):
 			time_string = get_hour_string (diff)
@@ -43,8 +43,8 @@ class JgorTime:
 
 		time_string = create_minute_string (minutes)
 
-		if (seconds > 0):
-			time_string += " " + create_second_string (seconds)
+		# if (seconds > 0):
+		# 	time_string += " " + create_second_string (seconds)
 
 		return time_string
 

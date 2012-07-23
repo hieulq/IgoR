@@ -77,8 +77,8 @@ db.define_table('job',
 # Define user
 db.define_table('user', 
     Field('name', 'string'),
-    Field('group', 'string'), # TTM, KHMT ...
-    Field('student_code', 'string', notnull=True, unique=True),
-    Field('course', 'integer'),
+    Field('class_group', 'string'), # TTM, KHMT ...
+    Field('student_code', 'string'),
+    Field('user_course', 'integer'),
     Field('avatar', 'string'),
     )
