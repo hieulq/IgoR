@@ -28,7 +28,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add({
-            xclass: 'Igor.view.authenticate.Authenticate'
+            xclass: 'Igor.view.Main'
         });
     },
 

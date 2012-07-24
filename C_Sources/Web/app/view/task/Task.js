@@ -4,7 +4,8 @@ Ext.define("Igor.view.task.Task", {
 
     requires: [
         'Ext.List',
-        'Ext.Container'
+        'Ext.Container',
+        'Igor.view.task.Detail'
     ],
 
     config: {
@@ -17,10 +18,30 @@ Ext.define("Igor.view.task.Task", {
                     xtype: 'image',
                     docked: 'top',
                     ui: 'light',
+                    align: 'left',
                     width: 100,
                     height: 45,
                     src: 'resources/images/Igor.png'
                 },
+
+                
+
+                {
+                    xtype: 'button',
+                    id: 'backBtn',
+                    ui: 'plain',
+                    text: 'Back',
+                    align: 'left',
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+                },
+                    
                 {
                     xtype: 'button',
                     id: 'termSelectBtn',
@@ -144,11 +165,20 @@ Ext.define("Igor.view.task.Task", {
                                 }
                             }
                         ]
-
                     }
+                ],
 
-                ]
+                listeners: {
+                    itemtap: function(list, index, target, record) {
+                        //console.log('onItemTap: index = ' + index);
+                        var rec = list.getStore().getAt(index);
+                        //console.log(rec.data);
+                        //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.Detail'));
+                    }
+                }
             }
+            
         ]
     },
 
