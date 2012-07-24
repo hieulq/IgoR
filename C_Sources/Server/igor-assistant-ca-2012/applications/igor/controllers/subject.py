@@ -14,8 +14,8 @@ def get_all_subjects():
 	def GET():
 		subjects = db(db.subject).select()
 
-		client = dict()
-		
+		#client = dict
+				
 		return MessagePackager.get_packaged_message(MessageStatus.OK, subjects)
 
 	return locals()

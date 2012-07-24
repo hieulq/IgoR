@@ -240,3 +240,80 @@ timestamp: 2012-07-23T21:46:03.789000
 ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
 timestamp: 2012-07-23T21:46:15.192000
 ALTER TABLE user ADD student_code CHAR(512);
+timestamp: 2012-07-24T09:11:34.837000
+CREATE TABLE class_scheduler(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    day_of_week INTEGER,
+    period CHAR(512)
+);
+success!
+timestamp: 2012-07-24T10:50:30.164000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:27.594000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:28.410000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:28.971000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:29.021000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:29.082000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:29.382000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:29.599000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:29.799000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:30.047000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:30.219000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:30.405000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:30.622000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:30.830000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:31.003000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:31.179000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:31.369000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:31.549000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:31.847000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:32.119000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:32.397000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:51.063000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:51:51.941000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:54:20.004000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+timestamp: 2012-07-24T10:54:43.882000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:55:02.176000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:55:56.824000
+ALTER TABLE user ADD teacher INTEGER;
+timestamp: 2012-07-24T10:56:56.110000
+ALTER TABLE class_subject ADD teacher INTEGER;
+timestamp: 2012-07-24T11:17:33.902000
+ALTER TABLE user ADD auth INTEGER REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2012-07-24T11:56:48.776000
+ALTER TABLE job ADD class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE;
