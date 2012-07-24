@@ -5,7 +5,7 @@ Ext.define("Igor.store.Tasks", {
         model: 'Igor.model.Task',
         pageSize: 5,
         autoLoad: true,
-        sorters: 'period',
+        sorters: 'session_start',
         groupField: 'period',
         groupDir: 'DESC',
 
