@@ -1,16 +1,17 @@
-Ext.define("Igor.view.profile.Edit", {
+Ext.define("Igor.view.task.New", {
     extend: 'Ext.form.Panel',
-    xtype: 'profileEdit',
+    xtype: 'newTask',
 
     config: {
-        title: 'Edit',
+        title: 'New Task',
+        iconCls: 'team',
         layout: 'vbox',
 
         items: [
             {
                 xtype: 'fieldset',
-                title: 'Edit',
-                instructions: 'Input valid Student ID and Email.',
+                title: 'Register',
+                instructions: 'Email and Password are required.',
 
                 items: [
                     {
@@ -66,9 +67,6 @@ Ext.define("Igor.view.profile.Edit", {
                     }
                 ]
             },
-            
-
-            // Create a docked bottom toolbar which will contain buttons to trigger various functions in our formpanel.
             {
                 xtype: 'toolbar',
                 docked: 'bottom',
@@ -109,10 +107,12 @@ Ext.define("Igor.view.profile.Edit", {
                         handler: function() {
                             // Call the form.reset method
                             var navView = this.up('navigationview');
-                            var editProfileBtn = Ext.getCmp('editProfileButton');
+                            var editProfileBtn = Ext.getCmp('addTaskBtn');
+                            var termBtn = Ext.getCmp('termSelectBtn');
 
                             navView.pop();
                             editProfileBtn.show();
+                            termBtn.show();
 
                         }
                     }

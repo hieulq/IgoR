@@ -12,6 +12,17 @@ Ext.define("Igor.view.profile.Profile", {
         autoDestroy: false,
 
         navigationBar: {
+            defaults: {
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+            },
+
             items: [
                 {
                     xtype: 'image',
@@ -28,14 +39,7 @@ Ext.define("Igor.view.profile.Profile", {
                     iconMask: true,
                     ui: 'plain',
                     align: 'right',
-                    hideAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeOut',
-                        duration: 200
-                    },
-                    showAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeIn',
-                        duration: 200
-                    },
+                    
                     handler: function() {
                         var navView = this.up('navigationview');
 

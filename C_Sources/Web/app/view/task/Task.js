@@ -5,7 +5,8 @@ Ext.define("Igor.view.task.Task", {
     requires: [
         'Ext.List',
         'Ext.Container',
-        'Igor.view.task.Detail'
+        'Igor.view.task.Detail',
+        'Igor.view.task.New'
     ],
 
     config: {
@@ -13,6 +14,17 @@ Ext.define("Igor.view.task.Task", {
         
 
         navigationBar: {
+            defaults: {
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+            },
+
             items: [
                 {
                     xtype: 'image',
@@ -24,22 +36,12 @@ Ext.define("Igor.view.task.Task", {
                     src: 'resources/images/Igor.png'
                 },
 
-                
-
                 {
                     xtype: 'button',
                     id: 'backBtn',
                     ui: 'plain',
                     text: 'Back',
-                    align: 'left',
-                    hideAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeOut',
-                        duration: 200
-                    },
-                    showAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeIn',
-                        duration: 200
-                    }
+                    align: 'left'                    
                 },
                     
                 {
@@ -49,14 +51,7 @@ Ext.define("Igor.view.task.Task", {
                     iconMask: true,
                     ui: 'plain',
                     align: 'right',
-                    hideAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeOut',
-                        duration: 200
-                    },
-                    showAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeIn',
-                        duration: 200
-                    },
+
                     handler: function() {
                         if (!this.picker) {
                             this.picker = Ext.Viewport.add({
@@ -90,13 +85,14 @@ Ext.define("Igor.view.task.Task", {
                     iconMask: true,
                     ui: 'plain',
                     align: 'right',
-                    hideAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeOut',
-                        duration: 200
-                    },
-                    showAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeIn',
-                        duration: 200
+                    
+                    handler: function() {
+                        var navView = this.up('navigationview');
+                        var termBtn = Ext.getCmp('termSelectBtn');
+
+                        navView.push({xtype: 'newTask'});
+                        this.hide();
+                        termBtn.hide();
                     }
                 }
             ]
