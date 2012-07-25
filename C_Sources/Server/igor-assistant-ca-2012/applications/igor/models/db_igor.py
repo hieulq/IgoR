@@ -29,7 +29,7 @@ db.define_table('class_subject',
     #Field('day_of_week', 'integer', requires=IS_IN_SET(DAY_OF_WEEK_CONST)),
     Field('term', 'integer'),
     Field('teacher', 'integer'),
-
+    Field('class_code', 'string', length=20)
     )
 
 db.define_table('class_scheduler',
@@ -55,6 +55,7 @@ db.define_table('notification',
     Field('is_read', 'boolean'),
     Field('type', 'integer'), # 0 - personal (alarm), 1 - sharing job
     Field('date', 'integer'),
+    Field('is_completed','boolean', default = False)
     )
 
 # Define test table
