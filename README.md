@@ -1,7 +1,7 @@
 IgoR App
 ===============
 
-An mobile app for CyberAgent HUST Contest
+A mobile app for CyberAgent HUST Contest
 
 Igor is HTML5 mobile app that help students dinding an efficient way to control their study plan. Normally, they remember through brain or papers; so they will quickly forget, by subjective or objective reasons.  
 This app aim to become an friendly assistant with controlling time tables, study schedulers, subject deadline...
