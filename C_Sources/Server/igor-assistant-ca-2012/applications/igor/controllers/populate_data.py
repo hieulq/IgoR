@@ -67,6 +67,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20121',
 			teacher     = 1,
+			class_code  = 'IT4056'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -111,6 +112,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20121',
 			teacher     = 3,
+			class_code  = 'IT4057'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -155,6 +157,7 @@ def populate_data():
 			is_finished = True,
 			term        = '20111',
 			teacher     = 5,
+			class_code  = 'IT4058'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -171,6 +174,7 @@ def populate_data():
 			is_finished = True,
 			term        = '20111',
 			teacher     = 1,
+			class_code  = 'IT4059'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -194,6 +198,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20121',
 			teacher     = 10,
+			class_code  = 'IT4076'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -216,6 +221,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20113',
 			teacher     = 15,
+			class_code  = 'IT4077'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -238,6 +244,7 @@ def populate_data():
 			is_finished = True,
 			term        = '20111',
 			teacher     = 15,
+			class_code  = 'IT4079'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -261,6 +268,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20121',
 			teacher     = 40,
+			class_code  = 'IT4080'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -283,6 +291,7 @@ def populate_data():
 			is_finished = False,
 			term        = '20113',
 			teacher     = 35,
+			class_code  = 'IT4081'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
@@ -305,6 +314,7 @@ def populate_data():
 			is_finished = True,
 			term        = '20111',
 			teacher     = 25,
+			class_code  = 'IT4082'
 			)
 
 		class_scheduler_id = db.class_scheduler.insert(
