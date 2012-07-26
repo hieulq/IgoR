@@ -28,14 +28,15 @@ db.define_table('class_subject',
     Field('is_finished', 'boolean'),
     #Field('day_of_week', 'integer', requires=IS_IN_SET(DAY_OF_WEEK_CONST)),
     Field('term', 'integer'),
-    Field('teacher', 'integer'),
+    Field('teacher', 'string'),
     Field('class_code', 'string', length=20)
     )
 
 db.define_table('class_scheduler',
     Field('class_subject', db.class_subject),
     Field('day_of_week', 'integer', requires=IS_IN_SET(DAY_OF_WEEK_CONST)), # Monday = 0, Tuesday = 1 ...
-    Field('period', 'string') # value is string: 1,2,3.
+    Field('period', 'string'), # value is string: 1,2,3.
+    Field('location', 'string'), # if this is empty, default is class location 
     )
 
 # Define scheduler table

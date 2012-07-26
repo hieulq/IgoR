@@ -40,3 +40,50 @@ def get_classes_by_user():
 		# return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 
 	return locals()
+
+
+# Format class data to client data
+def format_client_data(classes):
+	if (classes == None):
+		return
+
+	client_data = dict()
+
+	for class_subject in classes:
+
+		subject = db(db.subject.)
+		class_schedulers = db(db.class_scheduler.class_subject == class_subject.id)
+
+		if (subject == None):
+			continue
+
+		for class_scheduler in class_schedulers:
+
+			# Get session list (integer)
+			sessions = get_class_sessions(class_scheduler.period)
+
+			# Morning session
+			morning = [session for session in sessions if session <=6]
+			afternoon = [session for session in sessions if session >= 7]
+
+			client = dict(
+				class_code   = class_subject.id,
+				subject_name = subject.name,
+				num_of_day = class_scheduler.day_of_week
+        		#"period": "Morning",
+        		#subject_code: IT1110,
+        		#"session_start": "1",
+        		#"total_session": "Session 1-2-3",
+        		teacher_name = class_subject.teacher
+        		location = class_subject.location
+				)
+
+			if (morning):
+				client.update (
+					period = 'Morning',
+					session_start = str(morning[0]),
+					)
+
+			client_data.update (client)
+
+	return client_data

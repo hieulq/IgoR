@@ -319,3 +319,5 @@ timestamp: 2012-07-24T11:56:48.776000
 ALTER TABLE job ADD class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE;
 timestamp: 2012-07-24T22:21:11.605000
 ALTER TABLE class_subject ADD class_code CHAR(20);
+timestamp: 2012-07-25T08:31:09.971000
+ALTER TABLE notification ADD is_completed CHAR(1);
