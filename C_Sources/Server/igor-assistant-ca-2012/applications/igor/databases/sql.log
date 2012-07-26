@@ -321,3 +321,9 @@ timestamp: 2012-07-24T22:21:11.605000
 ALTER TABLE class_subject ADD class_code CHAR(20);
 timestamp: 2012-07-25T08:31:09.971000
 ALTER TABLE notification ADD is_completed CHAR(1);
+timestamp: 2012-07-26T09:35:01.523000
+ALTER TABLE class_scheduler ADD location CHAR(512);
+timestamp: 2012-07-26T10:09:46.938000
+ALTER TABLE user ADD keywords TEXT;
+timestamp: 2012-07-26T13:57:26.653000
+ALTER TABLE subject ADD subject_code CHAR(20);

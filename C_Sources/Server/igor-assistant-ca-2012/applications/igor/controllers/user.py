@@ -44,7 +44,8 @@ def search_user():
 
 		if (int (type) == 5):
 			users = get_user_by_name (value)
-
+			#users = db(db.user).select()
+			
 		users = format_client_data (users)
 
 		return MessagePackager.get_packaged_message (MessageStatus.OK, users)
@@ -56,15 +57,15 @@ def get_user_detail():
 	response.view = 'generic.json'
 	def GET(id):
 
-			if (not id.isdigit()):
-				return MessagePackager.get_packaged_message (
-					MessageStatus.ERROR, 
-					"user id must be numberic!")
+		if (not id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"user id must be numberic!")
 
-			if (int (id) < 0):
-				return MessagePackager.get_packaged_message (
-					MessageStatus.ERROR, 
-					"user id can not less than 0!")
+		if (int (id) < 0):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"user id can not less than 0!")
 		
 		user = 	db(db.user.id == id).select ()
 		
@@ -74,11 +75,12 @@ def get_user_detail():
 
 	return locals()
 
+# Format data for client 
 def format_client_data(users):
 	if (users == None):
 		return
 
-	client_data = dict()
+	client_data = list()
 
 	for user in users:
 		auth = db(db.auth_user.id == user.auth).select().first()
@@ -96,6 +98,6 @@ def format_client_data(users):
 				course    = user.user_course
 				)
 
-		client_data.update (client)
+		client_data.append (client)
 
 	return client_data

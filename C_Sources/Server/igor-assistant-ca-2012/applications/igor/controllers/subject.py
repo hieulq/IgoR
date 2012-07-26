@@ -24,6 +24,19 @@ def get_all_subjects():
 def get_subject_detail():
 	response.view = 'generic.json'
 	def GET(id):
+
+		# Validate input
+		if (not id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"subject id must be numberic")
+
+		if (int (id) < 0):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"subject id can not less than 1")
+
+		# Get data
 		subject = db(db.subject.id == id).select()
 		return MessagePackager.get_packaged_message(MessageStatus.OK, subject)
 

@@ -7,6 +7,10 @@
 
 from message_packager import *
 
+# Get scheduler of user at specific term
+# Input:
+# 	integer user_id
+# 	integer term (default = current term)
 @request.restful()
 def get_scheduler():
     response.view = 'generic.json'
@@ -30,7 +34,7 @@ def get_scheduler():
 				"user id can not less than 0!")
 
 		if term == 0:
-			term = 20121
+			term = get_current_term()
 
 		# end phucnh edit 20120726
 
@@ -43,6 +47,11 @@ def get_scheduler():
 
 	return locals()
 
+# Get scheduler of use at specific term with time
+# Input:
+# 	integer user_id
+# 	integer day_of_week
+# 	integer term (default = current term)
 @request.restful()
 def get_scheduler_by_time():
     response.view = 'generic.json'

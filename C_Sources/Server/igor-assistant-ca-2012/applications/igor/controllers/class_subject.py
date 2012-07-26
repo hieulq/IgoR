@@ -7,12 +7,34 @@
 #########################################################################
 
 from message_packager import *
+from gluon.dal import Rows
 
+# Get all classes by specific subject
 @request.restful()
 def get_classes_by_subject():
 	response.view = 'generic.json'
 	def GET(subject_id, term = 0):
-		term = 20121
+
+		# Validate input 
+		if (not subject_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"subject id must be numberic")
+
+		if (not (str (term)).isdigit()):
+			return MessagePackager.get_packaged_message(
+				MessageStatus.ERROR,
+				"term must be numberic")
+
+		if (int (subject_id) < 0):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"subject id can not less than 1")
+
+		# Get data
+		if (term == 0):
+			term = get_current_term()
+
 		classes = db(
 			db.class_subject.subject == subject_id and 
 			db.class_subject.term == term).select()
@@ -21,44 +43,108 @@ def get_classes_by_subject():
 
 	return locals()
 
+
+# Get class detail
 @request.restful()
 def get_class_detail():
 	response.view = 'generic.json'
 	def GET(id):
+
+		# Validate input 
+		if (not id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"class id must be numberic")
+
+		if (int (id) < 0):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"class id can not less than 1")
+
+		# Get data
+
 		class_subject = db(db.class_subject.id == id).select()
+
+		class_subject = format_client_data(class_subject)
+
 		return MessagePackager.get_packaged_message(MessageStatus.OK, class_subject)
 
 	return locals()
 
+# Get all classes of user
+# Input:
+# 	integer user_id
+# 	integer term
 @request.restful()
 def get_classes_by_user():
 	response.view = 'generic.json'
-	# def GET(user_id, term = 0):
-		# term = 20121
-		# user_scheduler = 
-		# classes = db()
-		# return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
+	def GET(user_id, term = 0):
+
+		# Get data
+		term = get_current_term()
+		user_schedulers = db(db.scheduler.owner == user_id).select()
+		
+		classes = list()
+
+		for user_scheduler in user_schedulers:
+			classes.append(db(
+				db.class_subject.id == user_scheduler.class_subject and
+				db.class_subject.term == term))
+
+		classes = format_client_data(classes)
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 
 	return locals()
 
+@request.restful()
+def add_class_to_user():
+	response.view = 'generic.json'
+	def GET(class_id, user_id):
+
+		# Validate input
+		if (not class_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"class id must be numberic")
+
+		if (not user_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"user id must be numberic")
+
+		# Insert new data
+		# TODO: add class's rule
+
+		try:
+			scheduler_id = db.scheduer.insert(
+			onwer = user_id,
+			class_subject = class_id,
+			term = get_current_term)
+		except Exception as e:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler_id)
+
+	return locals()
 
 # Format class data to client data
 def format_client_data(classes):
 	if (classes == None):
 		return
 
-	client_data = dict()
+	client_data = list()
 
 	for class_subject in classes:
 
-		subject = db(db.subject.)
-		class_schedulers = db(db.class_scheduler.class_subject == class_subject.id)
-
+		subject = db(db.subject.id == class_subject.subject).select().first()
+		class_schedulers = db(db.class_scheduler.class_subject == class_subject.id).select()
+		
 		if (subject == None):
 			continue
-
+		# print class_schedulers
 		for class_scheduler in class_schedulers:
-
+			
 			# Get session list (integer)
 			sessions = get_class_sessions(class_scheduler.period)
 
@@ -66,24 +152,34 @@ def format_client_data(classes):
 			morning = [session for session in sessions if session <=6]
 			afternoon = [session for session in sessions if session >= 7]
 
-			client = dict(
-				class_code   = class_subject.id,
-				subject_name = subject.name,
-				num_of_day = class_scheduler.day_of_week
-        		#"period": "Morning",
-        		#subject_code: IT1110,
-        		#"session_start": "1",
-        		#"total_session": "Session 1-2-3",
-        		teacher_name = class_subject.teacher
-        		location = class_subject.location
-				)
-
 			if (morning):
-				client.update (
-					period = 'Morning',
-					session_start = str(morning[0]),
-					)
+				client = class_data_format(
+					class_subject, class_scheduler,
+					subject, morning, "Morning")
+				
+				client_data.append(client)
 
-			client_data.update (client)
+			if (afternoon):
+				client = class_data_format(
+					class_subject, class_scheduler,
+					subject, afternoon, "Afternoon")
+
+				client_data.append (client)
 
 	return client_data
+
+def class_data_format(class_subject, class_scheduler ,subject, session, period):
+	client = dict(
+		class_id     = class_subject.id,
+		class_code   = class_subject.class_code,
+		subject_name = subject.name,
+		subject_code = subject.subject_code,
+		num_of_day   = class_scheduler.day_of_week,
+        #"total_session": "Session 1-2-3",
+        teacher_name = class_subject.teacher,
+        location     = class_subject.location,
+        period = period,
+		session_start = str(session[0]),
+		)
+
+	return client
