@@ -1,0 +1,68 @@
+[
+    {
+        "class_code": "DSA_3568",
+        "id": "1",
+        "project": [
+            {
+                "projectid": "1",
+                "member": [
+                    {
+                        "userid": "2",
+                        "name": "Nguyen Hong Phuc"
+                    },
+                    {
+                        "userid": "3",
+                        "name": "Nguyen Anh Tu"
+                    }
+                ],
+                "job": [
+                    {
+                        "jobid": "1",
+                        "name": "Writing Documents",
+                        "status": "0", //0: not completed, 1: completed
+                        "start_time": "17/7/2012",
+                        "end_time": "28/7/2012",
+                        "repeat_date": "1",//Month, week, year
+                        "location": "D5-202",
+                        "note": "Mailing list"
+                    },
+                    {
+                        "jobid": "1",
+                        "name": "Deadline I - submit design",
+                        "status": "0", //0: not completed, 1: completed
+                        "start_time": "29/7/2012",
+                        "end_time": "29/7/2012",
+                        "repeat_date": "1",
+                        "location": "D5-202",
+                        "note": "3 files have to submited"
+                    }
+                ]
+            }        
+        ],
+
+        "task": [
+            {
+                "jobid": "3",
+                "name": "Midterm test",
+                "status": "0", //0: not completed, 1: completed
+                "start_time": "26/8/2012",
+                "end_time": "26/8/2012",
+                "repeat_date": "0",//1: Monday
+                "location": "D3-201",
+                "note": "45 minutes test"
+            },
+            {
+                "jobid": "4",
+                "name": "Final test",
+                "status": "0", //0: not completed, 1: completed
+                "start_time": "26/10/2012",
+                "end_time": "26/10/2012",
+                "repeat_date": "0",//1: Monday
+                "location": "D9-201",
+                "note": "90 minutes test"
+            }
+
+        ]
+
+    }
+]
