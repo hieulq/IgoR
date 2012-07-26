@@ -14,6 +14,18 @@ def populate_data():
 	response.view = 'generic.json'
 	def GET():
 
+		# Delete old data
+		db.user.truncate()
+		db.subject.truncate()
+		db.class_subject.truncate()
+		db.class_scheduler.truncate()
+		db.scheduler.truncate()
+		db.notification.truncate()
+		db.test.truncate()
+		db.project_member.truncate()
+		db.job.truncate()
+
+		db.commit()
 		# Creata user records
 		# 4 student
 
@@ -33,7 +45,7 @@ def populate_data():
 			auth         = 3
 			)
 
-		phucnh_id = db.user.insert(
+		tuna_id = db.user.insert(
 			name         = u"Nguyen Anh Tu",
 			class_group  = u"TTM",
 			student_code = 20072236,
@@ -41,7 +53,7 @@ def populate_data():
 			auth         = 4
 			)
 
-		phucnh_id = db.user.insert(
+		trungvt_id = db.user.insert(
 			name         = u"Vu Thanh Trung",
 			class_group  = u"TTM",
 			student_code = 20073070,
