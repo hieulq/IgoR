@@ -1,6 +1,6 @@
 Ext.define("Igor.view.notification.News", {
     extend: 'Ext.navigation.View',
-    xtype: 'news',
+    xtype: 'updatesListForm',
 
     requires: [
         'Ext.List',

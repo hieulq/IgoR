@@ -1,6 +1,6 @@
 Ext.define("Igor.view.task.Detail", {
     extend: 'Ext.navigation.View',
-    xtype: 'taskDetail',
+    xtype: 'classDetailsForm',
 
     requires: [
         'Ext.List',
