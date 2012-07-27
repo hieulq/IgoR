@@ -327,3 +327,13 @@ timestamp: 2012-07-26T10:09:46.938000
 ALTER TABLE user ADD keywords TEXT;
 timestamp: 2012-07-26T13:57:26.653000
 ALTER TABLE subject ADD subject_code CHAR(20);
+timestamp: 2012-07-27T13:02:50.242819
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    class_group CHAR(512),
+    student_code CHAR(512),
+    user_course INTEGER,
+    avatar CHAR(512),
+    auth INTEGER REFERENCES auth_user(id) ON DELETE CASCADE
+);

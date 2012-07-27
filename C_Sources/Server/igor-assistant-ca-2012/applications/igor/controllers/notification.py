@@ -5,7 +5,7 @@
 ## This is notification controller
 ## Author: phucnh, tuna
 #########################################################################
-
+##finish
 
 from message_packager import *
 
@@ -14,10 +14,24 @@ def get_all_notification():
 
 	## get new notification (is_read = 0)
 	response.view = 'generic.json'
-	def GET(owner, new):
+	def GET(owner):
 		notification = db(
-			db.notification.owner == owner and
-			db.notification.is_read == new).select()
+			db.notification.owner == owner).select()
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
+
+	return locals()
+
+
+
+@request.restful()
+def push_notification():
+
+	response.view = 'generic.json'
+	def GET(user_id):
+		notification = db(
+			db.notification.owner == user_id and
+			db.notification.is_read == False).select()
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
 
@@ -27,11 +41,12 @@ def get_all_notification():
 def mark_read():
 
 	response.view = 'generic.json'
-	def UPDATE(notification):
-		row = db(db.notification. == ).select().first()
-		row.update(is_read = 1)
+	def UPDATE(notifications_id):
+		for notification_id in notifications_id:
+			row = db(db.notification.id == notification).select()
+			row.update(is_read = True)
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
+		return MessagePackager.get_packaged_message(MessageStatus.OK, None)
 
 	return locals()
 	
