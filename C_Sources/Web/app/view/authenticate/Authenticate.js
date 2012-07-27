@@ -1,6 +1,6 @@
 Ext.define("Igor.view.authenticate.Authenticate", {
     extend: 'Ext.navigation.View',
-    xtype: 'authenform',
+    xtype: 'loginForm',
 
     requires: [
         'Igor.view.authenticate.Register'
@@ -32,11 +32,13 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                         items: [
                             {
                                 xtype: 'emailfield',
+                                id: 'emailAddress',
                                 label: 'Email',
                                 name: 'email'
                             },
                             {
                                 xtype: 'passwordfield',
+                                id: 'password',
                                 label: 'Password',
                                 name: 'password'
                             }
@@ -45,6 +47,7 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                     {
                         xtype: 'button',
                         text: 'Login',
+                        id: 'submitBtn',
                         ui: 'confirm',
                         margin: '5',
 

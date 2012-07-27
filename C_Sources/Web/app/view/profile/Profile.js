@@ -1,6 +1,6 @@
 Ext.define("Igor.view.profile.Profile", {
     extend: 'Ext.navigation.View',
-    xtype: 'profile',
+    xtype: 'userDetailsForm',
 
     requires: [
         'Ext.List',
