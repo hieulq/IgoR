@@ -18,7 +18,7 @@ def populate_data():
 		db.user.truncate()
 		db.subject.truncate()
 		db.class_subject.truncate()
-		db.class_scheduler.truncate()
+		db.class_scheduler.truncate()	
 		db.scheduler.truncate()
 		db.notification.truncate()
 		db.test.truncate()

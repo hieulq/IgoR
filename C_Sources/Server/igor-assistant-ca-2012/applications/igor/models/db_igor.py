@@ -6,17 +6,21 @@
 # Define user
 db.define_table('user', 
     Field('name', 'string'),
+    # Field('keywords', 'list:string'),
     Field('class_group', 'string'), # TTM, KHMT ...
     Field('student_code', 'string'),
     Field('user_course', 'integer'),
     Field('avatar', 'string'),
-    Field('auth', db.auth_user)
+    Field('auth', db.auth_user),
     )
+
+# db.user.keywords.compute  = lambda r : str (r.name)
 
 # Define subject table
 db.define_table('subject', 
     Field('name', 'string', length=50, notnull=True),
     Field('note', 'text'),
+    Field('subject_code', 'string', length=20)
     )
 
 # Define class_subject table
