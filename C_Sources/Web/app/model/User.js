@@ -12,6 +12,10 @@ Ext.define("Igor.model.User", {
             'email',
             'group',
             'course'
+        ],
+
+        associations: [
+            {type: 'belongsTo', model: 'Classproject'}
         ]
     }
 });

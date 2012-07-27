@@ -1,20 +1,19 @@
-Ext.define("Igor.store.Users", {
+Ext.define("Igor.store.Classdetails", {
     extend: 'Ext.data.Store',
 
     config: {
-        model: 'Igor.model.User',
-        pageSize: 5,
+        model: 'Igor.model.Classdetail',
         autoLoad: true,
-        sorters: 'date',
-        grouper: {
-            groupFn: function(record) {
-                return record.get('!username');
-            }
-        },
+
         proxy: {
             type: 'ajax',
-            url: 'data/users.json'
+            url : 'data/job_project.json',
+            reader: {
+                type: 'json',
+                root: 'class'
+            }
         }
+        
         /*proxy: {
             type: 'jsonp',
             noCache: false,
