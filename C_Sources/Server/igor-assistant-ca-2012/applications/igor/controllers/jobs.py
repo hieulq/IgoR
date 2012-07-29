@@ -166,15 +166,25 @@ def mark_jobs_finished():
 	response.view = 'generic.json'
 	def GET(job_ids):
 
+
+		#update data
 		for job_id in job_ids:
+			#validate input
+			if (not job_id.isdigit()):
+				return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"job id must be numberic")
+
+			if (int (job_id) < 0):
+				return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"job id can not less than 0")
+
 			row = db(db.job.id == job_id).select()
 			row.update_record(status = 1)
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 	return locals()
-
-
-
 
 
 
