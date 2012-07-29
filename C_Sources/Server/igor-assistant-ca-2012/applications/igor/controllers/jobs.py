@@ -60,8 +60,10 @@ def get_jobs_detail():
 				MessageStatus.ERROR, 
 				"job id can not less than 0")
 
-		jobs = db(
+		job = db(
 			db.job.id == job_id).select() 
+
+		job = format_client_data(job)
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, jobs)
 
@@ -131,18 +133,57 @@ def delete_job():
 				MessageStatus.ERROR, 
 				"job id can not less than 0")
 
-		job_id = db(db.jobs.id == job_id).delete()
+		job_id = db(db.job.id == job_id).delete()
 
 		return MessagePackager.get_packaged_message(MessagePackager.OK, job_id)
 
 	return locals()
 
-##unfinished
 @request.restful()
 def mark_job_finished():
 	response.view = 'generic.json'
-	def UPDATE(job_id):
-		row = db(db.jobs.id == job_id).select()
-		row.update()
+	def GET(job_id):
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, None)
+		#validate input
+		if (not job_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"job id must be numberic")
+
+		if (int (job_id) < 0):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"job id can not less than 0")
+
+		#update data
+		row = db(db.job.id == job_id).select()
+		row.update_record(status = 1)
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+	return locals()
+
+def mark_jobs_finished():
+	response.view = 'generic.json'
+	def GET(job_ids):
+
+		for job_id in job_ids:
+			row = db(db.job.id == job_id).select()
+			row.update_record(status = 1)
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+	return locals()
+
+
+
+
+
+
+##############################
+## Format output for client
+##
+##############################
+
+def format_client_data(job):
+	if (job == None):
+		return
+

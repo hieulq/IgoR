@@ -82,6 +82,7 @@ db.define_table('project_member',
 # Define job table
 db.define_table('job',
     Field('name', 'string', length = 50, notnull = True),
+    Field('status', 'integer'),
     Field('start_time', 'integer'),
     Field('end_time', 'integer'),
     Field('job_type', 'integer'), # 0 - subject job, 1 - personal job

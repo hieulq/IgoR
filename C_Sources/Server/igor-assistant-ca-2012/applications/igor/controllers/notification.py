@@ -65,12 +65,12 @@ def push_notification():
 def mark_read():
 
 	response.view = 'generic.json'
-	def GET(notifications_id):
-		for notification_id in notifications_id:
-			row = db(db.notification.id == notification).select()
-			row.update(is_read = True)
+	def GET(notification_ids):
+		for notification_id in notification_ids:
+			row = db(db.notification.id == notification_id).select()
+			row.update_record(is_read = True)
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, None)
+		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 
 	return locals()
 	
