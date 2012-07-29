@@ -95,3 +95,10 @@ def delete_scheduler(user_id, class_id):
 		).select().delete()
 
 	return scheduler
+
+
+def get_date():
+
+	today = date.today ()
+
+	return str(today)
