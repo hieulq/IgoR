@@ -8,6 +8,8 @@
 
 from message_packager import *
 from gluon.dal import Rows
+from gluon.tools import Service
+service = Service()
 
 # Get all classes by specific subject
 @request.restful()
@@ -45,31 +47,62 @@ def get_classes_by_subject():
 
 
 # Get class detail
-@request.restful()
-def get_class_detail():
-	response.view = 'generic.json'
-	def GET(id):
+# @request.restful()
+# def get_class_detail():
+# 	response.view = 'generic.json'
+# 	def GET(id):
 
-		# Validate input 
-		if (not id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"class id must be numberic")
+# 		# Validate input 
+# 		if (not id.isdigit()):
+# 			return MessagePackager.get_packaged_message (
+# 				MessageStatus.ERROR, 
+# 				"class id must be numberic")
 
-		if (int (id) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"class id can not less than 1")
+# 		if (int (id) < 0):
+# 			return MessagePackager.get_packaged_message (
+# 				MessageStatus.ERROR, 
+# 				"class id can not less than 1")
 
-		# Get data
+# 		# Get data
 
-		class_subject = db(db.class_subject.id == id).select()
+# 		class_subject = db(db.class_subject.id == id).select()
 
-		class_subject = format_client_data(class_subject)
+# 		class_subject = format_client_data(class_subject)
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, class_subject)
+# 		return MessagePackager.get_packaged_message(MessageStatus.OK, class_subject)
 
-	return locals()
+# 	return locals()
+
+def call():
+	session.forget()
+
+	return service()
+
+import gluon.contenttype
+
+@service.jsonp
+def get_class_detail(id):
+	# response.view = 'generic.jsonp'
+	# response.headers['Content-Type'] = gluon.contenttype.contenttype('.js')
+
+	# Validate input 
+	if (not id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id must be numberic")
+
+	if (int (id) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id can not less than 1")
+
+	# Get data
+
+	class_subject = db(db.class_subject.id == id).select()
+
+	class_subject = format_client_data(class_subject)
+
+	return MessagePackager.get_packaged_message(MessageStatus.OK, class_subject)
 
 # Get all classes of user
 # Input:
@@ -81,15 +114,22 @@ def get_classes_by_user():
 	def GET(user_id, term = 0):
 
 		# Get data
-		term = get_current_term()
+		if (term == 0):
+			term = get_current_term()
+
 		user_schedulers = db(db.scheduler.owner == user_id).select()
 		
 		classes = list()
 
 		for user_scheduler in user_schedulers:
-			classes.append(db(
-				db.class_subject.id == user_scheduler.class_subject and
-				db.class_subject.term == term))
+
+			class_subject = db(
+				(db.class_subject.id == user_scheduler.class_subject) &
+				(db.class_subject.term == term)).select().first()
+
+
+			if (class_subject != None):
+				classes.append(class_subject)
 
 		classes = format_client_data(classes)
 

@@ -101,3 +101,43 @@ def get_date():
 	today = date.today ()
 
 	return str(today)
+
+######################################################################################
+# Notification functions
+######################################################################################
+
+def get_notification_action(notification):
+	if (notification == None):
+		return ''
+
+	print notification
+	if (notification.type == 1):
+		result = 'You have a share job'
+	else:
+		result = 'Upcomming job'
+	
+	return result
+
+######################################################################################
+# Job functions
+######################################################################################
+
+def add_class_job(user_id, name, start_time, 
+	end_time, job_type, date, 
+	repeat_date, note, 
+	location, test, class_id):
+	
+	job_id = db.job.insert(
+			owner = user_id,
+			name = name,
+			start_time = start_time,
+			end_time = end_time,
+			job_type = job_type,
+			date = date, ### Tuna input ????
+			repeat_date = repeat_date,
+			note = note,
+			location = location,
+			test = test,
+			class_subject = class_id)
+	
+	return job_id

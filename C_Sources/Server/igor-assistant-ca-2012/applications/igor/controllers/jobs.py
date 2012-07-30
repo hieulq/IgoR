@@ -8,6 +8,7 @@
 
 from message_packager import *
 from gluon.dal import Rows
+from igor_time import *
 
 @request.restful()
 def get_jobs_by_class():
@@ -63,9 +64,9 @@ def get_jobs_detail():
 		job = db(
 			db.job.id == job_id).select() 
 
-		job = format_client_data(job)
+		# job = format_client_data(job)
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, jobs)
+		return MessagePackager.get_packaged_message(MessageStatus.OK, job)
 
 	return locals()	
 
@@ -103,15 +104,20 @@ def add_class_job():
 			start_time = start_time,
 			end_time = end_time,
 			job_type = job_type,
-			date = maketime, ### Tuna input ????
+			date = date, ### Tuna input ????
 			repeat_date = repeat_date,
 			note = note,
 			location = location,
 			test = test,
 			class_subject = class_id)
+			# add_class_job(user_id, name, start_time, 
+			# 	end_time, job_type, 
+			# 	date, repeat_date, note, 
+			# 	location, test, class_id)
 
-		except Exception as e:
-			return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+		except Exception, err:
+			#return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+			raise Exception(str (err))
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, job_id)
 
@@ -133,9 +139,13 @@ def delete_job():
 				MessageStatus.ERROR, 
 				"job id can not less than 0")
 
-		job_id = db(db.job.id == job_id).delete()
+		try:
+			job_id = db(db.job.id == job_id).delete()
+		except Exception, err:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+		
 
-		return MessagePackager.get_packaged_message(MessagePackager.OK, job_id)
+		return MessagePackager.get_packaged_message(MessageStatus.OK, job_id)
 
 	return locals()
 
@@ -156,8 +166,11 @@ def mark_job_finished():
 				"job id can not less than 0")
 
 		#update data
-		row = db(db.job.id == job_id).select()
-		row.update_record(status = 1)
+		try:
+			row = db(db.job.id == job_id).update(status = 1)
+		except Exception, err:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+		# row.update_record(status = 1)
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 	return locals()
@@ -165,25 +178,32 @@ def mark_job_finished():
 @request.restful()
 def mark_jobs_finished():
 	response.view = 'generic.json'
-	def GET(job_ids):
+	def GET(*job_ids):
 
 		#update data
-		for job_id in job_ids:
-			#validate input
-			if (not job_id.isdigit()):
-				return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"job id must be numberic")
+		try:
+			for job_id in job_ids:
+				#validate input
+				if (not job_id.isdigit()):
+					raise Exception('job id must be numberic')
+					# return MessagePackager.get_packaged_message (
+					# MessageStatus.ERROR, 
+					# "job id must be numberic")
 
-			if (int (job_id) < 0):
-				return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"job id can not less than 0")
-
-			row = db(db.job.id == job_id).select()
-			row.update_record(status = 1)
+				if (int (job_id) < 0):
+					raise Exception('job id can not less than 0')
+					# return MessagePackager.get_packaged_message (
+					# MessageStatus.ERROR, 
+					# "job id can not less than 0")
+			
+				row = db(db.job.id == job_id).update(status = 1)
+					
+		except Exception, err:
+			db.rollback()
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+
 	return locals()
 
 
@@ -223,7 +243,7 @@ def accept_job():
 
 		##
 		rows = db(db.notification.owner == from_user).select()
-		check == False
+		check = False
 		for row in rows:
 			if (row.is_read == True):
 				check = True
@@ -231,9 +251,10 @@ def accept_job():
 
 		if (check):
 			add_class_job() ### Tuna input???
+		
 		else:
 			return MessagePackager.get_packaged_message(MessageStatus.ERROR,
-			 "can not accept job: notification is not checked")
+				"can not accept job: notification is not checked")
 
 	return locals()
 
@@ -284,12 +305,12 @@ def share_job_to_class():
 				user_share = row.id,
 				is_read = False,
 				type = 1,
-				date = , ##Tuna - get date ???
+				# date = , ##Tuna - get date ???
 				is_completed = False
 				)
 
-			except Exception as e:
-				return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+			except Exception as err:
+				return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 

@@ -1,7 +1,7 @@
 import datetime
 import time
 
-class JgorTime:
+class IgorTime:
 	
 	def __init__(self):
 		self.one_minute = 60 * 60
@@ -14,25 +14,37 @@ class JgorTime:
 
 		return int (time.mktime (datetime.timetuple ()))
 
+
+	# Get time string method
+	# Ex Output:
+	# 	1 minute ago
+	# 	2 days ago
 	@staticmethod
 	def get_time_string(timestamp):
+
+		if (not timestamp): return ''
+
 		time_string = ''
 		today = int (time.time ())
 
 		diff = int (today - timestamp)
 
 		if (diff < 60):
-			time_string = create_second_string (diff)
-		else if (diff >= 60 and diff < 60*60):
-			time_string = get_minute_string (diff)
-		else if (diff >= 60*60 and diff < 60*60*24):
-			time_string = get_hour_string (diff)
-		else if (diff >= 60*60*24 and diff < 60*60*24*7):
-			time_string = get_day_string (diff)
+			time_string = IgorTime.create_second_string (diff)
+			time_string += ' ago.'
+		elif (diff >= 60 and diff < 60*60):
+			time_string = IgorTime.get_minute_string (diff)
+			time_string += ' ago.'
+		elif (diff >= 60*60 and diff < 60*60*24):
+			time_string = IgorTime.get_hour_string (diff)
+			time_string += ' ago.'
+		elif (diff >= 60*60*24 and diff < 60*60*24*7):
+			time_string = IgorTime.get_day_string (diff)
+			time_string += ' ago.'
+		else:
+			time_string = "test time" #(datetime.datetime.fromtimestamp((int) timestamp)).strftime('%Y-%m-%d %H:%M:%S')
 
-		time_string += ' ago.'
-
-		return time_string
+		return str (time_string)
 
 	@staticmethod
 	def get_minute_string(difference):
@@ -41,12 +53,12 @@ class JgorTime:
 		minutes = int (difference / 60)
 		seconds = int (difference % 60)
 
-		time_string = create_minute_string (minutes)
+		time_string = IgorTime.create_minute_string (minutes)
 
 		# if (seconds > 0):
 		# 	time_string += " " + create_second_string (seconds)
 
-		return time_string
+		return str (time_string)
 
 	@staticmethod
 	def get_hour_string(difference):
@@ -55,12 +67,12 @@ class JgorTime:
 		hours = int (difference / 3600)
 		minutes = int (difference % 3600)
 
-		time_string = create_hour_string (hours)
+		time_string = IgorTime.create_hour_string (hours)
 
 		if (minutes > 0):
-			time_string += " " + create_minute_string (minutes)
+			time_string += " " + IgorTime.create_minute_string (minutes)
 
-		return time_string
+		return str (time_string)
 
 	@staticmethod
 	def create_second_string(seconds):
@@ -71,7 +83,7 @@ class JgorTime:
 		elif (seconds > 1):
 			second_str = int (seconds) + ' seconds'
 
-		return second_str
+		return str (second_str)
 
 	@staticmethod
 	def create_minute_string(minutes):
@@ -82,7 +94,7 @@ class JgorTime:
 		elif (minutes > 1):
 			minute_str = int (minutes) + ' minutes'
 
-		return minute_str
+		return str (minute_str)
 
 	@staticmethod
 	def create_hour_string(hours):
@@ -93,7 +105,7 @@ class JgorTime:
 		elif (hours > 1):
 			hour_str = int (hours) + ' hours'
 
-		return hour_str
+		return str (hour_str)
 
 	@staticmethod
 	def create_day_string(days):
@@ -104,4 +116,4 @@ class JgorTime:
 		elif (days > 1):
 			day_str = days + " days"
 
-		return day_str
+		return str (day_str)

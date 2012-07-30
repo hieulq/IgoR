@@ -3060,6 +3060,12 @@ class Crud(object):
         session = current.session
         if request.extension == 'json' and request.vars.json:
             request.vars.update(json_parser.loads(request.vars.json))
+
+        # phucnh add 20120730
+        # if request.extension == 'jsonp' and request.vars.json:
+        #     request.vars.update(json_parser.loads(request.vars.json))
+        # end phucnh add 20120730
+
         if next is DEFAULT:
             next = request.get_vars._next \
                 or request.post_vars._next \
@@ -3495,6 +3501,11 @@ class Service(object):
         self.xml_procedures = {}
         self.rss_procedures = {}
         self.json_procedures = {}
+
+        # phucnh add 20120730
+        self.jsonp_procedures = {}
+        # end phucnh add 20120730
+
         self.jsonrpc_procedures = {}
         self.xmlrpc_procedures = {}
         self.amfrpc_procedures = {}
@@ -3597,6 +3608,11 @@ class Service(object):
         """
         self.json_procedures[f.__name__] = f
         return f
+
+    # phucnh add 20120730
+    def jsonp(self, f):
+        self.jsonp_procedures[f.__name__] = f
+    # end phucnh add 20120730
 
     def jsonrpc(self, f):
         """
@@ -3795,6 +3811,30 @@ class Service(object):
             return response.json(s)
         self.error()
 
+    # phucnh add 20120730
+    def serve_jsonp(self, args=None):
+        request = current.request
+        response = current.response
+        response.headers['Content-Type'] = 'application/jsonp; charset=utf-8'
+        if not args:
+            args = request.args
+        d = dict(request.vars)
+        # print args
+        # print d
+        if args and args[0] in self.jsonp_procedures:
+            s = universal_caller(self.jsonp_procedures[args[0]],*args[1:],**d)
+            if hasattr(s, 'as_list'):
+                s = s.as_list()
+
+            if 'callback' in d.keys():
+                s =  d['callback'] + '(' + response.json(s) + ')'
+            else:
+                s =  'Igor.Function(' + response.json(s) + ')'
+            # print s
+            return s
+        self.error()
+    # end phucnh add 20120730
+
     class JsonRpcException(Exception):
         def __init__(self,code,info):
             self.code,self.info = code,info
@@ -3973,6 +4013,10 @@ class Service(object):
             return self.serve_xml(request.args[1:])
         elif arg0 == 'json':
             return self.serve_json(request.args[1:])
+        # phucnh add 20120730
+        elif arg0 == 'jsonp':
+            return self.serve_jsonp(request.args[1:])
+        # end phucnh add 20120730
         elif arg0 == 'jsonrpc':
             return self.serve_jsonrpc()
         elif arg0 == 'xmlrpc':

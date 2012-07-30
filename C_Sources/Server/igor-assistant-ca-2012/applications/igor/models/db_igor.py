@@ -93,5 +93,5 @@ db.define_table('notification',
     Field('type', 'integer'), # 0 - personal (alarm), 1 - sharing job
     Field('date', 'integer'),
     Field('is_completed','boolean', default = False),
-    Field('job_id', db.job),
+    Field('job_id', 'integer'),
     )
