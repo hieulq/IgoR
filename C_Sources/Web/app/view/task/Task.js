@@ -25,25 +25,7 @@ Ext.define("Igor.view.task.Task", {
                     }
             },
 
-            items: [
-                {
-                    xtype: 'image',
-                    docked: 'top',
-                    ui: 'light',
-                    align: 'left',
-                    width: 100,
-                    height: 45,
-                    src: 'resources/images/Igor.png'
-                },
-
-                {
-                    xtype: 'button',
-                    id: 'backBtn',
-                    ui: 'plain',
-                    text: 'Back',
-                    align: 'left'                    
-                },
-                    
+            items: [                    
                 {
                     xtype: 'button',
                     id: 'termSelectBtn',
@@ -170,7 +152,19 @@ Ext.define("Igor.view.task.Task", {
                         var rec = list.getStore().getAt(index);
                         //console.log(rec.data);
                         //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
-                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
+                        //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
+                        var navView = this.up('navigationview');
+                        var addTaskBtn = Ext.getCmp('addTaskBtn');
+                        var termBtn = Ext.getCmp('termSelectBtn');
+
+                        navView.push({xtype: 'classDetailsForm'});
+                        addTaskBtn.setHandler(function() {
+                            var navView = this.up('navigationview');
+                            alert('tete');
+                            //navView.push({xtype: 'userDetailsForm'});
+                            this.hide();
+                        });
+                        termBtn.hide();
                     }
                 }
             }

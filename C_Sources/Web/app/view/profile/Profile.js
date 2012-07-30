@@ -25,14 +25,6 @@ Ext.define("Igor.view.profile.Profile", {
 
             items: [
                 {
-                    xtype: 'image',
-                    docked: 'top',
-                    ui: 'light',
-                    width: 100,
-                    height: 45,
-                    src: 'resources/images/Igor.png'
-                },
-                {
                     xtype: 'button',
                     id: 'editProfileButton',
                     iconCls: 'compose',

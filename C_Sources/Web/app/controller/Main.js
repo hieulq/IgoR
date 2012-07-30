@@ -27,6 +27,13 @@ Ext.define("Igor.controller.Main", {
             },
             classesListForm: {
                 itemSelected: 'viewClassDetails',
+            },
+
+            userDetailsForm: {
+                pop: 'onProfilePop',
+            },
+            tasksForm: {
+                pop: 'onTaskPop',
             }
         },
         routes: {
@@ -50,12 +57,12 @@ Ext.define("Igor.controller.Main", {
             updatesListForm: '#updatesListForm',
 
             // Tasks
-            tasksForm:'#tasksForm',
+            tasksForm:'tasksForm',
             dayTabPanel:'#dayTabPanel',
             tasksListByDay:'#tasksListByDay',
 
             // Users
-            userDetailsForm: '#userDetailsForm',
+            userDetailsForm: 'userDetailsForm',
             friendsListForm: '#friendsListForm',
             classesListForm: '#classesListForm',
         },
@@ -70,6 +77,27 @@ Ext.define("Igor.controller.Main", {
             // User
             doUser: ['getUserDetails', 'getFriendsListByUser', 'getClassesListByUser']
         },
+    },
+
+    onProfilePop: function(){
+        var editProfileBtn = Ext.getCmp('editProfileButton');
+        editProfileBtn.show();
+    },
+
+    onTaskPop: function(){
+        var termBtn = Ext.getCmp('termSelectBtn');
+        var addTaskBtn = Ext.getCmp('addTaskBtn');
+        addTaskBtn.setHandler(function() {
+            var navView = this.up('navigationview');
+            var termBtn = Ext.getCmp('termSelectBtn');
+
+            navView.push({xtype: 'newTask'});
+            this.hide();
+            termBtn.hide();
+        });
+
+        termBtn.show();
+        addTaskBtn.show();
     },
 
     // Updates
