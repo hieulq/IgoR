@@ -7,7 +7,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    controllers: ['Main'],
+    controllers: ['Main', 'ClassDetails'],
     views: ['Main','authenticate.Authenticate'],
     stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails'],
     models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask'],

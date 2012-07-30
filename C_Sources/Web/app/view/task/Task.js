@@ -5,7 +5,7 @@ Ext.define("Igor.view.task.Task", {
     requires: [
         'Ext.List',
         'Ext.Container',
-        'Igor.view.task.Detail',
+        'Igor.view.task.ClassDetails',
         'Igor.view.task.New'
     ],
 
@@ -170,7 +170,7 @@ Ext.define("Igor.view.task.Task", {
                         var rec = list.getStore().getAt(index);
                         //console.log(rec.data);
                         //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
-                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.Detail'));
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
                     }
                 }
             }

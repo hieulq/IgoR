@@ -1,6 +1,6 @@
 Ext.define("Igor.controller.ClassDetails", {
     extend: 'Ext.app.Controller',
-    views: ['ClassDetails'], // tương ứng sheet 8
+    views: ['task.ClassDetails'], 
     
     init: function() {
         
@@ -8,16 +8,16 @@ Ext.define("Igor.controller.ClassDetails", {
 
     config: {
         control: {
-            jobListForm: 'List' {
+            jobListForm: {
                 itemSelected: 'viewJobDetails', // Xem chi tiết Job Details
             },
-            addJobToClassSubmit: 'button' {
+            addJobToClassSubmit: {
                 onTap: 'addJobClass',
             },
-            deleteClassSubmit: 'button' {
+            deleteClassSubmit: {
                 onTap: 'deleteClass',
             },
-            addClassToUserSubmit: 'button' {
+            addClassToUserSubmit: {
                 onTap: 'addClassToUser'
             }
         },
@@ -35,7 +35,7 @@ Ext.define("Igor.controller.ClassDetails", {
             
             // Jobs List Form
             jobListForm: '#jobListForm'
-        }
+        },
 
         before: {
             doClassDetails: ['getClassDetails', 'getJobsList'],
