@@ -15,7 +15,7 @@ Ext.define("Igor.model.User", {
         ],
 
         associations: [
-            {type: 'belongsTo', model: 'Classproject'}
+            {type: 'belongsTo', model: 'Igor.model.Classproject'}
         ]
     }
 });

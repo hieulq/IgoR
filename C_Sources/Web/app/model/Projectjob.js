@@ -1,4 +1,4 @@
-Ext.define("Igor.model.Classtask", {
+Ext.define("Igor.model.Projectjob", {
     extend: 'Ext.data.Model',
 
     config: {

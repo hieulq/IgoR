@@ -5,14 +5,7 @@ Ext.define("Igor.store.Classdetails", {
         model: 'Igor.model.Classdetail',
         autoLoad: true,
 
-        proxy: {
-            type: 'ajax',
-            url : 'data/job_project.json',
-            reader: {
-                type: 'json',
-                root: 'class'
-            }
-        }
+        
         
         /*proxy: {
             type: 'jsonp',

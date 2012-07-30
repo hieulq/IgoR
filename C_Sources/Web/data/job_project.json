@@ -1,5 +1,4 @@
-{
-    "class": [
+[
         {
             "class_code": "DSA_3568",
             "subject_name": "Data Structure and Algorithm",
@@ -13,7 +12,8 @@
             "projects": [
                 {
                     "projectid": "1",
-                    "description": "Assignment 1",
+                    "name": "Assignment 1",
+                    "description": "System Design and Analysis",
                     "members": [
                         {
                             "userid": "1",
@@ -88,5 +88,4 @@
             ]
 
         }
-    ]
-}
+]

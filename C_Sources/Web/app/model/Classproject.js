@@ -4,13 +4,14 @@ Ext.define("Igor.model.Classproject", {
     config: {
         fields: [
             'projectid',
+            'name',
             'description'
         ],
 
         associations: [
-            {type: 'hasMany', model: 'User', name: 'members', associationKey: 'members'},
-            {type: 'hasMany', model: 'Classtask', name: 'jobs', associationKey: 'jobs'},
-            {type: 'belongsTo', model: 'Classdetail'}
+            {type: 'hasMany', model: 'Igor.model.User', name: 'members', associationKey: 'members'},
+            {type: 'hasMany', model: 'Igor.model.Projectjob', name: 'jobs', associationKey: 'jobs'},
+            
         ]
 
     }

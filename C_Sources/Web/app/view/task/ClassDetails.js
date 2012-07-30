@@ -4,7 +4,8 @@ Ext.define("Igor.view.task.ClassDetails", {
 
     requires: [
         'Ext.List',
-        'Igor.store.Tasks'
+        'Igor.store.Classdetails',
+        'Igor.store.Classprojects'
     ],
 
     config: {
@@ -34,9 +35,9 @@ Ext.define("Igor.view.task.ClassDetails", {
                     {
                         xtype: 'dataview',
                         flex: 1,
-                        scrollable: true,
+                        scrollable: false,
 
-                        store: 'Tasks',
+                        store: 'Classdetails',
                         itemTpl: [
                             '<div class="header">',
                             '   <div class="avatar" style="background-image:url(resources/images/class-icon.png);"></div>',
@@ -85,9 +86,46 @@ Ext.define("Igor.view.task.ClassDetails", {
                                 '</div>',
                             '</div>'
                         ].join('')
+                    },
+
+                    {
+                        xtype: 'list',
+                        store: 'Classprojects',
+                        flex: 1,
+
+                        cls: 'x-feeds',
+                        itemTpl: [
+                            '<div class="feed" style="background-image:url(resources/images/headshots/project_icon.png);"></div>',
+                            '{name}',
+                            '{description}',
+                        ].join(''),
+
+                        items: [
+                            {
+                                xtype: 'listitemheader',
+                                cls: 'dark',
+                                html: 'Projects'
+                            }
+                        ]
+
                     }
                 ]
             }
         ]
+    },
+
+    initialize: function() {
+        var store = Ext.data.StoreManager.lookup('Classdetails');
+        store.load({
+            callback: function(records, operation, success) {
+                    var class1 = store.first();
+                    console.log('Class code is: ' + class1.get('class_code'));
+
+                    class1.projects().each(function(project) {
+                        console.log("Project ID: " + project.getId());
+                    });
+                },
+                scope: this
+        });
     }
 });
