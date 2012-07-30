@@ -85,17 +85,19 @@ Ext.define("Igor.view.task.ClassDetails", {
                                     '</div>',
                                 '</div>',
                             '</div>'
-                        ].join('')
+                        ].join(''),
+
                     },
 
                     {
                         xtype: 'list',
                         store: 'Classprojects',
                         flex: 1,
+                        disclosure: true, 
 
                         cls: 'x-feeds',
                         itemTpl: [
-                            '<div class="feed" style="background-image:url(resources/images/headshots/project_icon.png);"></div>',
+                            '<div class="feed" style="background-image:url(resources/images/project_icon.png);"></div>',
                             '{name}',
                             '{description}',
                         ].join(''),
@@ -106,7 +108,22 @@ Ext.define("Igor.view.task.ClassDetails", {
                                 cls: 'dark',
                                 html: 'Projects'
                             }
-                        ]
+                        ],
+
+                        initialize: function() {
+                            var store = this.store;
+                            console.log('abc');
+                        },
+
+                        listeners: {
+                            itemtap: function(list, index, target, record) {
+                                //console.log('onItemTap: index = ' + index);
+                                var rec = list.getStore().getAt(index);
+                                //console.log(rec.data);
+                                Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('members'));
+                                console.log(rec.get('members'));
+                            }
+                        }
 
                     }
                 ]
@@ -115,15 +132,17 @@ Ext.define("Igor.view.task.ClassDetails", {
     },
 
     initialize: function() {
-        var store = Ext.data.StoreManager.lookup('Classdetails');
+        var store = Ext.data.StoreManager.lookup('Classprojects');
         store.load({
             callback: function(records, operation, success) {
-                    var class1 = store.first();
+                    /*var class1 = store.first();
                     console.log('Class code is: ' + class1.get('class_code'));
 
                     class1.projects().each(function(project) {
                         console.log("Project ID: " + project.getId());
-                    });
+                    });*/
+
+                    console.log(records);
                 },
                 scope: this
         });

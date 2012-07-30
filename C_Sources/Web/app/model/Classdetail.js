@@ -14,16 +14,12 @@ Ext.define("Igor.model.Classdetail", {
             'location'
         ],
 
-        associations: [
-            {type: 'hasMany', model: 'Igor.model.Classproject', name: 'projects', associationKey: 'projects'},
-            {type: 'hasMany', model: 'Igor.model.Classtask', name: 'tasks', associationKey: 'tasks'}
-        ],
-
         proxy: {
             type: 'ajax',
             url : 'data/job_project.json',
             reader: {
-                type: 'json'
+                type: 'json',
+                rootProperty: 'class'
             }
         }
 
