@@ -117,14 +117,28 @@ def add_class_to_user():
 		# TODO: add class's rule
 
 		try:
-			scheduler_id = db.scheduer.insert(
-			onwer = user_id,
-			class_subject = class_id,
-			term = get_current_term)
-		except Exception as e:
-			return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+			scheduler_id = db.scheduler.insert(
+				owner         = user_id,
+				class_subject = class_id,
+				term          = get_current_term())
+		except Exception, err:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler_id)
+
+	return locals()
+
+@request.restful()
+def delete_class():
+	response.view = 'generic.json'
+	def GET(user_id, class_id):
+
+		try:
+			scheduler = delete_scheduler(user_id, class_id);
+		except Exception, err:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler)
 
 	return locals()
 
@@ -151,6 +165,7 @@ def format_client_data(classes):
 			# Morning session
 			morning = [session for session in sessions if session <=6]
 			afternoon = [session for session in sessions if session >= 7]
+
 
 			if (morning):
 				client = class_data_format(

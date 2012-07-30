@@ -52,17 +52,6 @@ db.define_table('scheduler',
     Field('term', 'integer')
     )
 
-# Define notification table
-db.define_table('notification',
-    Field('notification_class', 'integer', default = 0), # 0 - job notification, 1 - subject notification
-    Field('owner', 'integer'),
-    Field('user_share', 'integer', default = 0), # if (is share notification) user_share != 0
-    Field('is_read', 'boolean'),
-    Field('type', 'integer'), # 0 - personal (alarm), 1 - sharing job
-    Field('date', 'integer'),
-    Field('is_completed','boolean', default = False)
-    )
-
 # Define test table
 db.define_table('test',
     Field('class_subject', db.class_subject),
@@ -82,6 +71,7 @@ db.define_table('project_member',
 # Define job table
 db.define_table('job',
     Field('name', 'string', length = 50, notnull = True),
+    Field('status', 'integer'),
     Field('start_time', 'integer'),
     Field('end_time', 'integer'),
     Field('job_type', 'integer'), # 0 - subject job, 1 - personal job
@@ -94,3 +84,14 @@ db.define_table('job',
     Field('test', 'integer', default= 0)
     )
 
+# Define notification table
+db.define_table('notification',
+    Field('notification_class', 'integer', default = 0), # 0 - job notification, 1 - subject notification
+    Field('owner', 'integer'),
+    Field('user_share', 'integer', default = 0), # if (is share notification) user_share != 0
+    Field('is_read', 'boolean'),
+    Field('type', 'integer'), # 0 - personal (alarm), 1 - sharing job
+    Field('date', 'integer'),
+    Field('is_completed','boolean', default = False),
+    Field('job_id', db.job),
+    )
