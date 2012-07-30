@@ -1,4 +1,26 @@
-timestamp: 2012-07-19T22:13:08.785000
+timestamp: 2012-07-29T22:46:29.910000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+timestamp: 2012-07-29T22:49:08.187000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+timestamp: 2012-07-29T22:49:21.649000
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -10,21 +32,21 @@ CREATE TABLE auth_user(
     registration_id CHAR(512)
 );
 success!
-timestamp: 2012-07-19T22:13:08.826000
+timestamp: 2012-07-29T22:49:21.694000
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2012-07-19T22:13:08.852000
+timestamp: 2012-07-29T22:49:21.727000
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
 );
 success!
-timestamp: 2012-07-19T22:13:08.883000
+timestamp: 2012-07-29T22:49:22.291000
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
@@ -33,7 +55,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2012-07-19T22:13:08.916000
+timestamp: 2012-07-29T22:49:22.369000
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -43,7 +65,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2012-07-19T22:13:08.947000
+timestamp: 2012-07-29T22:49:22.417000
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
@@ -53,281 +75,7 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2012-07-20T21:47:56.777000
-CREATE TABLE subjectt(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(50) NOT NULL,
-    note TEXT,
-    term INTEGER,
-    duration INTEGER,
-    teacher INTEGER
-);
-success!
-timestamp: 2012-07-20T21:47:56.822000
-CREATE TABLE subject(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(50) NOT NULL,
-    note TEXT,
-    term INTEGER,
-    duration INTEGER,
-    teacher INTEGER
-);
-success!
-timestamp: 2012-07-20T21:52:54.440000
-CREATE TABLE class_subject(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
-    location CHAR(512),
-    period CHAR(512),
-    duration INTEGER,
-    is_finished CHAR(1),
-    day_of_week INTEGER,
-    term INTEGER
-);
-success!
-timestamp: 2012-07-23T21:40:13.371000
-CREATE TABLE scheduler(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    owner INTEGER,
-    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
-    day_of_week INTEGER,
-    period CHAR(512),
-    term INTEGER
-);
-success!
-timestamp: 2012-07-23T21:40:13.415000
-CREATE TABLE notification(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    notification_class INTEGER,
-    owner INTEGER,
-    user_share INTEGER,
-    is_read CHAR(1),
-    type INTEGER,
-    date INTEGER
-);
-success!
-timestamp: 2012-07-23T21:40:13.453000
-CREATE TABLE test(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
-    test_type INTEGER,
-    time INTEGER,
-    location CHAR(512),
-    project_due_date INTEGER
-);
-success!
-timestamp: 2012-07-23T21:40:13.880000
-CREATE TABLE project_member(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
-    user INTEGER,
-    note TEXT
-);
-success!
-timestamp: 2012-07-23T21:40:13.927000
-CREATE TABLE job(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(50) NOT NULL,
-    start_time INTEGER,
-    end_time INTEGER,
-    job_type INTEGER,
-    subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
-    date INTEGER,
-    repeat_date CHAR(512),
-    owner INTEGER,
-    note TEXT,
-    location CHAR(512),
-    test INTEGER REFERENCES test(id) ON DELETE CASCADE
-);
-success!
-timestamp: 2012-07-23T21:40:13.970000
-CREATE TABLE user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(512),
-    group CHAR(512),
-    student_code CHAR(512) NOT NULL UNIQUE,
-    course INTEGER,
-    avatar CHAR(512)
-);
-timestamp: 2012-07-23T21:41:48.879000
-CREATE TABLE user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(512),
-    group CHAR(512),
-    student_code CHAR(512) NOT NULL UNIQUE,
-    course INTEGER,
-    avatar CHAR(512)
-);
-timestamp: 2012-07-23T21:42:04.215000
-CREATE TABLE user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name CHAR(512)
-);
-success!
-timestamp: 2012-07-23T21:42:10.276000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:16.871000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:17.818000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:27.068000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:27.879000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:28.121000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:28.286000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:28.458000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:33.359000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:44.588000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:42:44.626000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:45.359000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:42:45.598000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:42:45.701000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:42:55.839000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:42:59.681000
-ALTER TABLE user ADD group CHAR(512);
-timestamp: 2012-07-23T21:43:12.062000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:12.929000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:13.159000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:13.356000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:13.463000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:17.539000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:18.196000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:18.467000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:18.574000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:18.753000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:25.178000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:43:28.762000
-ALTER TABLE user ADD avatar CHAR(512);
-timestamp: 2012-07-23T21:43:33.390000
-ALTER TABLE user ADD class_group CHAR(512);
-timestamp: 2012-07-23T21:43:38.106000
-ALTER TABLE user ADD student_code CHAR(512) NOT NULL UNIQUE;
-timestamp: 2012-07-23T21:43:44.038000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:44:16.839000
-ALTER TABLE user ADD course INTEGER;
-timestamp: 2012-07-23T21:45:32.829000
-ALTER TABLE user ADD user_course INTEGER;
-timestamp: 2012-07-23T21:45:40.840000
-ALTER TABLE user ADD student_code CHAR(512) NOT NULL UNIQUE;
-timestamp: 2012-07-23T21:46:02.703000
-ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
-timestamp: 2012-07-23T21:46:03.555000
-ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
-timestamp: 2012-07-23T21:46:03.789000
-ALTER TABLE user ADD student_code CHAR(512) NOT NULL;
-timestamp: 2012-07-23T21:46:15.192000
-ALTER TABLE user ADD student_code CHAR(512);
-timestamp: 2012-07-24T09:11:34.837000
-CREATE TABLE class_scheduler(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
-    day_of_week INTEGER,
-    period CHAR(512)
-);
-success!
-timestamp: 2012-07-24T10:50:30.164000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:27.594000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:28.410000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:28.971000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:29.021000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:29.082000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:29.382000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:29.599000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:29.799000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:30.047000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:30.219000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:30.405000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:30.622000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:30.830000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:31.003000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:31.179000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:31.369000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:31.549000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:31.847000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:32.119000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:32.397000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:51.063000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:51:51.941000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:54:20.004000
-CREATE TABLE auth_user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name CHAR(128),
-    last_name CHAR(128),
-    email CHAR(512),
-    password CHAR(512),
-    registration_key CHAR(512),
-    reset_password_key CHAR(512),
-    registration_id CHAR(512)
-);
-timestamp: 2012-07-24T10:54:43.882000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:55:02.176000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:55:56.824000
-ALTER TABLE user ADD teacher INTEGER;
-timestamp: 2012-07-24T10:56:56.110000
-ALTER TABLE class_subject ADD teacher INTEGER;
-timestamp: 2012-07-24T11:17:33.902000
-ALTER TABLE user ADD auth INTEGER REFERENCES auth_user(id) ON DELETE CASCADE;
-timestamp: 2012-07-24T11:56:48.776000
-ALTER TABLE job ADD class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE;
-timestamp: 2012-07-24T22:21:11.605000
-ALTER TABLE class_subject ADD class_code CHAR(20);
-timestamp: 2012-07-25T08:31:09.971000
-ALTER TABLE notification ADD is_completed CHAR(1);
-timestamp: 2012-07-26T09:35:01.523000
-ALTER TABLE class_scheduler ADD location CHAR(512);
-timestamp: 2012-07-26T10:09:46.938000
-ALTER TABLE user ADD keywords TEXT;
-timestamp: 2012-07-26T13:57:26.653000
-ALTER TABLE subject ADD subject_code CHAR(20);
-timestamp: 2012-07-27T13:02:50.242819
+timestamp: 2012-07-29T22:49:22.461000
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name CHAR(512),
@@ -337,3 +85,90 @@ CREATE TABLE user(
     avatar CHAR(512),
     auth INTEGER REFERENCES auth_user(id) ON DELETE CASCADE
 );
+success!
+timestamp: 2012-07-29T22:49:22.590000
+CREATE TABLE subject(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(50) NOT NULL,
+    note TEXT,
+    subject_code CHAR(20)
+);
+success!
+timestamp: 2012-07-29T22:49:22.623000
+CREATE TABLE class_subject(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
+    location CHAR(512),
+    duration INTEGER,
+    is_finished CHAR(1),
+    term INTEGER,
+    teacher CHAR(512),
+    class_code CHAR(20)
+);
+success!
+timestamp: 2012-07-29T22:49:22.656000
+CREATE TABLE class_scheduler(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    day_of_week INTEGER,
+    period CHAR(512),
+    location CHAR(512)
+);
+success!
+timestamp: 2012-07-29T22:49:22.696000
+CREATE TABLE scheduler(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner INTEGER,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    term INTEGER
+);
+success!
+timestamp: 2012-07-29T22:49:22.738000
+CREATE TABLE notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    notification_class INTEGER,
+    owner INTEGER,
+    user_share INTEGER,
+    is_read CHAR(1),
+    type INTEGER,
+    date INTEGER,
+    is_completed CHAR(1)
+);
+success!
+timestamp: 2012-07-29T22:49:22.774000
+CREATE TABLE test(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    test_type INTEGER,
+    time INTEGER,
+    location CHAR(512),
+    project_due_date INTEGER
+);
+success!
+timestamp: 2012-07-29T22:49:22.814000
+CREATE TABLE project_member(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    user INTEGER,
+    note TEXT
+);
+success!
+timestamp: 2012-07-29T22:49:22.868000
+CREATE TABLE job(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(50) NOT NULL,
+    status INTEGER,
+    start_time INTEGER,
+    end_time INTEGER,
+    job_type INTEGER,
+    class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
+    date INTEGER,
+    repeat_date CHAR(512),
+    owner INTEGER,
+    note TEXT,
+    location CHAR(512),
+    test INTEGER
+);
+success!
+timestamp: 2012-07-30T10:29:08.242000
+ALTER TABLE notification ADD job_id INTEGER REFERENCES job(id) ON DELETE CASCADE;

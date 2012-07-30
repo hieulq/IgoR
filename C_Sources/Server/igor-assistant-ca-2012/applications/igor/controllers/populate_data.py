@@ -262,7 +262,7 @@ def populate_data():
 		class_scheduler_id = db.class_scheduler.insert(
 			class_subject = class_id,
 			day_of_week   = 2,
-			period        = '1,2,,4,5,6'
+			period        = '1,2,4,5,6'
 			)
 
 		# Subject "Object Oriented Programming"
@@ -332,7 +332,7 @@ def populate_data():
 		class_scheduler_id = db.class_scheduler.insert(
 			class_subject = class_id,
 			day_of_week   = 32,
-			period        = '1,2,,4,5,6'
+			period        = '1,2,3,4,5,6'
 			)
 
 

@@ -9,15 +9,14 @@ def get_current_term():
 
 	month = today.month
 
-	# if (month == 2  or 8 < month < 12):
-	# 	term_string += str (today.year) + '1'
-	# if (2 < month <= 6):
-	# 	term_string += str (today.year-1) + '2'
-	# elif (6 < month <= 8):
-	# 	term_string += str (today.year-1) + '3'
+	if (8 < month and month < 12):
+		term_string += str (today.year) + '1'
+	if (1 < month <= 6):
+		term_string += str (today.year-1) + '2'
+	elif (6 < month <= 8):
+		term_string += str (today.year-1) + '3'
 
 	return int (term_string)
-
 
 # Class Scheduler function
 
@@ -90,9 +89,9 @@ def add_scheduler(user_id, class_id, term = 0):
 def delete_scheduler(user_id, class_id):
 
 	scheduler = db(
-		db.scheduler.owner == user_id and
-		db.scheduler.class_subject == class_id
-		).select().delete()
+		(db.scheduler.owner == user_id) &
+		(db.scheduler.class_subject == class_id)
+		).delete()
 
 	return scheduler
 

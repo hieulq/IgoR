@@ -73,5 +73,28 @@ def mark_read():
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 
 	return locals()
+
+# phucnh edit 20120730
+# def format_client_data(notifications):
+# 	if notifications == None:
+# 		return
+
+# 	client_data = list()
+
+# 	for notification in notifications:
+# 		user = db(db.user.id == notifcation.user_share).select().first()
+
+# 		client = dict(
+# 			"userid": "1",
+#         	"username": "Nguyen Hong Phuc",
+#         	"avatar": "1.jpeg",
+#         	action = 'shares with you a task',
+#         	object = 'Deadline IT3410',
+#         	"objectid": "1",
+#         	"date": "1325397600"
+# 			)
+
+# 	return client_data
+# end phucnh edit 20120730
 	
 
