@@ -103,7 +103,7 @@ def add_class_job():
 			start_time = start_time,
 			end_time = end_time,
 			job_type = job_type,
-			date = get_date, ### string or integer???
+			date = maketime, ### Tuna input ????
 			repeat_date = repeat_date,
 			note = note,
 			location = location,
@@ -162,10 +162,10 @@ def mark_job_finished():
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 	return locals()
 
+@request.restful()
 def mark_jobs_finished():
 	response.view = 'generic.json'
 	def GET(job_ids):
-
 
 		#update data
 		for job_id in job_ids:
@@ -185,6 +185,176 @@ def mark_jobs_finished():
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 	return locals()
+
+
+@request.restful()
+def accept_job():
+	response.view = 'generic.json'
+	def GET(job_id, owner, from_user):
+
+		## validate input
+		if (not job_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"job id must be numberic")
+
+		if (int (job_id) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"job id can not less than 0")
+		if (not owner.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"user id must be numberic")
+
+		if (int (owner) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
+		if (not from_user.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"user id must be numberic")
+
+		if (int (from_user) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
+
+		##
+		rows = db(db.notification.owner == from_user).select()
+		check == False
+		for row in rows:
+			if (row.is_read == True):
+				check = True
+				break
+
+		if (check):
+			add_class_job() ### Tuna input???
+		else:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR,
+			 "can not accept job: notification is not checked")
+
+	return locals()
+
+@request.restful()
+def share_job_to_class():
+	response.view = 'generic.json'
+	def GET(job_id, from_user_id, class_id):
+
+		#validate data
+		if (not job_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"job id must be numberic")
+
+		if (int (job_id) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"job id can not less than 0")
+		if (not from_user_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"user id must be numberic")
+
+		if (int (from_user_id) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
+		if (not class_id.isdigit()):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR,
+			"class id must be numberic")
+
+		if (int (class_id) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id can not less than 0")
+		
+		###
+
+		rows = db(db.user.user_course == class_id).select()
+
+		for row in rows:
+
+			try:
+				notification_id = db.notification.insert(
+				notification_class = 0,
+				owner = from_user_id,
+				user_share = row.id,
+				is_read = False,
+				type = 1,
+				date = , ##Tuna - get date ???
+				is_completed = False
+				)
+
+			except Exception as e:
+				return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+
+		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+
+	return locals()
+
+
+
+# @request.restful()
+# def share_job_to_project():
+# 	response.view = 'generic.json'
+# 	def GET(job_id, from_user_id, class_id):
+
+# 		#validate data
+# 		if (not job_id.isdigit()):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR,
+# 			"job id must be numberic")
+
+# 		if (int (job_id) < 0):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR, 
+# 			"job id can not less than 0")
+# 		if (not from_user_id.isdigit()):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR,
+# 			"user id must be numberic")
+
+# 		if (int (from_user_id) < 0):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR, 
+# 			"user id can not less than 0")
+# 		if (not class_id.isdigit()):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR,
+# 			"class id must be numberic")
+
+# 		if (int (class_id) < 0):
+# 			return MessagePackager.get_packaged_message (
+# 			MessageStatus.ERROR, 
+# 			"class id can not less than 0")
+		
+# 		###
+
+# 		rows = db(db.user.user_course == class_id).select()
+
+# 		for row in rows:
+
+# 			try:
+# 				notification_id = db.notification.insert(
+# 				notification_class = 0,
+# 				owner = from_user_id,
+# 				user_share = row.id,
+# 				is_read = False,
+# 				type = 1,
+# 				date = , ##Tuna - get date ???
+# 				is_completed = False
+# 				)
+
+# 			except Exception as e:
+# 				return MessagePackager.get_packaged_message(MessageStatus.ERROR, e.errno + ': ' + e.strerror )
+
+# 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+
+# 	return locals()
+
 
 
 
