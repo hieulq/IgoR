@@ -85,7 +85,7 @@ Ext.define("Igor.view.task.Task", {
                 xtype: 'list',
                 itemId: 'schedulerList',
                 ui: 'round',
-                title: 'Tasks',                
+                title: 'Schedulers',                
                 itemTpl: '{title}',
                 limit: 5,
 
@@ -159,12 +159,6 @@ Ext.define("Igor.view.task.Task", {
                         var termBtn = Ext.getCmp('termSelectBtn');
 
                         navView.push({xtype: 'classDetailsForm'});
-                        addTaskBtn.setHandler(function() {
-                            var navView = this.up('navigationview');
-                            alert('tete');
-                            //navView.push({xtype: 'userDetailsForm'});
-                            this.hide();
-                        });
                         termBtn.hide();
                     }
                 }

@@ -1,72 +1,80 @@
-Ext.define("Igor.view.task.New", {
+Ext.define("Igor.view.task.NewClassTask", {
     extend: 'Ext.form.Panel',
-    xtype: 'newTask',
+    xtype: 'newClassTaskForm',
+    id: 'newClassTaskForm',
+
+    requires: [
+        'Igor.utility.picker.TimePicker'
+    ],
 
     config: {
-        title: 'New Scheduler',
-        iconCls: 'team',
+        title: 'New Class Task',
         layout: 'vbox',
 
         items: [
             {
                 xtype: 'fieldset',
-                title: 'Register',
-                instructions: 'Email and Password are required.',
+                title: 'New Class Task',
+                instructions: 'Enter Required Information.',
 
                 items: [
                     {
                         xtype: 'textfield',
-                        label: 'Full Name',
-                        name: 'fullname'
+                        label: 'Name',
+                        name: 'name'
                     },
                     {
                         xtype: 'textfield',
-                        label: 'Student ID',
-                        name: 'studentid'
+                        label: 'Location',
+                        name: 'location'
+                    },
+                    {
+                        xtype: 'textareafield',
+                        label: 'Note',
+                        name: 'note',
+                        height: 90
                     },
                     {
                         xtype: 'datepickerfield',
-                        name: 'dob',
-                        label: 'DOB',
-                        value: new Date('3/19/1989'),
+                        name: 'startdate',
+                        label: 'Start Date',
+                        value: new Date(),
                         picker: {
-                            yearFrom: 1989
+                            yearFrom: 2000
                         }
                     },
                     {
-                        xtype: 'selectfield',
-                        label: 'Course',
-                        name: 'course',
-                        valueField: 'course',
-                        displayField: 'title',
-                        store: {
-                            data: [
-                                { course: '52', title: 'Course 52'},
-                                { course: '53', title: 'Course 53'},
-                                { course: '54', title: 'Course 54'},
-                                { course: '55', title: 'Course 55'},
-                                { course: '56', title: 'Course 56'}
-                            ]
+                        xtype: 'timepickerfield',
+                        label: 'Start Time',
+                        value: new Date(), // object also possible {hours:12, minutes:25},
+                        name: 'starttime',
+                        picker:{
+                            height:300,// (optional) These values default to 0-24
                         }
                     },
                     {
-                        xtype: 'selectfield',
-                        label: 'Group',
-                        name: 'group',
-                        valueField: 'groupid',
-                        displayField: 'title',
-                        store: {
-                            data: [
-                                { groupid: '1', title: 'HTTT'},
-                                { groupid: '2', title: 'TTM'},
-                                { groupid: '3', title: 'KHMT'},
-                                { groupid: '4', title: 'KTMT'},
-                                { groupid: '5', title: 'CNPM'}
-                            ]
+                        xtype: 'datepickerfield',
+                        name: 'enddate',
+                        label: 'Deadline Date',
+                        value: new Date(),
+                        picker: {
+                            yearFrom: 2000
+                        }
+                    },
+                    {
+                        xtype: 'timepickerfield',
+                        label: 'Deadline Time',
+                        value: new Date(), 
+                        name: 'endtime',
+                        picker:{
+                            height:300,
                         }
                     }
                 ]
             },
+            
+
+            // Create a docked bottom toolbar which will contain buttons to trigger various functions in our formpanel.
             {
                 xtype: 'toolbar',
                 docked: 'bottom',
@@ -102,17 +110,11 @@ Ext.define("Igor.view.task.New", {
 
                     // Here we add a reset button which will reset all fields within the form panel back to their original value
                     {
-                        text: 'Cancel',
+                        text: 'Reset',
 
                         handler: function() {
                             // Call the form.reset method
-                            var navView = this.up('navigationview');
-                            var editProfileBtn = Ext.getCmp('addTaskBtn');
-                            var termBtn = Ext.getCmp('termSelectBtn');
-
-                            navView.pop();
-                            editProfileBtn.show();
-                            termBtn.show();
+                            Ext.getCmp('newClassTaskForm').reset();
 
                         }
                     }

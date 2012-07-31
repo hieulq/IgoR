@@ -6,6 +6,7 @@ Ext.define("Igor.view.task.ClassDetails", {
     requires: [
         'Ext.List',
         'Igor.view.task.ProjectDetails',
+        'Igor.view.task.ClassTaskDetails',
         'Igor.store.Classdetails',
         'Igor.store.Classprojects',
         'Igor.store.Classtasks'
@@ -136,11 +137,11 @@ Ext.define("Igor.view.task.ClassDetails", {
 
                 listeners: {
                     itemtap: function(list, index, target, record) {
-                        //console.log('onItemTap: index = ' + index);
-                        var rec = list.getStore().getAt(index);
-                        //console.log(rec.data);
-                        Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('jobid'));
-                        console.log(rec.get('jobid'));
+                        //var rec = list.getStore().getAt(index);
+                        //console.log(rec.get('jobid'));
+                        var navView = this.up('navigationview');
+                        
+                        navView.push({xtype: 'classTaskDetailsForm'});
                     }
                 }
 

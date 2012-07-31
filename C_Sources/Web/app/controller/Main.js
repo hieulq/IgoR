@@ -1,6 +1,11 @@
 Ext.define("Igor.controller.Main", {
     extend: 'Ext.app.Controller',
-    views: ['Main'], // tương ứng sheet 3, 4, 5
+    views: ['Main'], 
+
+    requires: [
+         'Igor.view.task.NewProject',
+         'Igor.view.task.NewClassTask'
+    ],
     
     init: function() {
         
@@ -35,6 +40,7 @@ Ext.define("Igor.controller.Main", {
             },
             tasksForm: {
                 pop: 'onTaskPop',
+                push: 'onTaskPush'
             }
         },
         routes: {
@@ -87,13 +93,14 @@ Ext.define("Igor.controller.Main", {
 
     onTaskPop: function(){
         var taskForm = this.getTasksForm();
-        var activeCtn = taskForm.getPreviousItem();
+        var previousCtn = taskForm.getPreviousItem();
 
         //console.log(activeCtn.getItemId());
 
-        if (activeCtn == null) {
+        if (previousCtn == null) {
             var termBtn = Ext.getCmp('termSelectBtn');
             var addTaskBtn = Ext.getCmp('addTaskBtn');
+
             addTaskBtn.setHandler(function() {
                 var navView = this.up('navigationview');
                 var termBtn = Ext.getCmp('termSelectBtn');
@@ -105,7 +112,185 @@ Ext.define("Igor.controller.Main", {
 
             termBtn.show();
             addTaskBtn.show();
-        }        
+        }    
+        else if (previousCtn.getItemId().indexOf('scheduler') != -1) {
+            //console.log(previousCtn.getItemId());
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            addTaskBtn.show();
+
+            addTaskBtn.setHandler(function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+
+                            text: 'Add New Project',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Task',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            });
+        }
+        else if (previousCtn.getItemId().indexOf('classDetailsForm') != -1) {
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            addTaskBtn.show();
+
+            addTaskBtn.setHandler(function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+
+                            text: 'Add New Member',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Job',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            });
+        }
+    },
+
+    onTaskPush: function(){
+        var taskForm = this.getTasksForm();
+        var activeCtn = taskForm.getActiveItem();
+
+        if (activeCtn.getItemId().indexOf('classDetailsForm') != -1) {
+            //console.log(activeCtn.getItemId());
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+
+            addTaskBtn.setHandler(function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+
+                            text: 'Add New Project',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Task',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            });
+        }
+        else if (activeCtn.getItemId().indexOf('projectDetailsForm') != -1) {
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+
+            addTaskBtn.setHandler(function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+
+                            text: 'Add New Member',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Job',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            });
+        }
+        else if (activeCtn.getItemId().indexOf('classTaskDetailsForm') != -1) {
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            addTaskBtn.hide();
+        }
+        else if (activeCtn.getItemId().indexOf('jobDetailsForm') != -1) {
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            addTaskBtn.hide();
+        }
     },
 
     // Updates

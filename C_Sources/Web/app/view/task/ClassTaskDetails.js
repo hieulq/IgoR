@@ -1,11 +1,11 @@
-Ext.define("Igor.view.task.JobDetails", {
+Ext.define("Igor.view.task.ClassTaskDetails", {
     extend: 'Ext.Container',
-    xtype: 'jobDetailsForm',
-    itemId: 'jobDetailsForm',
+    xtype: 'classTaskDetailsForm',
+    itemId: 'classTaskDetailsForm',
 
     requires: [
         'Ext.List',
-        'Igor.store.Projectjobs'
+        'Igor.store.Classtasks'
     ],
 
     config: {
@@ -17,11 +17,11 @@ Ext.define("Igor.view.task.JobDetails", {
         items: [
             {
                 xtype: 'dataview',
-                itemId: 'jobDetailPanel',
+                itemId: 'taskDetailPanel',
                 flex: 1,
                 scrollable: true,
 
-                store: 'Projectjobs',
+                store: 'Classtasks',
                 itemTpl: [
                     '<div class="header">',
                     '   <div class="avatar" style="background-image:url(resources/images/task-icon.png);"></div>',
@@ -102,22 +102,5 @@ Ext.define("Igor.view.task.JobDetails", {
             }
 
         ]
-    },
-
-    initialize: function() {
-        var store = Ext.data.StoreManager.lookup('Projectjobs');
-        store.load({
-            callback: function(records, operation, success) {
-                    /*var class1 = store.first();
-                    console.log('Class code is: ' + class1.get('class_code'));
-
-                    class1.projects().each(function(project) {
-                        console.log("Project ID: " + project.getId());
-                    });*/
-
-                    console.log(records);
-                },
-                scope: this
-        });
     }
 });

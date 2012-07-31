@@ -32,7 +32,7 @@ Ext.define("Igor.view.Main", {
             {
                 xtype: 'tasksForm',
                 id: 'tasks',
-                title: 'Task',
+                title: 'Scheduler',
                 iconCls: 'calendar2',
                 cls: 'task'
             },
