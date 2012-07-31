@@ -7,37 +7,42 @@
 #########################################################################
 
 from message_packager import *
+from gluon.dal import Rows
+from gluon.tools import Service
+import gluon.contenttype
 
-@request.restful()
+service = Service()
+
+
+def call():
+	session.forget()
+
+	return service()
+
+@service.jsonp
+@service.json
 def get_all_subjects():
-	response.view = 'generic.json'
-	def GET():
-		subjects = db(db.subject).select()
-
-		#client = dict
+	
+	subjects = db(db.subject).select()
 				
-		return MessagePackager.get_packaged_message(MessageStatus.OK, subjects)
+	return MessagePackager.get_packaged_message(MessageStatus.OK, subjects)
 
-	return locals()
+@service.jsonp
+@service.json
+def get_subject_detail(id):
 
-@request.restful()
-def get_subject_detail():
-	response.view = 'generic.json'
-	def GET(id):
+	# Validate input
+	if (not id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"subject id must be numberic")
 
-		# Validate input
-		if (not id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"subject id must be numberic")
+	if (int (id) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"subject id can not less than 1")
 
-		if (int (id) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"subject id can not less than 1")
+	# Get data
+	subject = db(db.subject.id == id).select()
 
-		# Get data
-		subject = db(db.subject.id == id).select()
-		return MessagePackager.get_packaged_message(MessageStatus.OK, subject)
-
-	return locals()
+	return MessagePackager.get_packaged_message(MessageStatus.OK, subject)

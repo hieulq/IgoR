@@ -9,42 +9,45 @@
 from message_packager import *
 from gluon.dal import Rows
 from gluon.tools import Service
+import gluon.contenttype
+
 service = Service()
 
+def call():
+	session.forget()
+
+	return service()
+
 # Get all classes by specific subject
-@request.restful()
-def get_classes_by_subject():
-	response.view = 'generic.json'
-	def GET(subject_id, term = 0):
-
+@service.jsonp
+@service.json
+def get_classes_by_subject(subject_id, term = 0):
+	
 		# Validate input 
-		if (not subject_id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"subject id must be numberic")
+	if (not subject_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"subject id must be numberic")
 
-		if (not (str (term)).isdigit()):
-			return MessagePackager.get_packaged_message(
-				MessageStatus.ERROR,
-				"term must be numberic")
+	if (not (str (term)).isdigit()):
+		return MessagePackager.get_packaged_message(
+			MessageStatus.ERROR,
+			"term must be numberic")
 
-		if (int (subject_id) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"subject id can not less than 1")
+	if (int (subject_id) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"subject id can not less than 1")
 
-		# Get data
-		if (term == 0):
-			term = get_current_term()
+	# Get data
+	if (term == 0):
+		term = get_current_term()
 
-		classes = db(
-			db.class_subject.subject == subject_id and 
-			db.class_subject.term == term).select()
+	classes = db(
+		db.class_subject.subject == subject_id and 
+		db.class_subject.term == term).select()
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
-
-	return locals()
-
+	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 
 # Get class detail
 # @request.restful()
@@ -73,14 +76,9 @@ def get_classes_by_subject():
 
 # 	return locals()
 
-def call():
-	session.forget()
-
-	return service()
-
-import gluon.contenttype
 
 @service.jsonp
+@service.json
 def get_class_detail(id):
 	# response.view = 'generic.jsonp'
 	# response.headers['Content-Type'] = gluon.contenttype.contenttype('.js')
@@ -108,79 +106,79 @@ def get_class_detail(id):
 # Input:
 # 	integer user_id
 # 	integer term
-@request.restful()
-def get_classes_by_user():
-	response.view = 'generic.json'
-	def GET(user_id, term = 0):
+@service.jsonp
+@service.json
+def get_classes_by_user(user_id, term = 0):
 
 		# Get data
-		if (term == 0):
-			term = get_current_term()
+	if (term == 0):
+		term = get_current_term()
 
-		user_schedulers = db(db.scheduler.owner == user_id).select()
+	user_schedulers = db(db.scheduler.owner == user_id).select()
 		
-		classes = list()
+	classes = list()
 
-		for user_scheduler in user_schedulers:
+	for user_scheduler in user_schedulers:
 
-			class_subject = db(
-				(db.class_subject.id == user_scheduler.class_subject) &
-				(db.class_subject.term == term)).select().first()
+		class_subject = db(
+			(db.class_subject.id == user_scheduler.class_subject) &
+			(db.class_subject.term == term)).select().first()
 
 
-			if (class_subject != None):
-				classes.append(class_subject)
+		if (class_subject != None):
+			classes.append(class_subject)
 
-		classes = format_client_data(classes)
+	classes = format_client_data(classes)
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
+	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 
-	return locals()
-
-@request.restful()
-def add_class_to_user():
-	response.view = 'generic.json'
-	def GET(class_id, user_id):
+# Add a class to user
+# Input:
+# 	integer class_id
+# 	integer user_id
+@service.jsonp
+@service.json
+def add_class_to_user(class_id, user_id):
 
 		# Validate input
-		if (not class_id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"class id must be numberic")
+	if (not class_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id must be numberic")
 
-		if (not user_id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id must be numberic")
+	if (not user_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id must be numberic")
 
-		# Insert new data
-		# TODO: add class's rule
+	# Insert new data
+	# TODO: add class's rule
 
-		try:
-			scheduler_id = db.scheduler.insert(
-				owner         = user_id,
-				class_subject = class_id,
-				term          = get_current_term())
-		except Exception, err:
-			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+	try:
+		scheduler_id = db.scheduler.insert(
+			owner         = user_id,
+			class_subject = class_id,
+			term          = get_current_term())
+	except Exception, err:
+		return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler_id)
+	return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler_id)
 
-	return locals()
 
-@request.restful()
-def delete_class():
-	response.view = 'generic.json'
-	def GET(user_id, class_id):
+# Delete class from user
+# Input:
+# 	integer user_id
+#	integer class_id
+@service.jsonp
+@service.json
+def delete_class(user_id, class_id):
 
-		try:
-			scheduler = delete_scheduler(user_id, class_id);
-		except Exception, err:
-			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+	try:
+		scheduler = delete_scheduler(user_id, class_id);
+	except Exception, err:
+		return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler)
-
-	return locals()
+	return MessagePackager.get_packaged_message(MessageStatus.OK, scheduler)
 
 # Format class data to client data
 def format_client_data(classes):
@@ -225,15 +223,15 @@ def format_client_data(classes):
 
 def class_data_format(class_subject, class_scheduler ,subject, session, period):
 	client = dict(
-		class_id     = class_subject.id,
-		class_code   = class_subject.class_code,
-		subject_name = subject.name,
-		subject_code = subject.subject_code,
-		num_of_day   = class_scheduler.day_of_week,
-        #"total_session": "Session 1-2-3",
-        teacher_name = class_subject.teacher,
-        location     = class_subject.location,
-        period = period,
+		class_id      = class_subject.id,
+		class_code    = class_subject.class_code,
+		subject_name  = subject.name,
+		subject_code  = subject.subject_code,
+		num_of_day    = class_scheduler.day_of_week,
+		total_session = get_session_string(session),
+		teacher_name  = class_subject.teacher,
+		location      = class_subject.location,
+		period        = period,
 		session_start = str(session[0]),
 		)
 

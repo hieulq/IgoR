@@ -32,6 +32,21 @@ def get_class_sessions(class_scheduler_session):
 
 	return result
 
+def get_session_string(session):
+
+	if (len (session) == 0):
+		return ''
+
+	session_str = 'Session '
+
+	for i in range(0,len(session)):
+		if i == 0:
+			session_str += str (session[i])
+		else:
+			session_str += '-' + str (session[i])
+
+	return session_str
+
 ######################################################################################
 # User functions
 ######################################################################################

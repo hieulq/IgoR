@@ -7,73 +7,114 @@
 #########################################################################
 
 from message_packager import *
+from gluon.dal import Rows
+from gluon.tools import Service
+import gluon.contenttype
+
+service = Service()
+
+
+def call():
+	session.forget()
+
+	return service()
 
 # Registration new user
-@request.restful()
-def register():
-	response.view = 'generic.json'
-	def GET(name, class_group, student_code, user_course, avatar):
-		return
+@service.jsonp
+@service.json
+def register(email, password, name, class_group, student_code, user_course, avatar):
 
-	return locals()
+	try:
+		user = db.auth_user.insert(
+			first_name = name,
+			last_name  = name,
+			email      = email,
+			password   = db.auth_user.password.requires[0](password)[0]
+			)
 
+		if user:
+			user = db.user.insert(
+				name         = name,
+				class_group  = class_group,
+				student_code = student_code,
+				user_course  = user_course,
+				avatar       = avatar,
+				auth         = user
+				)
+	except Exception, eerr:
+		db.rollback()
+		return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+
+	return MessagePackager.get_packaged_message(MessageStatus.OK, user)
+
+# Check user's email available
+@service.jsonp
+@service.json
+def check_email_available(email):
+	
+	if (db(db.auth_user.email == email).isempty()):
+		return MessagePackager.get_packaged_message (MessageStatus.OK, 
+			"1")
+	else:
+		return MessagePackager.get_packaged_message (MessageStatus.OK, 
+			"0")
 
 # Login 
-@request.restful()
+@service.jsonp
+@service.json
 def login(email, password):
-	response.view = 'generic.json'
-	def GET(email, password):
-		return
 
-	return locals()
+	is_login = auth.login_bare(email, password)
+	
+	if not is_login:
+		return MessagePackager.get_packaged_message (MessageStatus.OK, 
+			"Authentication failed! Check your email or password again")
+
+	print session
+	return MessagePackager.get_packaged_message (MessageStatus.OK, "Success")
 
 # Search user
 # Input
 # 	type: integer. 2: by class, 3: by subject, 5: by user name
-@request.restful()
-def search_user():
-	response.view = 'generic.json'
-	def GET(type, value = ''):
+@service.jsonp
+@service.json
+def search_user(type, value = ''):
 		
-		if (not type.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"type must be numberic! - 2: get by class, 3: get by subject, 5: by user name")
+	if (not type.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"type must be numberic! - 2: get by class, 3: get by subject, 5: by user name")
 
-		users = dict()
+	users = dict()
 
-		if (int (type) == 5):
-			users = get_user_by_name (value)
-			#users = db(db.user).select()
+	if (int (type) == 5):
+		users = get_user_by_name (value)
+		#users = db(db.user).select()
 			
-		users = format_client_data (users)
+	users = format_client_data (users)
 
-		return MessagePackager.get_packaged_message (MessageStatus.OK, users)
+	return MessagePackager.get_packaged_message (MessageStatus.OK, users)
 
-	return locals()
+# Get user information
+@service.jsonp
+@service.json
+def get_user_detail(id):
 
-@request.restful()
-def get_user_detail():
-	response.view = 'generic.json'
-	def GET(id):
+	if (not id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id must be numberic!")
 
-		if (not id.isdigit()):
+	if (int (id) < 0):
 			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id must be numberic!")
-
-		if (int (id) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id can not less than 0!")
+			MessageStatus.ERROR, 
+			"user id can not less than 0!")
 		
-		user = 	db(db.user.id == id).select ()
-		
-		user = format_client_data (user)
+	user = 	db(db.user.id == id).select ()
+	
+	user = format_client_data (user)
 
-		return MessagePackager.get_packaged_message (MessageStatus.OK, user)
-
-	return locals()
+	return MessagePackager.get_packaged_message (MessageStatus.OK, user)
 
 # Format data for client 
 def format_client_data(users):
