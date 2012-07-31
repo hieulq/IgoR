@@ -1,6 +1,10 @@
 IgoR Server Source Code
 ==============
 
+Author
+* Nguyen Hong Phuc - phucnh
+* Nguyen Anh Tu - tuna
+
 IgoR Server Source Code
 
 * Based on web2py framework
@@ -19,3 +23,6 @@ Server Database Detail
 
 Database Design
 http://github.com/hieulq/IgoR/raw/master/B_Database/igor-db.jpg
+
+** NOTE:
+* web2py framework has added jsonp service by phucnh
