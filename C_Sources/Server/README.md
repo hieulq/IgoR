@@ -18,4 +18,4 @@ Server Database Detail
 * notification
 
 Database Design
-http://github.com/hieulq/IgoR/blob/master/B_Database/igor-db.jpg
+http://github.com/hieulq/IgoR/raw/master/B_Database/igor-db.jpg
