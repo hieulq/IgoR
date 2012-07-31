@@ -45,9 +45,11 @@ Ext.define("Igor.view.notification.News", {
         items: [
             {
                 xtype: 'list',
+                id: 'updateList',
                 title: 'News',
                 cls: 'x-feeds',
                 disclosure: true, 
+                onItemDisclosure: true,
                 limit: 5,
                 disableSelection: true,
 
@@ -63,20 +65,8 @@ Ext.define("Igor.view.notification.News", {
                     '<span>{action} <a href="">{object}</a></span>',
                 ].join(''),
 
-                onItemDisclosure: function(record, item, index, e) {
-                    //show a messagebox alert which shows the persons firstName
-                    e.stopEvent();
-                    Ext.Msg.alert('Test', 'Redirect to objectid ' + record.get('objectid'));
-                },
-
-                listeners: {
-                    itemtap: function(list, index, target, record) {
-                        //console.log('onItemTap: index = ' + index);
-                        var rec = list.getStore().getAt(index);
-                        //console.log(rec.data);
-                        Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('objectid'));
-                    }
-                }
+                
+                
             }
         ]
     }

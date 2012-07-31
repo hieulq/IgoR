@@ -83,6 +83,7 @@ Ext.define("Igor.view.task.Task", {
         items: [
             {
                 xtype: 'list',
+                itemId: 'schedulerList',
                 ui: 'round',
                 title: 'Tasks',                
                 itemTpl: '{title}',

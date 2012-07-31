@@ -1,23 +1,27 @@
 Ext.define("Igor.view.task.ClassDetails", {
     extend: 'Ext.Container',
     xtype: 'classDetailsForm',
+    itemId: 'classDetailsForm',
 
     requires: [
         'Ext.List',
+        'Igor.view.task.ProjectDetails',
         'Igor.store.Classdetails',
-        'Igor.store.Classprojects'
+        'Igor.store.Classprojects',
+        'Igor.store.Classtasks'
     ],
 
     config: {
         layout: 'vbox',
         cls: 'userInfo',
         title: 'Class Detail',
-
+        autoDestroy: false,
 
         items: [
             {
                 xtype: 'dataview',
-                flex: 1,
+                itemId: 'classDetailPanel',
+                flex: 2,
                 scrollable: false,
 
                 store: 'Classdetails',
@@ -74,15 +78,17 @@ Ext.define("Igor.view.task.ClassDetails", {
 
             {
                 xtype: 'list',
+                itemId: 'classProjectList',
                 store: 'Classprojects',
                 disclosure: true,
+                onItemDisclosure: true,
                 flex: 1,                 
 
                 cls: 'x-feeds',
                 itemTpl: [
                     '<div class="feed" style="background-image:url(resources/images/project_icon.png);"></div>',
                     '{name}',
-                    '{description}',
+                    '<span>{description}</span>',
                 ].join(''),
 
                 items: [
@@ -95,32 +101,68 @@ Ext.define("Igor.view.task.ClassDetails", {
 
                 listeners: {
                     itemtap: function(list, index, target, record) {
-                        //console.log('onItemTap: index = ' + index);
-                        var rec = list.getStore().getAt(index);
-                        //console.log(rec.data);
-                        Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('members'));
-                        console.log(rec.get('members'));
+                        //var rec = list.getStore().getAt(index);
+                        //console.log(rec.get('members'));
+                        var navView = this.up('navigationview');
+                        
+                        navView.push({xtype: 'projectDetailsForm'});
                     }
                 }
 
-            }
+            },
+
+            {
+                xtype: 'list',
+                itemId: 'classTaskList',
+                store: 'Classtasks',
+                disclosure: true,
+                onItemDisclosure: true,
+                flex: 1,                 
+
+                cls: 'x-feeds',
+                itemTpl: [
+                    '<div class="feed" style="background-image:url(resources/images/{status}.png);"></div>',
+                    '{name}',
+                    '<span>{start_time} at {location}</span>',
+                ].join(''),
+
+                items: [
+                    {
+                        xtype: 'listitemheader',
+                        cls: 'dark',
+                        html: 'Tasks'
+                    }
+                ],
+
+                listeners: {
+                    itemtap: function(list, index, target, record) {
+                        //console.log('onItemTap: index = ' + index);
+                        var rec = list.getStore().getAt(index);
+                        //console.log(rec.data);
+                        Ext.Msg.alert('Test', 'Redirect to objectid ' + rec.get('jobid'));
+                        console.log(rec.get('jobid'));
+                    }
+                }
+
+            },
+
         ]
     },
 
     initialize: function() {
-        var store = Ext.data.StoreManager.lookup('Classprojects');
+        /*var store = Ext.data.StoreManager.lookup('Classprojects');
         store.load({
             callback: function(records, operation, success) {
-                    /*var class1 = store.first();
+                    var class1 = store.first();
                     console.log('Class code is: ' + class1.get('class_code'));
 
                     class1.projects().each(function(project) {
                         console.log("Project ID: " + project.getId());
-                    });*/
+                    });
 
                     console.log(records);
                 },
                 scope: this
-        });
+        });*/
     }
 });

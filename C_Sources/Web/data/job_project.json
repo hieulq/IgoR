@@ -1,5 +1,5 @@
 {
-    "class": [
+    "class": 
         {
             "class_code": "DSA_3568",
             "subject_name": "Data Structure and Algorithm",
@@ -10,10 +10,9 @@
             "total_session": "Session 1-2-3",
             "teacher_name": "Vu Tuyet Trinh",
             "location": "D3-501"
-        }
-    ],
+        },
 
-    "projects": [
+    "projects": 
         {
             "projectid": "1",
             "name": "Assignment 1",
@@ -46,7 +45,7 @@
                 {
                     "jobid": "1",
                     "name": "Writing Documents",
-                    "status": "0", //0: not completed, 1: completed
+                    "status": "1", //0: not completed, 1: completed
                     "start_time": "17/7/2012",
                     "end_time": "28/7/2012",
                     "repeat_date": "1",//Month, week, year
@@ -64,30 +63,29 @@
                     "note": "3 files have to submited"
                 }
             ]
-        }        
-    ],
+        },
     
     "tasks": [
-                {
-                    "jobid": "3",
-                    "name": "Midterm test",
-                    "status": "0", //0: not completed, 1: completed
-                    "start_time": "26/8/2012",
-                    "end_time": "26/8/2012",
-                    "repeat_date": "0",//1: Monday
-                    "location": "D3-201",
-                    "note": "45 minutes test"
-                },
-                {
-                    "jobid": "4",
-                    "name": "Final test",
-                    "status": "0", //0: not completed, 1: completed
-                    "start_time": "26/10/2012",
-                    "end_time": "26/10/2012",
-                    "repeat_date": "0",//1: Monday
-                    "location": "D9-201",
-                    "note": "90 minutes test"
-                }
+        {
+            "jobid": "3",
+            "name": "Midterm test",
+            "status": "1", //0: not completed, 1: completed
+            "start_time": "26/8/2012",
+            "end_time": "26/8/2012",
+            "repeat_date": "0",//Month, week, year
+            "location": "D3-201",
+            "note": "45 minutes test"
+        },
+        {
+            "jobid": "4",
+            "name": "Final test",
+            "status": "0", //0: not completed, 1: completed
+            "start_time": "26/10/2012",
+            "end_time": "26/10/2012",
+            "repeat_date": "0",//Month, week, year
+            "location": "D9-201",
+            "note": "90 minutes test"
+        }
 
-            ]
+    ]
 }

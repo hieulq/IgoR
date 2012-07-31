@@ -1,8 +1,8 @@
-Ext.define("Igor.store.Classprojects", {
+Ext.define("Igor.store.Classtasks", {
     extend: 'Ext.data.Store',
 
     config: {
-        model: 'Igor.model.Classproject',
+        model: 'Igor.model.Classtask',
         autoLoad: true,
 
         
