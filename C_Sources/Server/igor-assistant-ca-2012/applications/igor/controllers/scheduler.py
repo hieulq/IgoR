@@ -33,18 +33,18 @@ def get_scheduler(user_id, term = 0):
 			MessageStatus.ERROR, 
 			"user id must be numberic!")
 
-	if (not term.isdigit()):
-		return MessagePackager.get_packaged_message (
-			MessageStatus.ERROR, 
-			"term must be numberic!")
+	if term == 0:
+		term = get_current_term()
+	else:
+		if (not term.isdigit()):
+			return MessagePackager.get_packaged_message (
+				MessageStatus.ERROR, 
+				"term must be numberic!")
 
-	if (int (id) < 0):
+	if (int (user_id) < 0):
 		return MessagePackager.get_packaged_message (
 			MessageStatus.ERROR, 
 			"user id can not less than 0!")
-
-	if term == 0:
-		term = get_current_term()
 
 	# end phucnh edit 20120726
 
@@ -53,7 +53,7 @@ def get_scheduler(user_id, term = 0):
 		db.scheduler.owner == user_id and 
 		db.scheduler.term == term).select()
 
-	return MessagePackager.get_packaged_message(MessageStatus.Ok, schedulers)
+	return MessagePackager.get_packaged_message(MessageStatus.OK, schedulers)
 
 # Get scheduler of use at specific term with time
 # Input:

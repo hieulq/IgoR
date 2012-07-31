@@ -22,7 +22,7 @@ def call():
 # Registration new user
 @service.jsonp
 @service.json
-def register(email, password, name, class_group, student_code, user_course, avatar):
+def register(email, password, name, class_group, student_code, user_course, avatar = ''):
 
 	try:
 		user = db.auth_user.insert(
@@ -132,7 +132,7 @@ def format_client_data(users):
 				#username  = user.name,
 				fullname  = user.name,
 				#password = 
-				avatar    = user.avatar,
+				avatar    = get_avatar_full_url(user.avatar),
 				studentid = user.student_code,
 				email     = auth.email,
 				group     = user.class_group,

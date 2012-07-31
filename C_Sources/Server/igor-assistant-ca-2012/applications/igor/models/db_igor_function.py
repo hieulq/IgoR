@@ -85,6 +85,14 @@ def get_user_by_name(name_keyword):
 
 	return users
 
+# Get user's avatar
+def get_avatar_full_url(avatar_url):
+
+	if avatar_url == '' or avatar_url == None:
+		return URL('static','images/igor.jpg', scheme='http')
+	else:
+		return avatar_url
+
 ######################################################################################
 # Scheduler functions
 ######################################################################################
