@@ -9,10 +9,20 @@ Ext.define("Igor.model.Classproject", {
         ],
 
         associations: [
-            {type: 'hasMany', model: 'Igor.model.User', name: 'members', associationKey: 'members'},
+            {type: 'hasMany', model: 'Igor.model.Projectmember', name: 'members', associationKey: 'members'},
             {type: 'hasMany', model: 'Igor.model.Projectjob', name: 'jobs', associationKey: 'jobs'},
             
-        ]
+        ],
+
+        proxy: {
+            type: 'ajax',
+            url : 'data/job_project.json',
+            reader: {
+                type: 'json',
+                rootProperty: 'projects'
+
+            }
+        }
 
     }
 });

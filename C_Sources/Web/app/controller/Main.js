@@ -9,8 +9,9 @@ Ext.define("Igor.controller.Main", {
     config: {
         control: {
             // Sự kiện click vào 1 item trên list Updates
-            updatesListForm: {
-                itemSelected: 'viewUpdateDetails',
+            updatesList: {
+                itemtap: 'viewUpdateDetails',
+                disclose: 'viewUpdateDiscloseDetails'
             },
 
             // Sự kiện khi click vào 1 task trên form tasks list
@@ -18,15 +19,15 @@ Ext.define("Igor.controller.Main", {
                 tabSelected: 'showTasksByDay',
             },
             tasksListByDay: {
-                itemSelected: 'viewTaskDetails',
+                itemtap: 'viewTaskDetails',
             },
 
             // Sự kiện khi click trên các form của màn hình User
             friendsListForm: {
-                itemSelected: 'viewFriendDetails',
+                itemtap: 'viewFriendDetails',
             },
             classesListForm: {
-                itemSelected: 'viewClassDetails',
+                itemtap: 'viewClassDetails',
             },
 
             userDetailsForm: {
@@ -54,7 +55,7 @@ Ext.define("Igor.controller.Main", {
 
         refs: {
             // Updates
-            updatesListForm: '#updatesListForm',
+            updatesList: '#updateList',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -85,19 +86,26 @@ Ext.define("Igor.controller.Main", {
     },
 
     onTaskPop: function(){
-        var termBtn = Ext.getCmp('termSelectBtn');
-        var addTaskBtn = Ext.getCmp('addTaskBtn');
-        addTaskBtn.setHandler(function() {
-            var navView = this.up('navigationview');
+        var taskForm = this.getTasksForm();
+        var activeCtn = taskForm.getPreviousItem();
+
+        //console.log(activeCtn.getItemId());
+
+        if (activeCtn == null) {
             var termBtn = Ext.getCmp('termSelectBtn');
+            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            addTaskBtn.setHandler(function() {
+                var navView = this.up('navigationview');
+                var termBtn = Ext.getCmp('termSelectBtn');
 
-            navView.push({xtype: 'newTask'});
-            this.hide();
-            termBtn.hide();
-        });
+                navView.push({xtype: 'newTask'});
+                this.hide();
+                termBtn.hide();
+            });
 
-        termBtn.show();
-        addTaskBtn.show();
+            termBtn.show();
+            addTaskBtn.show();
+        }        
     },
 
     // Updates
@@ -125,10 +133,13 @@ Ext.define("Igor.controller.Main", {
         // abc...
     },
 
-    viewUpdateDetails: function(){
+    viewUpdateDetails: function(list, index, target, record){
         // Show 1 popup để hiển thị details của notification này
         // Trên popup này sẽ có 1 nút "Read/Unread" để xác định việc xem notification này, 
         // sử dụng hàm Mark_read(notifications) trong file .doc
+        var rec = list.getStore().getAt(index);
+        //console.log(rec.data);
+        Ext.Msg.alert('Test', '1Redirect to objectid ' + rec.get('objectid'));
     },
 
     // Tasks

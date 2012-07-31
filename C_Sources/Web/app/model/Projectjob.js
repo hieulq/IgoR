@@ -13,6 +13,14 @@ Ext.define("Igor.model.Projectjob", {
             'note'
         ],
 
+        proxy: {
+            type: 'ajax',
+            url : 'data/job_project.json',
+            reader: {
+                type: 'json',
+                rootProperty: 'projects.jobs'
 
+            }
+        }
     }
 });
