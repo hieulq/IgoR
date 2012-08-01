@@ -14,9 +14,9 @@ Ext.define("Igor.store.Tasks", {
                 return record.get('!period');
             }
         },
-        proxy: {
+        /*proxy: {
             type: 'ajax',
             url: 'data/tasks.json'
-        }
+        }*/
     }
 });

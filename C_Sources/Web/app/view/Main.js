@@ -1,6 +1,7 @@
 Ext.define("Igor.view.Main", {
     extend: 'Ext.tab.Panel',
     xtype: 'mainpanel',
+    id: 'mainpanel',
 
     requires: [
         'Igor.view.notification.News',

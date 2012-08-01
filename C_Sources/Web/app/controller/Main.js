@@ -38,6 +38,12 @@ Ext.define("Igor.controller.Main", {
             userDetailsForm: {
                 pop: 'onProfilePop',
             },
+
+            daySelBtn: {
+                toggle: 'onDayToggle',
+                initialize: 'onSelBtnInit',
+            },
+
             tasksForm: {
                 pop: 'onTaskPop',
                 push: 'onTaskPush'
@@ -50,7 +56,7 @@ Ext.define("Igor.controller.Main", {
             
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks/abc thì sẽ thực hiện hàm doTasks()
             'tasks/:id': 'doTasks',
-            'tasks/taskbyday/:timestamp': 'showTasksByDay',
+            'tasks/taskbyday/:day_of_week': 'showTasksByDay',
             'tasks/Task/:id':'viewTaskDetails', // Hàm này sẽ thực thi khi có route tương ứng việc click 1 item trên list task
 
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks thì sẽ thực hiện hàm doTasks()
@@ -62,6 +68,8 @@ Ext.define("Igor.controller.Main", {
         refs: {
             // Updates
             updatesList: '#updateList',
+            daySelBtn: '#daySelectBtn',
+            mainPnl: 'mainpanel',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -84,6 +92,25 @@ Ext.define("Igor.controller.Main", {
             // User
             doUser: ['getUserDetails', 'getFriendsListByUser', 'getClassesListByUser']
         },
+    },
+
+    onDayToggle: function(container, button, pressed, eOpts){
+        //console.log("User toggled the '" + button.getText() + button.getId() + "' button: " + (pressed ? 'on' : 'off'));
+        window.location.href = 'index.html#tasks/taskbyday/' + button.getId();
+    },
+
+    onSelBtnInit: function(){
+        var segmentedButton = this.getDaySelBtn();
+        var date = new Date().getDay();
+
+        if (date == 0) {
+            segmentedButton.setPressedButtons(6);
+            this.showTasksByDay(6);    
+        } 
+        else {
+            segmentedButton.setPressedButtons(date - 1);
+            this.showTasksByDay(date - 1); 
+        }
     },
 
     onProfilePop: function(){
@@ -118,83 +145,13 @@ Ext.define("Igor.controller.Main", {
             var addTaskBtn = Ext.getCmp('addTaskBtn');
             addTaskBtn.show();
 
-            addTaskBtn.setHandler(function() {
-                this.actions = Ext.Viewport.add({
-                    xtype: 'actionsheet',
-                    items: [
-                        {
-
-                            text: 'Add New Project',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newProjectForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            text: 'Add New Task',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newClassTaskForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Cancel',
-                            scope: this,
-                            handler: function() {
-                                this.actions.hide();
-                            }
-                        }
-                    ]
-                });
-
-                this.actions.show();
-            });
+            addTaskBtn.setHandler(this.getFuncForAddBtn("class"));
         }
         else if (previousCtn.getItemId().indexOf('classDetailsForm') != -1) {
             var addTaskBtn = Ext.getCmp('addTaskBtn');
             addTaskBtn.show();
 
-            addTaskBtn.setHandler(function() {
-                this.actions = Ext.Viewport.add({
-                    xtype: 'actionsheet',
-                    items: [
-                        {
-
-                            text: 'Add New Member',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newProjectForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            text: 'Add New Job',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newClassTaskForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Cancel',
-                            scope: this,
-                            handler: function() {
-                                this.actions.hide();
-                            }
-                        }
-                    ]
-                });
-
-                this.actions.show();
-            });
+            addTaskBtn.setHandler(this.getFuncForAddBtn("project"));
         }
     },
 
@@ -206,82 +163,12 @@ Ext.define("Igor.controller.Main", {
             //console.log(activeCtn.getItemId());
             var addTaskBtn = Ext.getCmp('addTaskBtn');
 
-            addTaskBtn.setHandler(function() {
-                this.actions = Ext.Viewport.add({
-                    xtype: 'actionsheet',
-                    items: [
-                        {
-
-                            text: 'Add New Project',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newProjectForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            text: 'Add New Task',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newClassTaskForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Cancel',
-                            scope: this,
-                            handler: function() {
-                                this.actions.hide();
-                            }
-                        }
-                    ]
-                });
-
-                this.actions.show();
-            });
+            addTaskBtn.setHandler(this.getFuncForAddBtn("class"));
         }
         else if (activeCtn.getItemId().indexOf('projectDetailsForm') != -1) {
             var addTaskBtn = Ext.getCmp('addTaskBtn');
 
-            addTaskBtn.setHandler(function() {
-                this.actions = Ext.Viewport.add({
-                    xtype: 'actionsheet',
-                    items: [
-                        {
-
-                            text: 'Add New Member',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newProjectForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            text: 'Add New Job',
-                            scope: this,
-                            handler: function() {
-                                taskForm.push({xtype: 'newClassTaskForm'});
-                                this.hide();
-                                this.actions.hide();
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Cancel',
-                            scope: this,
-                            handler: function() {
-                                this.actions.hide();
-                            }
-                        }
-                    ]
-                });
-
-                this.actions.show();
-            });
+            addTaskBtn.setHandler(this.getFuncForAddBtn("project"));
         }
         else if (activeCtn.getItemId().indexOf('classTaskDetailsForm') != -1) {
             var addTaskBtn = Ext.getCmp('addTaskBtn');
@@ -351,9 +238,45 @@ Ext.define("Igor.controller.Main", {
     },
 
     // Hàm này thực hiện khi click vào 1 tab Day cụ thể
-    showTasksByDay: function(time) {
-        // Từ list các tasks lấy từ ws ở trên, truyền tham số cụ thể vào sẽ lấy được các tasks tương ứng Day truyền vào
-        // Sử dụng hàm Get_scheduler_by_time(user_id, day_of_week, term) trong file .doc
+    showTasksByDay: function(day_of_week) {
+
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        var taskStore = Ext.getStore('Tasks');
+
+        taskStore.removeAll();
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
+            params: {
+                user_id: '4006',
+                term: '20111', 
+                day_of_week: day_of_week
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                Ext.getCmp('mainpanel').unmask();
+
+                if (result.status = 'OK') {
+                    var taskStore = Ext.getStore('Tasks'),
+                        taskModel = {};
+
+                    Ext.Array.each(result.message, function(scheduler) {
+                        taskModel = Ext.create('Igor.model.Task', scheduler);
+                        taskStore.add(taskModel);
+                        console.log(scheduler);
+
+                    });
+                }
+                
+                
+            }
+        });
     },
 
     // Hàm này thực hiện khi click vào 1 item trên list tasks theo Day/Week...
@@ -367,6 +290,7 @@ Ext.define("Igor.controller.Main", {
     doUser: function() {
         // Thực hiện 3 hàm filters trước (dưới)
         // Sau đó, binding dữ liệu lên các 3 form đã khai báo tương ứng
+        alert('dcm');
     },
 
     // (*) WS lấy về thông tin chi tiết user theo ID
@@ -393,4 +317,83 @@ Ext.define("Igor.controller.Main", {
     viewClassDetails: function(id) {
         this.redirectTo('url'); // Cập nhật route
     },
+
+    getFuncForAddBtn: function(viewName) {
+        if (viewName == "class") {
+            return function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+                            text: 'Add New Project',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Task',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            }
+        }
+        else if (viewName == "project") {
+            return function() {
+                this.actions = Ext.Viewport.add({
+                    xtype: 'actionsheet',
+                    items: [
+                        {
+                            text: 'Add New Member',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newProjectForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            text: 'Add New Job',
+                            scope: this,
+                            handler: function() {
+                                taskForm.push({xtype: 'newClassTaskForm'});
+                                this.hide();
+                                this.actions.hide();
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Cancel',
+                            scope: this,
+                            handler: function() {
+                                this.actions.hide();
+                            }
+                        }
+                    ]
+                });
+
+                this.actions.show();
+            }
+        }
+
+    }
+
 });

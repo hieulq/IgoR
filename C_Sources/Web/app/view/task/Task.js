@@ -83,7 +83,7 @@ Ext.define("Igor.view.task.Task", {
         items: [
             {
                 xtype: 'list',
-                itemId: 'schedulerList',
+                id: 'schedulerList',
                 ui: 'round',
                 title: 'Schedulers',                
                 itemTpl: '{title}',
@@ -110,38 +110,40 @@ Ext.define("Igor.view.task.Task", {
                                     width: '95px' 
                                 },
                                 xtype: 'segmentedbutton',
+                                id: 'daySelectBtn',
                                 allowDepress: true,
 
                                 items: [
                                     {
                                         text: 'Monday',
+                                        id: '0',
                                         pressed: true
                                     },
                                     {
-                                        text   : 'Tuesday'                                        
+                                        text   : 'Tuesday',
+                                        id: '1',                                        
                                     },
                                     {
-                                        text: 'Wednesday'
+                                        text: 'Wednesday',
+                                        id: '2',
                                     },
                                     {
-                                        text   : 'Thursday'                                        
+                                        text   : 'Thursday',
+                                        id: '3',                                        
                                     },
                                     {
-                                        text   : 'Friday'                                        
+                                        text   : 'Friday',
+                                        id: '4',                                        
                                     },
                                     {
-                                        text   : 'Saturday'                                        
+                                        text   : 'Saturday',
+                                        id: '5',                                        
                                     },
                                     {
-                                        text   : 'Sunday'                                        
+                                        text   : 'Sunday',
+                                        id: '6',                                        
                                     }
                                 ],
-
-                                listeners: {
-                                    toggle: function(container, button, pressed){
-                                        Ext.Msg.alert('Test', "User toggled the '" + button._text + "' button: " + (pressed ? 'on' : 'off'));
-                                    }
-                                }
                             }
                         ]
                     }
@@ -165,15 +167,5 @@ Ext.define("Igor.view.task.Task", {
             }
             
         ]
-    },
-
-    initialize: function() {
-        this.callParent();
-
-        var segmentedButton = this.down('segmentedbutton');
-        var date = new Date().getDay();
-
-        if (date == 0) segmentedButton.setPressedButtons(6);
-        else segmentedButton.setPressedButtons(date - 1);
     }
 });
