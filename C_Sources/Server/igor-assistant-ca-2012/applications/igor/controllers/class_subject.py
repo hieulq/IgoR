@@ -201,7 +201,7 @@ def format_client_data(classes):
 			sessions = get_class_sessions(class_scheduler.period)
 
 			# Morning session
-			morning = [session for session in sessions if session <=6]
+			morning = [session for session in sessions if session <= 6]
 			afternoon = [session for session in sessions if session >= 7]
 
 
@@ -213,6 +213,7 @@ def format_client_data(classes):
 				client_data.append(client)
 
 			if (afternoon):
+				afternoon = map(lambda s: s - 6, afternoon)
 				client = class_data_format(
 					class_subject, class_scheduler,
 					subject, afternoon, "Afternoon")
