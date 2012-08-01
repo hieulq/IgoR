@@ -29,14 +29,8 @@ Ext.define("Igor.view.task.NewProject", {
                         label: 'Select Member',
                         name: 'members',
                         valueField: 'userid',
-                        displayField: 'name',
-                        store: {
-                            data: [
-                                { userid: '1', name: 'Hieu LE'},
-                                { course: '2', name: 'Phuc NGUYEN'},
-                                { userid: '3', name: 'Tu NGUYEN'}
-                            ]
-                        }
+                        displayField: 'fullname',
+                        store: 'ClassUsers'
                     }
                 ]
             },

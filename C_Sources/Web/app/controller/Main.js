@@ -47,6 +47,10 @@ Ext.define("Igor.controller.Main", {
             tasksForm: {
                 pop: 'onTaskPop',
                 push: 'onTaskPush'
+            },
+
+            newProjectForm: {
+                initialize: 'onNewProjectInit'
             }
         },
         routes: {
@@ -70,6 +74,7 @@ Ext.define("Igor.controller.Main", {
             updatesList: '#updateList',
             daySelBtn: '#daySelectBtn',
             mainPnl: 'mainpanel',
+            newProjectForm: 'newProjectForm',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -92,6 +97,10 @@ Ext.define("Igor.controller.Main", {
             // User
             doUser: ['getUserDetails', 'getFriendsListByUser', 'getClassesListByUser']
         },
+    },
+
+    onNewProjectInit: function() {
+
     },
 
     onDayToggle: function(container, button, pressed, eOpts){
@@ -319,6 +328,9 @@ Ext.define("Igor.controller.Main", {
     },
 
     getFuncForAddBtn: function(viewName) {
+        var taskForm = this.getTasksForm();
+        var activeCtn = taskForm.getActiveItem();
+
         if (viewName == "class") {
             return function() {
                 this.actions = Ext.Viewport.add({
