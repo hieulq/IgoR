@@ -8,36 +8,41 @@
 
 from message_packager import *
 from gluon.dal import Rows
+from gluon.tools import Service
 from igor_time import  *
 
-@request.restful()
-def get_all_notification(): 
+service = Service()
+
+
+def call():
+	session.forget()
+
+	return service()
+
+@service.jsonp
+@service.json
+def get_all_notification(owner): 
 
 	## get new notification (is_read = 0)
-	response.view = 'generic.json'
-	def GET(owner):
 
-		#return MessagePackager.get_packaged_message(MessageStatus.OK, owner)
-		# Validate input 
-		if (not owner.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id must be numberic")
+	#return MessagePackager.get_packaged_message(MessageStatus.OK, owner)
+	# Validate input 
+	if (not owner.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id must be numberic")
 
-		if (int (owner) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id can not less than 0")
+	if (int (owner) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
 
-		notification = db(
-			db.notification.owner == owner).select()
+	notification = db(
+		db.notification.owner == owner).select()
 
-		notification = format_client_data(notification) ##Tuna - chua format duoc
+	notification = format_client_data(notification) ##Tuna - chua format duoc
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
-
-	return locals()
-
+	return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
 
 
 @request.restful()
@@ -104,16 +109,22 @@ def format_client_data(notifications):
    #      	"username": "Nguyen Hong Phuc",
    #      	"avatar": "1.jpeg",
         	action = get_notification_action(notification),
-        	object = 'Deadline IT3410',
+        	# object = 'Deadline IT3410',
         	# "objectid": "1",
         	date = IgorTime.get_time_string(notification.date),
 			)
 
 		if user != None:
 			client.update(
-				userid = user.id,
+				userid   = user.id,
 				username = user.name,
-				avatar = user.avatar,
+				avatar   = user.avatar,
+				)
+
+		if job != None:
+			client.update (
+				objectid = job.id,
+				object = job.name,
 				)
 
 		client_data.append (client)

@@ -2,118 +2,137 @@ import datetime
 import time
 
 class IgorTime:
-	
-	def __init__(self):
-		self.one_minute = 60 * 60
-		self.one_day = 60 * 60 * 24
-		self.one_week = 60 * 60 * 24 * 7
+    
+    def __init__(self):
+        self.one_minute = 60 * 60
+        self.one_day = 60 * 60 * 24
+        self.one_week = 60 * 60 * 24 * 7
 
-	@staticmethod
-	def maketime(year, month, date, hour, minute, second = 0):
-		datetime = datetime.datetime (year, month, date, hour, minute, second)
+    @staticmethod
+    def maketime(year, month, date, hour, minute, second = 0):
+        datetime = datetime.datetime (year, month, date, hour, minute, second)
 
-		return int (time.mktime (datetime.timetuple ()))
+        return int (time.mktime (datetime.timetuple ()))
 
 
-	# Get time string method
-	# Ex Output:
-	# 	1 minute ago
-	# 	2 days ago
-	@staticmethod
-	def get_time_string(timestamp):
+    # Get time string method
+    # Ex Output:
+    #   1 minute ago
+    #   2 days ago
+    @staticmethod
+    def get_time_string(timestamp):
 
-		if (not timestamp): return ''
+        if (not timestamp): return ''
 
-		time_string = ''
-		today = int (time.time ())
+        time_string = ''
+        today = int (time.time ())
 
-		diff = int (today - timestamp)
+        diff = int (today - timestamp)
 
-		if (diff < 60):
-			time_string = IgorTime.create_second_string (diff)
-			time_string += ' ago.'
-		elif (diff >= 60 and diff < 60*60):
-			time_string = IgorTime.get_minute_string (diff)
-			time_string += ' ago.'
-		elif (diff >= 60*60 and diff < 60*60*24):
-			time_string = IgorTime.get_hour_string (diff)
-			time_string += ' ago.'
-		elif (diff >= 60*60*24 and diff < 60*60*24*7):
-			time_string = IgorTime.get_day_string (diff)
-			time_string += ' ago.'
-		else:
-			time_string = "test time" #(datetime.datetime.fromtimestamp((int) timestamp)).strftime('%Y-%m-%d %H:%M:%S')
+        if (diff < 60):
+            time_string = IgorTime.create_second_string (diff)
+            time_string += ' ago.'
+        elif (diff >= 60 and diff < 60*60):
+            time_string = IgorTime.get_minute_string (diff)
+            time_string += ' ago.'
+        elif (diff >= 60*60 and diff < 60*60*24):
+            time_string = IgorTime.get_hour_string (diff)
+            time_string += ' ago.'
+        elif (diff >= 60*60*24 and diff < 60*60*24*7):
+            time_string = IgorTime.get_day_string (diff)
+            time_string += ' ago.'
+        else:
+            date_time = datetime.datetime.fromtimestamp (timestamp)
+            time_string = date_time.strftime("%d/%m/%Y")
 
-		return str (time_string)
+        return str (time_string)
 
-	@staticmethod
-	def get_minute_string(difference):
-		time_string = ''
+    @staticmethod
+    def get_minute_string(difference):
+        time_string = ''
 
-		minutes = int (difference / 60)
-		seconds = int (difference % 60)
+        minutes = int (difference / 60)
+        seconds = int (difference % 60)
 
-		time_string = IgorTime.create_minute_string (minutes)
+        time_string = IgorTime.create_minute_string (minutes)
 
-		# if (seconds > 0):
-		# 	time_string += " " + create_second_string (seconds)
+        # if (seconds > 0):
+        #   time_string += " " + create_second_string (seconds)
 
-		return str (time_string)
+        return str (time_string)
 
-	@staticmethod
-	def get_hour_string(difference):
-		time_string = ''
+    @staticmethod
+    def get_hour_string(difference):
+        time_string = ''
 
-		hours = int (difference / 3600)
-		minutes = int (difference % 3600)
+        hours = int (difference / 3600)
 
-		time_string = IgorTime.create_hour_string (hours)
+        remainder = difference - hours*3600
+        minutes = int (remainder / 60) 
 
-		if (minutes > 0):
-			time_string += " " + IgorTime.create_minute_string (minutes)
+        time_string = IgorTime.create_hour_string (hours)
 
-		return str (time_string)
+        if (minutes > 0):
+            time_string += " " + IgorTime.create_minute_string (minutes)
 
-	@staticmethod
-	def create_second_string(seconds):
-		second_str = ''
+        return str (time_string)
 
-		if (seconds == 1):
-			second_str = "one second"
-		elif (seconds > 1):
-			second_str = int (seconds) + ' seconds'
+    @staticmethod
+    def get_day_string(difference):
+        time_string = ''
+        
+        days = int (difference / (3600*24))
 
-		return str (second_str)
+        remainder = difference - days*3600*24
+        hours = int (remainder / 3600)
 
-	@staticmethod
-	def create_minute_string(minutes):
-		minute_str = ''
+        time_string = IgorTime.create_day_string (days)
 
-		if (minutes == 1):
-			minute_str = "one minute"
-		elif (minutes > 1):
-			minute_str = int (minutes) + ' minutes'
+        if hours > 0:
+            time_string += " " + IgorTime.create_hour_string (hours)
 
-		return str (minute_str)
+        return str (time_string)
 
-	@staticmethod
-	def create_hour_string(hours):
-		hour_str = ''
+    @staticmethod
+    def create_second_string(seconds):
+        second_str = ''
 
-		if (hours == 1):
-			hour_str = "one hour"
-		elif (hours > 1):
-			hour_str = int (hours) + ' hours'
+        if (seconds == 1):
+            second_str = "one second"
+        elif (seconds > 1):
+            second_str = str (seconds) + ' seconds'
 
-		return str (hour_str)
+        return str (second_str)
 
-	@staticmethod
-	def create_day_string(days):
-		day_str = ''
+    @staticmethod
+    def create_minute_string(minutes):
+        minute_str = ''
 
-		if (days == 1):
-			day_str = "one day"
-		elif (days > 1):
-			day_str = days + " days"
+        if (minutes == 1):
+            minute_str = "one minute"
+        elif (minutes > 1):
+            minute_str = str (minutes) + ' minutes'
 
-		return str (day_str)
+        return str (minute_str)
+
+    @staticmethod
+    def create_hour_string(hours):
+        hour_str = ''
+
+        if (hours == 1):
+            hour_str = "one hour"
+        elif (hours > 1):
+            hour_str = str (hours) + ' hours'
+
+        return str (hour_str)
+
+    @staticmethod
+    def create_day_string(days):
+        day_str = ''
+
+        if (days == 1):
+            day_str = "one day"
+        elif (days > 1):
+            day_str = str (days) + " days"
+
+        return str (day_str)

@@ -110,27 +110,37 @@ def get_class_detail(id):
 @service.json
 def get_classes_by_user(user_id, term = 0):
 
-		# Get data
+	# Get data
 	if (term == 0):
-		term = get_current_term()
+		term = get_current_term ()
 
-	user_schedulers = db(db.scheduler.owner == user_id).select()
-		
-	classes = list()
-
-	for user_scheduler in user_schedulers:
-
-		class_subject = db(
-			(db.class_subject.id == user_scheduler.class_subject) &
-			(db.class_subject.term == term)).select().first()
-
-
-		if (class_subject != None):
-			classes.append(class_subject)
+	classes = get_classes_of_user (user_id, term)
 
 	classes = format_client_data(classes)
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
+
+@service.jsonp
+@service.json
+def get_classes_by_user_time(user_id, term = 0, day_of_week = None):
+
+	# Get data
+	if (term == 0):
+		term = get_current_term ()
+
+	if day_of_week != None:
+		day_of_week = int (day_of_week)
+		if day_of_week < 0 or day_of_week > 6:
+			return MessagePackager.get_packaged_message(MessageStatus.ERROR, 
+				"Day of week must be from 0 to 6")
+
+	classes = get_classes_of_user (user_id, term, day_of_week)
+
+	classes = format_client_data(classes)
+
+	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
+
+# 
 
 # Add a class to user
 # Input:

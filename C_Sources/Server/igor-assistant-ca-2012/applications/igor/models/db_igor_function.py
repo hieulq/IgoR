@@ -18,7 +18,45 @@ def get_current_term():
 
 	return int (term_string)
 
+######################################################################################
+# Class_subject function
+######################################################################################
+
+def get_classes_of_user(user_id, term = 0, day_of_week = None):
+
+	# Get data
+	if (term == 0):
+		term = get_current_term ()
+
+	# Get all user scheduler
+	user_schedulers = db(db.scheduler.owner == user_id).select()
+		
+	classes = list()
+
+	for user_scheduler in user_schedulers:
+
+		class_subject = db(
+			(db.class_subject.id   == user_scheduler.class_subject) &
+			(db.class_subject.term == term)).select().first()
+
+
+		if (class_subject != None):
+			if day_of_week == None:
+
+				classes.append (class_subject)
+
+			else:
+
+				if not db(
+					(db.class_scheduler.class_subject == class_subject.id) &
+					(db.class_scheduler.day_of_week == day_of_week)).isempty():
+					classes.append (class_subject)
+
+	return classes
+
+######################################################################################
 # Class Scheduler function
+######################################################################################
 
 # Convert class scheduler seesion to integer array from string
 def get_class_sessions(class_scheduler_session):

@@ -70,8 +70,13 @@ def login(email, password):
 		return MessagePackager.get_packaged_message (MessageStatus.OK, 
 			"Authentication failed! Check your email or password again")
 
-	print session
-	return MessagePackager.get_packaged_message (MessageStatus.OK, "Success")
+	#print is_login.id
+
+	user = db(db.user.auth == is_login.id).select()
+
+	user = format_client_data(user)
+
+	return MessagePackager.get_packaged_message (MessageStatus.OK, user)
 
 # Search user
 # Input
@@ -115,6 +120,34 @@ def get_user_detail(id):
 	user = format_client_data (user)
 
 	return MessagePackager.get_packaged_message (MessageStatus.OK, user)
+
+# Get all user in same class_subject
+@service.jsonp
+@service.json
+def get_users_by_class(class_id):
+	if (not class_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id must be numberic!")
+
+	if (int (class_id) < 0):
+			return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"class id can not less than 0!")
+
+	user_schedulers = db(db.scheduler.class_subject == class_id).select()
+
+	users = list()
+
+	for user_scheduler in user_schedulers:
+		user = db(db.user.id == user_scheduler.owner).select().first()
+
+		if user != None:
+			users.append (user)
+
+	users = format_client_data(users)
+
+	return MessagePackager.get_packaged_message (MessageStatus.OK, users)
 
 # Format data for client 
 def format_client_data(users):
