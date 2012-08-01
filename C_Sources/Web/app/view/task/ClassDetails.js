@@ -23,14 +23,14 @@ Ext.define("Igor.view.task.ClassDetails", {
                 xtype: 'dataview',
                 itemId: 'classDetailPanel',
                 flex: 2,
-                scrollable: false,
+                scrollable: true,
 
                 store: 'Classdetails',
                 itemTpl: [
                     '<div class="header">',
                     '   <div class="avatar" style="background-image:url(resources/images/class-icon.png);"></div>',
-                    '   <h3>{subject_code}-{subject_name}</h3>',
-                    '   <h4>ID: {class_code}</h4>',
+                    '   <h3>{subject_name}</h3>',
+                    '   <h4>ID: {class_code}-Code: {subject_code}</h4>',
                     '</div>',
                     '<div class="x-container x-form-fieldset nonEditable" style="padding: 1em;">',
                         '<div class="x-docking-vertical">',
