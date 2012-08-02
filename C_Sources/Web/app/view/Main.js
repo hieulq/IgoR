@@ -25,14 +25,11 @@ Ext.define("Igor.view.Main", {
                 title: 'News',
                 iconCls: 'rss',
                 cls: 'news',
-                badgeText: '3',
-                xtype: 'updatesListForm',
-                id: 'updates'
+                xtype: 'updatesListForm'
             },
 
             {
                 xtype: 'tasksForm',
-                id: 'tasks',
                 title: 'Scheduler',
                 iconCls: 'calendar2',
                 cls: 'task'
@@ -43,7 +40,6 @@ Ext.define("Igor.view.Main", {
                 iconCls: 'team',
                 cls: 'profile',
                 xtype: 'userDetailsForm',
-                id: 'user'
             },
 
             {

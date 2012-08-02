@@ -1,11 +1,12 @@
 Ext.define("Igor.view.task.NewProject", {
     extend: 'Ext.form.Panel',
     xtype: 'newProjectForm',
-    id: 'newProjectForm',
+    itemId: 'newProjectForm',
 
     config: {
         title: 'New Project',
         layout: 'vbox',
+        classid: null,
 
         items: [
             {

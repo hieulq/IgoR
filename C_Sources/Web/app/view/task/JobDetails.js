@@ -115,7 +115,7 @@ Ext.define("Igor.view.task.JobDetails", {
                         console.log("Project ID: " + project.getId());
                     });*/
 
-                    console.log(records);
+                    //console.log(records);
                 },
                 scope: this
         });

@@ -9,7 +9,7 @@ Ext.define("Igor.view.profile.Profile", {
     ],
 
     config: {
-        autoDestroy: false,
+        autoDestroy: true,
 
         navigationBar: {
             defaults: {
@@ -24,6 +24,18 @@ Ext.define("Igor.view.profile.Profile", {
             },
 
             items: [
+                {
+                    xtype: 'button',
+                    id: 'logoutButton',
+                    iconCls: 'reply',
+                    iconMask: true,
+                    ui: 'plain',
+                    align: 'right',
+                    
+                    handler: function() {
+                        
+                    }
+                },
                 {
                     xtype: 'button',
                     id: 'editProfileButton',

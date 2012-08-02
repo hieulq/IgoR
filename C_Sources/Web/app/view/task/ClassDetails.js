@@ -16,7 +16,7 @@ Ext.define("Igor.view.task.ClassDetails", {
         layout: 'vbox',
         cls: 'userInfo',
         title: 'Class Detail',
-        autoDestroy: false,
+        autoDestroy: true,
 
         items: [
             {

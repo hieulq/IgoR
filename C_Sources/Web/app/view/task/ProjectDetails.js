@@ -65,7 +65,7 @@ Ext.define("Igor.view.task.ProjectDetails", {
                         var rec = list.getStore().getAt(index);
                         //console.log(rec.data);
                         Ext.Msg.alert('Test', 'Redirect to userid ' + rec.get('userid'));
-                        console.log(rec.get('userid'));
+                        //console.log(rec.get('userid'));
                     }
                 }
 
@@ -121,7 +121,7 @@ Ext.define("Igor.view.task.ProjectDetails", {
                         console.log("Project ID: " + project.getId());
                     });*/
 
-                    console.log(records);
+                    //console.log(records);
                 },
                 scope: this
         });

@@ -7,7 +7,7 @@ Ext.define("Igor.view.about.About", {
     ],
 
     config: {
-        autoDestroy: false,
+        autoDestroy: true,
         
 
         navigationBar: {

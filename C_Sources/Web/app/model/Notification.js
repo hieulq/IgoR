@@ -3,13 +3,15 @@ Ext.define("Igor.model.Notification", {
 
     config: {
         fields: [
+            'notification_id',
             'userid',
             'username',
             'avatar',
             'action',
             'object',
             'objectid',
-            'date'
+            'date',
+            'is_read'
         ]
     }
 });

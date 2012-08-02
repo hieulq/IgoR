@@ -49,8 +49,21 @@ Ext.define("Igor.controller.Main", {
                 push: 'onTaskPush'
             },
 
+            refreshNewsButton: {
+                //tap: 'onNotificationInit'
+                tap: 'testFunc'
+            },
+
+            updatesListForm: {
+                //initialize: 'onNotificationInit',
+            },
+
             newProjectForm: {
                 initialize: 'onNewProjectInit'
+            },
+
+            mainPnl: {
+                initialize: 'onNotificationInit'
             }
         },
         routes: {
@@ -71,7 +84,8 @@ Ext.define("Igor.controller.Main", {
 
         refs: {
             // Updates
-            updatesList: '#updateList',
+            refreshNewsButton: '#refreshNewsButton',
+            updatesListForm: 'updatesListForm',
             daySelBtn: '#daySelectBtn',
             mainPnl: 'mainpanel',
             newProjectForm: 'newProjectForm',
@@ -99,8 +113,65 @@ Ext.define("Igor.controller.Main", {
         },
     },
 
-    onNewProjectInit: function() {
+    testFunc: function() {
+        var a = this.getMainPnl().getTabBar().getComponent(0);
+    },
 
+    onNotificationInit: function() {
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        this.getMainPnl().getTabBar().getComponent(0).setBadgeText(null);
+        var notifyStore = Ext.getStore('Notifications');
+
+        notifyStore.removeAll();
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/notification/call/jsonp/get_all_notification',
+            params: {
+                owner: '6006',
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.getCmp('mainpanel');
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var notifyStore = Ext.getStore('Notifications'),
+                        notifyModel = {}, read_count = 0;
+
+                    Ext.Array.each(result.message, function(notify) {
+                        if (notify.is_read == false) {
+                            read_count++;
+                        }
+
+                        if (notify.avatar == null) {
+                            notify.avatar = "default_male.png"
+                        }
+                        notifyModel = Ext.create('Igor.model.Notification', notify);
+                        notifyStore.add(notifyModel);
+
+                        if (read_count != 0) {
+                            //console.log(read_count);
+                            mainPanel.getTabBar().getComponent(0).setBadgeText(read_count);
+                        }
+                        //console.log(notify);
+
+                    });
+                }
+                
+                
+            }
+        });
+    },
+
+    onNewProjectInit: function() {
+        var id = this.getNewProjectForm().getClassid();
+        console.log(id);
     },
 
     onDayToggle: function(container, button, pressed, eOpts){
@@ -278,7 +349,7 @@ Ext.define("Igor.controller.Main", {
                     Ext.Array.each(result.message, function(scheduler) {
                         taskModel = Ext.create('Igor.model.Task', scheduler);
                         taskStore.add(taskModel);
-                        console.log(scheduler);
+                        //console.log(scheduler);
 
                     });
                 }

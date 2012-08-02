@@ -10,10 +10,10 @@ Ext.define("Igor.store.Notifications", {
             groupFn: function(record) {
                 return record.get('!username');
             }
-        },
+        }/*,
         proxy: {
             type: 'ajax',
             url: 'data/notifications.json'
-        }
+        }*/
     }
 });

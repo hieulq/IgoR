@@ -8209,10 +8209,10 @@ a:visited {
   color: #e60000 !important; }
 
 body.x-android.x-phone {
-  font-size: 100%; }
+  font-size: 104%; }
 
 body.x-desktop {
-  font-size: 100%;
+  font-size: 104%;
   overflow: hidden; }
 
 h3 {
@@ -8279,7 +8279,7 @@ h4 {
   font-size: 0.8em; }
 .x-feeds .x-list-item-label span {
   display: block;
-  font-size: 0.75em;
+  font-size: 0.8em;
   font-weight: normal;
   color: #666; }
 .x-feeds .feed {

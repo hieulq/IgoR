@@ -10,7 +10,7 @@ Ext.define("Igor.view.task.Task", {
     ],
 
     config: {
-        autoDestroy: false,
+        autoDestroy: true,
         
 
         navigationBar: {

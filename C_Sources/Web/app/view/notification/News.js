@@ -7,7 +7,7 @@ Ext.define("Igor.view.notification.News", {
     ],
 
     config: {
-        autoDestroy: false,
+        autoDestroy: true,
         
 
         navigationBar: {
