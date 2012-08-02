@@ -7,10 +7,10 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    controllers: ['Main', 'ClassDetails'],
+    controllers: ['Main', 'ClassDetails', 'Login'],
     views: ['Main','authenticate.Authenticate'],
-    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'ClassUsers'],
-    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'ClassUser'],
+    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs'],
+    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember'],
 
     icon: {
         57: 'resources/icons/icon.png',
@@ -28,7 +28,7 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add({
-            xclass: 'Igor.view.Main'
+            xclass: 'Igor.view.authenticate.Authenticate'
         });
     },
 
