@@ -1,26 +1,4 @@
-timestamp: 2012-07-29T22:46:29.910000
-CREATE TABLE auth_user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name CHAR(128),
-    last_name CHAR(128),
-    email CHAR(512),
-    password CHAR(512),
-    registration_key CHAR(512),
-    reset_password_key CHAR(512),
-    registration_id CHAR(512)
-);
-timestamp: 2012-07-29T22:49:08.187000
-CREATE TABLE auth_user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    first_name CHAR(128),
-    last_name CHAR(128),
-    email CHAR(512),
-    password CHAR(512),
-    registration_key CHAR(512),
-    reset_password_key CHAR(512),
-    registration_id CHAR(512)
-);
-timestamp: 2012-07-29T22:49:21.649000
+timestamp: 2012-08-03T00:39:07.060437
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -32,21 +10,21 @@ CREATE TABLE auth_user(
     registration_id CHAR(512)
 );
 success!
-timestamp: 2012-07-29T22:49:21.694000
+timestamp: 2012-08-03T00:39:07.198605
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2012-07-29T22:49:21.727000
+timestamp: 2012-08-03T00:39:07.289098
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
 );
 success!
-timestamp: 2012-07-29T22:49:22.291000
+timestamp: 2012-08-03T00:39:07.389580
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
@@ -55,7 +33,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2012-07-29T22:49:22.369000
+timestamp: 2012-08-03T00:39:07.489900
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -65,7 +43,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2012-07-29T22:49:22.417000
+timestamp: 2012-08-03T00:39:07.613086
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
@@ -75,7 +53,7 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2012-07-29T22:49:22.461000
+timestamp: 2012-08-03T00:39:07.725607
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name CHAR(512),
@@ -86,7 +64,7 @@ CREATE TABLE user(
     auth INTEGER REFERENCES auth_user(id) ON DELETE CASCADE
 );
 success!
-timestamp: 2012-07-29T22:49:22.590000
+timestamp: 2012-08-03T00:39:07.837984
 CREATE TABLE subject(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name CHAR(50) NOT NULL,
@@ -94,7 +72,7 @@ CREATE TABLE subject(
     subject_code CHAR(20)
 );
 success!
-timestamp: 2012-07-29T22:49:22.623000
+timestamp: 2012-08-03T00:39:07.950851
 CREATE TABLE class_subject(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     subject INTEGER REFERENCES subject(id) ON DELETE CASCADE,
@@ -106,7 +84,7 @@ CREATE TABLE class_subject(
     class_code CHAR(20)
 );
 success!
-timestamp: 2012-07-29T22:49:22.656000
+timestamp: 2012-08-03T00:39:08.082136
 CREATE TABLE class_scheduler(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
@@ -115,7 +93,7 @@ CREATE TABLE class_scheduler(
     location CHAR(512)
 );
 success!
-timestamp: 2012-07-29T22:49:22.696000
+timestamp: 2012-08-03T00:39:08.198863
 CREATE TABLE scheduler(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     owner INTEGER,
@@ -123,19 +101,7 @@ CREATE TABLE scheduler(
     term INTEGER
 );
 success!
-timestamp: 2012-07-29T22:49:22.738000
-CREATE TABLE notification(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    notification_class INTEGER,
-    owner INTEGER,
-    user_share INTEGER,
-    is_read CHAR(1),
-    type INTEGER,
-    date INTEGER,
-    is_completed CHAR(1)
-);
-success!
-timestamp: 2012-07-29T22:49:22.774000
+timestamp: 2012-08-03T00:39:08.341837
 CREATE TABLE test(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
@@ -145,7 +111,7 @@ CREATE TABLE test(
     project_due_date INTEGER
 );
 success!
-timestamp: 2012-07-29T22:49:22.814000
+timestamp: 2012-08-03T00:39:08.476356
 CREATE TABLE project_member(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     class_subject INTEGER REFERENCES class_subject(id) ON DELETE CASCADE,
@@ -153,7 +119,7 @@ CREATE TABLE project_member(
     note TEXT
 );
 success!
-timestamp: 2012-07-29T22:49:22.868000
+timestamp: 2012-08-03T00:39:08.609664
 CREATE TABLE job(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name CHAR(50) NOT NULL,
@@ -170,5 +136,16 @@ CREATE TABLE job(
     test INTEGER
 );
 success!
-timestamp: 2012-07-30T10:29:08.242000
-ALTER TABLE notification ADD job_id INTEGER REFERENCES job(id) ON DELETE CASCADE;
+timestamp: 2012-08-03T00:39:08.734643
+CREATE TABLE notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    notification_class INTEGER,
+    owner INTEGER,
+    user_share INTEGER,
+    is_read CHAR(1),
+    type INTEGER,
+    date INTEGER,
+    is_completed CHAR(1),
+    job_id INTEGER
+);
+success!

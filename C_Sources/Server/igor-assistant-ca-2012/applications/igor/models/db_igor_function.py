@@ -4,19 +4,19 @@ from datetime import date
 
 def get_current_term():
 
-	today = date.today ()
-	term_string = '0'
+ 	today = date.today ()
+ 	term_string = '0'
 
-	month = today.month
+ 	month = today.month
 
-	if (8 < month and month < 12):
-		term_string += str (today.year) + '1'
-	if (1 < month <= 6):
-		term_string += str (today.year-1) + '2'
-	elif (6 < month <= 8):
-		term_string += str (today.year-1) + '3'
+ 	if (8 < month and month < 12):
+ 		term_string += str (today.year) + '1'
+ 	if (1 < month <= 6):
+ 		term_string += str (today.year-1) + '2'
+ 	elif (6 < month <= 8):
+ 		term_string += str (today.year-1) + '3'
 
-	return int (term_string)
+ 	return int (term_string)
 
 ######################################################################################
 # Class_subject function

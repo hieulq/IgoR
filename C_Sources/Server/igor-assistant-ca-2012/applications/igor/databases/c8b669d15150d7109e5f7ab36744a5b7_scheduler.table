@@ -1,0 +1,47 @@
+(dp1
+S'owner'
+p2
+(dp3
+S'type'
+p4
+S'integer'
+p5
+sS'sortable'
+p6
+I2
+sS'sql'
+p7
+S'INTEGER'
+p8
+ssS'class_subject'
+p9
+(dp10
+g4
+S'reference class_subject'
+p11
+sg6
+I3
+sg7
+S'INTEGER REFERENCES class_subject(id) ON DELETE CASCADE'
+p12
+ssS'term'
+p13
+(dp14
+g4
+g5
+sg6
+I4
+sg7
+S'INTEGER'
+p15
+ssS'id'
+p16
+(dp17
+g4
+g16
+sg6
+I1
+sg7
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p18
+ss.
