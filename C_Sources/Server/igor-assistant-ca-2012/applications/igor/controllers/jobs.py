@@ -199,7 +199,7 @@ def mark_jobs_finished():
 				row = db(db.job.id == job_id).update(status = 1)
 					
 		except Exception, err:
-			db.rollback()
+			db.rollback ()
 			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
 		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")

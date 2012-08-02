@@ -19,13 +19,14 @@ def call():
 
 	return service()
 
+# Get all notifications of user
 @service.jsonp
 @service.json
 def get_all_notification(owner): 
 
 	## get new notification (is_read = 0)
 
-	#return MessagePackager.get_packaged_message(MessageStatus.OK, owner)
+	# return MessagePackager.get_packaged_message(MessageStatus.OK, owner)
 	# Validate input 
 	if (not owner.isdigit()):
 		return MessagePackager.get_packaged_message (
@@ -40,57 +41,53 @@ def get_all_notification(owner):
 	notification = db(
 		db.notification.owner == owner).select()
 
-	notification = format_client_data(notification) ##Tuna - chua format duoc
+	notification = format_client_data(notification)
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
 
+# Get all new notification of user
+@service.jsonp
+@service.json
+def push_notification(user_id):
 
-@request.restful()
-def push_notification():
+	# Validate input 
+	if (not user_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id must be numberic")
 
-	response.view = 'generic.json'
-	def GET(user_id):
+	if (int (user_id) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
 
-		# Validate input 
-		if (not user_id.isdigit()):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id must be numberic")
+	notification = db(
+		(db.notification.owner == user_id) &
+		(db.notification.is_read == False)).select()
 
-		if (int (user_id) < 0):
-			return MessagePackager.get_packaged_message (
-				MessageStatus.ERROR, 
-				"user id can not less than 0")
+	return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
 
-		notification = db(
-			db.notification.owner == user_id and
-			db.notification.is_read == False).select()
-
-		return MessagePackager.get_packaged_message(MessageStatus.OK, notification)
-
-	return locals()
-
-@request.restful()
-def mark_read():
-
-	response.view = 'generic.json'
-	def GET(notification_ids):
+@service.jsonp
+@service.json
+def mark_read(notification_ids):
 		#return MessagePackager.get_packaged_message(MessageStatus.OK, notification_ids)
+	notification_ids = notification_ids.split('_')
 
-		try:
-			for notification_id in notification_ids:
-				row = db(db.notification.id == notification_id).update(is_read = True)
-		except Exception, err:
-			return MessagePackager.get_packaged_message(MessageStatus.OK, str (err))
+	try:
+		for notification_id in notification_ids:
+			if notification_id:
+				row = db(db.notification.id == int (notification_id)).update (is_read = True)
+	except Exception, err:
+		db.rollback ()
+		return MessagePackager.get_packaged_message(MessageStatus.OK, str (err))
 
-			#return MessagePackager.get_packaged_message(MessageStatus.OK, row)
-			#row.is_read = True
-			#row.update(is_read = True)
-			#row.update()
+		#return MessagePackager.get_packaged_message(MessageStatus.OK, row)
+		#row.is_read = True
+		#row.update(is_read = True)
+		#row.update()
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, row)
+	return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 
-	return locals()
 
 # phucnh edit 20120730
 def format_client_data(notifications):
@@ -106,8 +103,10 @@ def format_client_data(notifications):
 
 		client = dict(
 			# "userid": "1",
-   #      	"username": "Nguyen Hong Phuc",
-   #      	"avatar": "1.jpeg",
+			# "username": "Nguyen Hong Phuc",
+			# "avatar": "1.jpeg",
+			notification_id = notification.id,
+			is_read = notification.is_read,
         	action = get_notification_action(notification),
         	# object = 'Deadline IT3410',
         	# "objectid": "1",
@@ -131,3 +130,25 @@ def format_client_data(notifications):
 
 	return client_data
 # end phucnh edit 20120730
+
+# Add some sample data 
+# import time
+
+# @service.jsonp
+# @service.json
+# def add_sample():
+# 	jobs = db(db.job.id > 0).select()
+
+# 	for job in jobs:
+# 		db.notification.insert(
+# 			notification_class = 1,
+# 			owner              = 2,
+# 			user_share         = 3,
+# 			is_read            = False,
+# 			type               = 1,
+# 			date               = time.time(),
+# 			is_completed       = False,
+# 			job_id             = job.id,
+# 			);
+
+# 	return MessagePackager.get_packaged_message(MessageStatus.OK, "OK")
