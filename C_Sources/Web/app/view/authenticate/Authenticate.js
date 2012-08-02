@@ -1,6 +1,7 @@
 Ext.define("Igor.view.authenticate.Authenticate", {
     extend: 'Ext.navigation.View',
     xtype: 'loginForm',
+    id: 'loginForm',
 
     requires: [
         'Igor.view.authenticate.Register'
@@ -11,6 +12,7 @@ Ext.define("Igor.view.authenticate.Authenticate", {
         items: [
             {
                 xtype: 'formpanel',
+                id: 'formpanel',
                 title: 'Login',
                 iconCls: 'team',
                 layout: 'vbox',
@@ -55,16 +57,16 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                         handler: function() {
 
                             // This looks up the items stack above, getting a reference to the first form it see
-                            var form = this.up('formpanel');
+                            // var form = this.up('formpanel');
 
-                            var values = form.getValues();
+                            // var values = form.getValues();
 
-                            if (values['email']=='hieulq89@gmail.com' && values['password']=='123456') {
-                                Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
-                            }
-                            else {
-                                Ext.Msg.alert('Sorry', 'Incorrect email/password!');
-                            }
+                            // if (values['email']=='hieulq89@gmail.com' && values['password']=='123456') {
+                            //     Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                            // }
+                            // else {
+                            //     Ext.Msg.alert('Sorry', 'Incorrect email/password!');
+                            // }
                         }
                     },
                     {

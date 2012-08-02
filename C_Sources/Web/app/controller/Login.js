@@ -3,7 +3,7 @@ Ext.define("Igor.controller.Login", {
     views: ['authenticate.Authenticate'], // tương ứng sheet 2
     
     init: function() {
-        
+        this.checkSession();
     },
 
     config: {
@@ -12,48 +12,78 @@ Ext.define("Igor.controller.Login", {
                 tap: 'doLogin'
             },
         },
+
         routes: {
             'login': 'doLogin'
             // Khi xuat hien url dang http://abc.com/#login thi se thuc hien ham showLogin
         },
 
         refs: {
-            loginForm: '#loginForm' 
+            loginForm: 'formpanel',
             // sau nay có thể lấy email/pass... từ giao diện, có thể thêm refs cụ thể cho từng textbox...
-            submitButton: 'button[action=login]'
-        }
+            submitButton: '#submitBtn'
+        },
 
         before: {
-            doLogin: 'authenticate'
-            // Truoc khi thuc hien ham doLogin thi se invoke ham authenticate trước!
-        },
+            // doLogin: ['checkSession']
+        }
+    },
+
+    checkSession: function() {
+        var userStore = Ext.getStore('Users'), userSession = {};
+        userSession = Ext.create('Igor.model.User');
+        userSession = userStore.getAt(0);
+
+        if (userSession !== undefined) {
+            Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+        }
     },
 
     doLogin: function(){
-        // Gọi hàm tương tác vs server IgoR
-        this.login();
-        // Có thể thực hiện chuyển màn hình sang màn hình chính
-        this.redirectTo('url');
-    },
+        // Lấy thông tin từ view
+        var loginForm = this.getLoginForm().getValues();
+        var emailText = loginForm['email'];
+        var passText = loginForm['password'];
 
-    // Ham này sẽ gửi thông tin cần xác thực tới Google Sync
-    authenticate: function(action) {
-        MyApp.authenticate({
-            success: function() {
-                // Do smt... để xác thực với google
-                // Hiện thông báo thành công
-                action.resume();
-                // hàm này sẽ cho phép quay trở lại tình trạng app hiện tại, thực hiện tiếp hàm doLogin
-            },
-            failure: function() {
-                Ext.Msg.alert('Wrong Information to login! Try Again!');
-            }
-        });
+        if (emailText != '' && passText != '') {
+            this.communicatingServer(emailText, passText);
+        } else {
+            // Không điền đầy đủ thông tin
+            Ext.Msg.alert('Invalid Email or Password!');
+        }
     },
 
     // (*) Web Service
-    login: function (email, pass){
-        // Hàm này sẽ thực hiện gửi thông tin về tình trạng đăng nhập của user lên server IgoR, sẽ nhận lại được respond
-        // từ server, sau đó sẽ lưu các thông tin phiên đăng nhập như token, user_name, pass, user_id...
-    },
+    communicatingServer: function (_email, _password){
+        var userStore = Ext.getStore('Users');
+        userStore.removeAll();
+
+        Ext.data.JsonP.request({    
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/login/',
+            params: {
+                email: _email,
+                password: _password
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                if (result.status == 'OK' && result.message !== 'Authentication failed! Check your email or password again') {
+                    // Save the current user for the logged in session
+                    Ext.Array.each(result.message, function(user) {
+                        var userStore = Ext.getStore('Users'), userDetails = {};
+                        userStore.removeAll();
+                        userDetails = Ext.create('Igor.model.User', user);
+                        userDetails.set('loggedIn', true);
+                        userStore.add(userDetails);
+                        userStore.sync();
+                    });
+
+                    // Route to the Main view
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                } else {
+                    Ext.Msg.alert('Invalid Email or Password!');
+                }
+            }
+        });
+    }
 });
