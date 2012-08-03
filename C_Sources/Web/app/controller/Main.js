@@ -118,19 +118,25 @@ Ext.define("Igor.controller.Main", {
     },
 
     onNotificationInit: function() {
+
+        this.getMainPnl().onAfter('erased', function(){
+            this.destroy();
+        });
+
         this.getMainPnl().setMasked({
             xtype: 'loadmask',
             message: 'Loading...'
         });
 
         this.getMainPnl().getTabBar().getComponent(0).setBadgeText(null);
-        var userStore = Ext.getStore('Users').getAt(0);
+
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
         
 
         Ext.data.JsonP.request({
             url: 'https://igor-assistant-ca-2012.appspot.com/igor/notification/call/jsonp/get_all_notification',
             params: {
-                owner: '6006',
+                owner: userId,
             },
             disableCaching: false,
 
@@ -325,15 +331,13 @@ Ext.define("Igor.controller.Main", {
             xtype: 'loadmask',
             message: 'Loading...'
         });
-
-        var taskStore = Ext.getStore('Tasks');
-
-        taskStore.removeAll();
+        
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
 
         Ext.data.JsonP.request({
             url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
             params: {
-                user_id: '4006',
+                user_id: userId,
                 term: '20111', 
                 day_of_week: day_of_week
             },
@@ -346,6 +350,8 @@ Ext.define("Igor.controller.Main", {
                 if (result.status = 'OK') {
                     var taskStore = Ext.getStore('Tasks'),
                         taskModel = {};
+
+                    taskStore.removeAll();
 
                     Ext.Array.each(result.message, function(scheduler) {
                         taskModel = Ext.create('Igor.model.Task', scheduler);

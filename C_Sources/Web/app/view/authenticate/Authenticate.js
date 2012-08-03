@@ -1,7 +1,6 @@
 Ext.define("Igor.view.authenticate.Authenticate", {
     extend: 'Ext.navigation.View',
-    xtype: 'loginForm',
-    id: 'loginForm',
+    xtype: 'authenForm',
 
     requires: [
         'Igor.view.authenticate.Register'
@@ -12,7 +11,7 @@ Ext.define("Igor.view.authenticate.Authenticate", {
         items: [
             {
                 xtype: 'formpanel',
-                id: 'formpanel',
+                itemId: 'loginForm',
                 title: 'Login',
                 iconCls: 'team',
                 layout: 'vbox',
@@ -34,13 +33,11 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                         items: [
                             {
                                 xtype: 'emailfield',
-                                id: 'emailAddress',
                                 label: 'Email',
                                 name: 'email'
                             },
                             {
                                 xtype: 'passwordfield',
-                                id: 'password',
                                 label: 'Password',
                                 name: 'password'
                             }
@@ -49,25 +46,9 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                     {
                         xtype: 'button',
                         text: 'Login',
-                        id: 'submitBtn',
+                        itemId: 'submitBtn',
                         ui: 'confirm',
                         margin: '5',
-
-                        // The handler is called when the button is tapped
-                        handler: function() {
-
-                            // This looks up the items stack above, getting a reference to the first form it see
-                            // var form = this.up('formpanel');
-
-                            // var values = form.getValues();
-
-                            // if (values['email']=='hieulq89@gmail.com' && values['password']=='123456') {
-                            //     Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
-                            // }
-                            // else {
-                            //     Ext.Msg.alert('Sorry', 'Incorrect email/password!');
-                            // }
-                        }
                     },
                     {
                         xtype: 'button',

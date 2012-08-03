@@ -6,7 +6,7 @@ Ext.define("Igor.store.Users", {
         model:'Igor.model.User',
         proxy: {
             type: 'localstorage',
-            //id  : 'loggedIn'
+            id  : 'loggedIn'
         },
         autoload: true
     }

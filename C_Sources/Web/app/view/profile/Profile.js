@@ -5,7 +5,7 @@ Ext.define("Igor.view.profile.Profile", {
     requires: [
         'Ext.List',
         'Igor.store.Users',
-        'Igor.view.profile.Edit'
+        'Igor.view.profile.Edit',
     ],
 
     config: {
@@ -35,8 +35,9 @@ Ext.define("Igor.view.profile.Profile", {
                     handler: function() {
                         var userStore = Ext.getStore('Users');
                         userStore.removeAll();
+                        userStore.sync();
 
-                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Authenticate'));
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Authenticate'), {type: 'slide'});               
                     }
                 },
                 {
@@ -99,17 +100,6 @@ Ext.define("Igor.view.profile.Profile", {
                                                 '<div class="x-component-outer">',
                                                     '<div class="x-field-input">',
                                                         '<input class="x-input-el x-form-field x-input-email" type="email" value="{email}">',
-                                                        '<div class="x-field-mask" style="display: none !important; "></div>',
-                                                    '</div>',
-                                                '</div>',
-                                            '</div>',
-                                            '<div class="x-container x-field-text x-field x-label-align-left x-field-labeled x-form-label-nowrap x-empty">',
-                                                '<div class="x-form-label" style="width: 30% !important; ">',
-                                                    '<span>Username</span>',
-                                                '</div>',
-                                                '<div class="x-component-outer">',
-                                                    '<divclass="x-field-input">',
-                                                        '<input class="x-input-el x-form-field x-input-email" type="text" value="{username}">',
                                                         '<div class="x-field-mask" style="display: none !important; "></div>',
                                                     '</div>',
                                                 '</div>',

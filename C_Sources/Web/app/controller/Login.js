@@ -1,9 +1,13 @@
 Ext.define("Igor.controller.Login", {
     extend: 'Ext.app.Controller',
     views: ['authenticate.Authenticate'], // tương ứng sheet 2
+
+    requires: [
+        'Igor.view.Main'
+    ],
     
     init: function() {
-        this.checkSession();
+        //this.checkSession();
     },
 
     config: {
@@ -11,17 +15,20 @@ Ext.define("Igor.controller.Login", {
             submitButton: {
                 tap: 'doLogin'
             },
+
+            authenForm: {
+                initialize: 'checkSession'
+            },
         },
 
         routes: {
             'login': 'doLogin'
-            // Khi xuat hien url dang http://abc.com/#login thi se thuc hien ham showLogin
         },
 
         refs: {
-            loginForm: 'formpanel',
-            // sau nay có thể lấy email/pass... từ giao diện, có thể thêm refs cụ thể cho từng textbox...
-            submitButton: '#submitBtn'
+            authenForm: 'authenForm',
+            loginForm: 'authenForm #loginForm',
+            submitButton: 'authenForm #submitBtn'
         },
 
         before: {
@@ -30,16 +37,19 @@ Ext.define("Igor.controller.Login", {
     },
 
     checkSession: function() {
-        var userStore = Ext.getStore('Users'), userSession = {};
-        userSession = Ext.create('Igor.model.User');
-        userStore.load({
+        var userStores = Ext.getStore('Users');
+
+        userStores.load({
             callback: function(records, operation, success) {
-                    userSession = userStore.first();
-                    if (userSession !== undefined) {
-                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                    if (records != null && userStores.first() !== undefined) {
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'), {type: 'slide'});                    
                     }
                 },
                 scope: this
+        });
+
+        this.getAuthenForm().onAfter('erased', function(){
+            this.destroy();
         });
     },
 
@@ -76,6 +86,7 @@ Ext.define("Igor.controller.Login", {
                     Ext.Array.each(result.message, function(user) {
                         var userStore = Ext.getStore('Users'), userDetails = {};
                         userStore.removeAll();
+                        user.avatar = "default_male.png";
                         userDetails = Ext.create('Igor.model.User', user);
                         userDetails.set('loggedIn', true);
                         userStore.add(userDetails);
