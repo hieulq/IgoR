@@ -33,7 +33,10 @@ Ext.define("Igor.view.profile.Profile", {
                     align: 'right',
                     
                     handler: function() {
-                        
+                        var userStore = Ext.getStore('Users');
+                        userStore.removeAll();
+
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Authenticate'));
                     }
                 },
                 {

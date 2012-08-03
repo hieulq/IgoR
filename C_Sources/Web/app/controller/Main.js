@@ -124,9 +124,8 @@ Ext.define("Igor.controller.Main", {
         });
 
         this.getMainPnl().getTabBar().getComponent(0).setBadgeText(null);
-        var notifyStore = Ext.getStore('Notifications');
-
-        notifyStore.removeAll();
+        var userStore = Ext.getStore('Users').getAt(0);
+        
 
         Ext.data.JsonP.request({
             url: 'https://igor-assistant-ca-2012.appspot.com/igor/notification/call/jsonp/get_all_notification',
@@ -143,6 +142,8 @@ Ext.define("Igor.controller.Main", {
                 if (result.status = 'OK') {
                     var notifyStore = Ext.getStore('Notifications'),
                         notifyModel = {}, read_count = 0;
+
+                        notifyStore.removeAll();
 
                     Ext.Array.each(result.message, function(notify) {
                         if (notify.is_read == false) {

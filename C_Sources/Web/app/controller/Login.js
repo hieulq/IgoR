@@ -32,11 +32,15 @@ Ext.define("Igor.controller.Login", {
     checkSession: function() {
         var userStore = Ext.getStore('Users'), userSession = {};
         userSession = Ext.create('Igor.model.User');
-        userSession = userStore.getAt(0);
-
-        if (userSession !== undefined) {
-            Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
-        }
+        userStore.load({
+            callback: function(records, operation, success) {
+                    userSession = userStore.first();
+                    if (userSession !== undefined) {
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                    }
+                },
+                scope: this
+        });
     },
 
     doLogin: function(){

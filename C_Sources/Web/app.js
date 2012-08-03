@@ -8,7 +8,7 @@ Ext.application({
     ],
 
     controllers: ['Main', 'ClassDetails', 'Login'],
-    views: ['Main','authenticate.Authenticate'],
+    views: ['authenticate.Authenticate'],
     stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs'],
     models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember'],
 
