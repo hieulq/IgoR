@@ -163,6 +163,8 @@ def add_class_to_user(class_id, user_id):
 
 	# Insert new data
 	# TODO: add class's rule
+	# Not same subject in one term
+	# No overlap scheduler
 
 	try:
 		scheduler_id = db.scheduler.insert(
