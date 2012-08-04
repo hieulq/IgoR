@@ -106,8 +106,8 @@ def format_client_data(notifications):
 			# "username": "Nguyen Hong Phuc",
 			# "avatar": "1.jpeg",
 			notification_id = notification.id,
-			is_read = notification.is_read,
-        	action = get_notification_action(notification),
+			is_read         = notification.is_read,
+			action          = get_notification_action(notification),
         	# object = 'Deadline IT3410',
         	# "objectid": "1",
         	date = IgorTime.get_time_string(notification.date),
@@ -123,7 +123,7 @@ def format_client_data(notifications):
 		if job != None:
 			client.update (
 				objectid = job.id,
-				object = job.name,
+				object   = job.name,
 				)
 
 		client_data.append (client)

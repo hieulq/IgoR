@@ -73,7 +73,7 @@ def login(email, password):
 	#print is_login.id
 
 	user = db(db.user.auth == is_login.id).select()
-
+	
 	user = format_client_data(user)
 
 	return MessagePackager.get_packaged_message (MessageStatus.OK, user)
@@ -84,7 +84,7 @@ def login(email, password):
 @service.jsonp
 @service.json
 def search_user(type, value = ''):
-		
+	
 	if (not type.isdigit()):
 		return MessagePackager.get_packaged_message (
 			MessageStatus.ERROR, 
