@@ -14,5 +14,13 @@ Ext.define("Igor.model.ClassUser", {
             'course'
         ],
 
+        proxy: {
+            type: 'ajax',
+            url : 'data/profiles.json',
+            reader: {
+                type: 'json',
+            }
+        }
+
     }
 });

@@ -3,6 +3,10 @@ Ext.define("Igor.view.task.NewProject", {
     xtype: 'newProjectForm',
     itemId: 'newProjectForm',
 
+    requires: [
+        'Igor.store.ClassUsers'
+    ],
+
     config: {
         title: 'New Project',
         layout: 'vbox',
@@ -29,9 +33,9 @@ Ext.define("Igor.view.task.NewProject", {
                         xtype: 'selectfield',
                         label: 'Select Member',
                         name: 'members',
+                        store: Igor.store.ClassUsers,
                         valueField: 'userid',
                         displayField: 'fullname',
-                        store: 'ClassUsers'
                     }
                 ]
             },

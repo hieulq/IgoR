@@ -122,21 +122,6 @@ Ext.define("Igor.view.task.Task", {
                         ]
                     }
                 ],
-
-                listeners: {
-                    itemtap: function(list, index, target, record) {
-                        //console.log('onItemTap: index = ' + index);
-                        var rec = list.getStore().getAt(index);
-                        //console.log(rec.data);
-                        //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
-                        //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
-                        var navView = this.up('navigationview');
-                        var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
-
-                        navView.push({xtype: 'classDetailsForm'});
-                        termBtn.hide();
-                    }
-                }
             }
             
         ]

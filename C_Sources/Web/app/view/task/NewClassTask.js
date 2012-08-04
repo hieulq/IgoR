@@ -1,7 +1,7 @@
 Ext.define("Igor.view.task.NewClassTask", {
     extend: 'Ext.form.Panel',
     xtype: 'newClassTaskForm',
-    id: 'newClassTaskForm',
+    itemId: 'newClassTaskForm',
 
     requires: [
         'Igor.utility.picker.TimePicker'

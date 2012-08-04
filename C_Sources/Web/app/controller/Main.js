@@ -4,7 +4,8 @@ Ext.define("Igor.controller.Main", {
 
     requires: [
          'Igor.view.task.NewProject',
-         'Igor.view.task.NewClassTask'
+         'Igor.view.task.NewClassTask',
+         'Igor.view.task.ClassDetails',
     ],
     
     init: function() {
@@ -37,12 +38,20 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onTaskInit'
             },
 
+            classDetailsForm: {
+                initialize: 'classDetailInit'
+            },
+
             refreshNewsButton: {
                 tap: 'onNotificationInit'
             },
 
             updatesListForm: {
                 //initialize: 'onNotificationInit',
+            },
+
+            schedulerList: {
+                itemtap: 'onTaskTap'
             },
 
             newProjectForm: {
@@ -61,7 +70,7 @@ Ext.define("Igor.controller.Main", {
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks/abc thì sẽ thực hiện hàm doTasks()
             'tasks/:id': 'doTasks',
             'tasks/taskbyday/:day_of_week': 'showTasksByDay',
-            'tasks/Task/:id':'viewTaskDetails', // Hàm này sẽ thực thi khi có route tương ứng việc click 1 item trên list task
+            'tasks/:id':'viewTaskDetails', // Hàm này sẽ thực thi khi có route tương ứng việc click 1 item trên list task
 
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks thì sẽ thực hiện hàm doTasks()
             'user/:id': 'doUser',
@@ -76,6 +85,10 @@ Ext.define("Igor.controller.Main", {
             daySelBtn: 'tasksForm #daySelectBtn',
             mainPnl: 'mainpanel',
             newProjectForm: 'newProjectForm',
+
+            //Class
+            classDetails: 'classDetailsForm',
+            schedulerList: 'tasksForm #schedulerList',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -96,6 +109,20 @@ Ext.define("Igor.controller.Main", {
 
     testFunc: function() {
         var a = this.getMainPnl().getTabBar().getComponent(0);
+    },
+
+    classDetailInit: function() {
+
+    },
+
+    onTaskTap: function(list, index, target, record) {
+        var rec = list.getStore().getAt(index);
+        //console.log(rec.data);
+        //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
+        //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
+        var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
+        window.location.href = 'index.html#tasks/' + rec.get('class_id');
+        termBtn.hide();
     },
 
     onTaskInit: function() {
@@ -331,9 +358,39 @@ Ext.define("Igor.controller.Main", {
 
     // Hàm này thực hiện khi click vào 1 item trên list tasks theo Day/Week...
     viewTaskDetails: function(id) {
-        this.redirectTo('url'); // Chuyển sang màn hình xem chi tiết Tasks
-        // Sử dụng route: http://abc.com/afterlogin/taskdetails/123
-        // -> redirect sang màn hình TaskDetails
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_class_detail',
+            params: {
+                id: id
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                Ext.ComponentQuery.query('mainpanel')[0].unmask();
+
+                if (result.status = 'OK') {
+                    var classDetailStore = Ext.getStore('Classdetails'),
+                        classDetailModel = {};
+
+                    classDetailStore.removeAll();
+
+                    Ext.Array.each(result.message, function(classdetail) {
+                        classDetailModel = Ext.create('Igor.model.Classdetail',classdetail);
+                        classDetailStore.add(classDetailModel);
+                        //console.log(classdetail);
+                    });
+                    Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
+                }
+                
+                
+            }
+        });
     },
 
     // User

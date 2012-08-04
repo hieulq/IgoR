@@ -4,6 +4,7 @@ Ext.define("Igor.model.Task", {
     config: {
         fields: [
             'class_code',
+            'class_id',
             'subject_name',
             'num_of_day',//Monday, ...
             'period',//morning,..
