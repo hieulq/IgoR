@@ -25,15 +25,6 @@ Ext.define("Igor.view.profile.Edit", {
                         name: 'studentid'
                     },
                     {
-                        xtype: 'datepickerfield',
-                        name: 'dob',
-                        label: 'DOB',
-                        value: new Date('3/19/1989'),
-                        picker: {
-                            yearFrom: 1989
-                        }
-                    },
-                    {
                         xtype: 'selectfield',
                         label: 'Course',
                         name: 'course',

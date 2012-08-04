@@ -33,32 +33,6 @@ Ext.define("Igor.view.task.Task", {
                     iconMask: true,
                     ui: 'plain',
                     align: 'right',
-
-                    handler: function() {
-                        if (!this.picker) {
-                            this.picker = Ext.Viewport.add({
-                                xtype: 'picker',
-                                title: 'Select Term',
-                                toolbar: {
-                                    title: 'Select Term'
-                                },
-                                slots: [
-                                    {
-                                        name : 'term',
-                                        title: 'Term',
-                                        data : [
-                                            {text: '20111', value: 20111},
-                                            {text: '20112', value: 20112},
-                                            {text: '20113', value: 20113},
-                                            {text: '20121', value: 20121}
-                                        ]
-                                    }
-                                ]
-                            });
-                        }
-
-                        this.picker.show();
-                    }
                 },
                 {
                     xtype: 'button',

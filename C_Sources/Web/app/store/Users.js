@@ -4,10 +4,17 @@ Ext.define("Igor.store.Users", {
 
     config: {
         model:'Igor.model.User',
+        autoSync: true,
         proxy: {
             type: 'localstorage',
-            id  : 'loggedIn'
+            id  : 'authenStore'
         },
-        autoload: true
+        autoload: true,
+
+        /*listeners : {
+            load : function (s) {
+                console.log('Data loaded, store has ' + s.getCount() + ' items');
+            }
+        }*/
     }
 });

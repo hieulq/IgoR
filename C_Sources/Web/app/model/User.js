@@ -2,8 +2,9 @@ Ext.define("Igor.model.User", {
     extend: 'Ext.data.Model',
 
     config: {
+        idProperty : "userid",
         identifier: {
-                    type: 'uuid'
+            type: 'uuid'
         },
 
         fields: [

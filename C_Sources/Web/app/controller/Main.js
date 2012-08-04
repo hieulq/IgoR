@@ -1,6 +1,6 @@
 Ext.define("Igor.controller.Main", {
     extend: 'Ext.app.Controller',
-    views: ['Main'], 
+    views: ['Main', 'task.Task'], 
 
     requires: [
          'Igor.view.task.NewProject',
@@ -19,20 +19,8 @@ Ext.define("Igor.controller.Main", {
                 disclose: 'viewUpdateDiscloseDetails'
             },
 
-            // Sự kiện khi click vào 1 task trên form tasks list
-            dayTabPanel: {
-                tabSelected: 'showTasksByDay',
-            },
             tasksListByDay: {
                 itemtap: 'viewTaskDetails',
-            },
-
-            // Sự kiện khi click trên các form của màn hình User
-            friendsListForm: {
-                itemtap: 'viewFriendDetails',
-            },
-            classesListForm: {
-                itemtap: 'viewClassDetails',
             },
 
             userDetailsForm: {
@@ -44,14 +32,17 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onSelBtnInit',
             },
 
+            termSelBtn: {
+                initialize: 'onTermSelBtnInit'
+            },
+
             tasksForm: {
                 pop: 'onTaskPop',
                 push: 'onTaskPush'
             },
 
             refreshNewsButton: {
-                //tap: 'onNotificationInit'
-                tap: 'testFunc'
+                tap: 'onNotificationInit'
             },
 
             updatesListForm: {
@@ -92,29 +83,50 @@ Ext.define("Igor.controller.Main", {
 
             // Tasks
             tasksForm:'tasksForm',
-            dayTabPanel:'#dayTabPanel',
             tasksListByDay:'#tasksListByDay',
+            termSelBtn: '#termSelectBtn',
 
             // Users
             userDetailsForm: 'userDetailsForm',
-            friendsListForm: '#friendsListForm',
-            classesListForm: '#classesListForm',
+            editProfileButton: '#editProfileButton',
         },
 
         before: {
-            // Updates
-            doUpdates: ['ensureLoadingUserInfo','getAllUpdates'],
-
             // Tasks
-            doTasks: ['getCurrentTime', 'getAllTasksByUser'], // Nếu cần ràng buộc j thì thêm vào đây
-
-            // User
-            doUser: ['getUserDetails', 'getFriendsListByUser', 'getClassesListByUser']
+            doTasks: ['getCurrentTime', 'getAllTasksByUser'],
         },
     },
 
     testFunc: function() {
         var a = this.getMainPnl().getTabBar().getComponent(0);
+    },
+
+    onTermSelBtnInit: function() {
+        this.getTermSelBtn().setHandler(function() {
+            if (!this.picker) {
+                this.picker = Ext.Viewport.add({
+                    xtype: 'picker',
+                    title: 'Select Term',
+                    toolbar: {
+                        title: 'Select Term'
+                    },
+                    slots: [
+                        {
+                            name : 'term',
+                            title: 'Term',
+                            data : [
+                                {text: '20111', value: 20111},
+                                {text: '20112', value: 20112},
+                                {text: '20113', value: 20113},
+                                {text: '20121', value: 20121}
+                            ]
+                        }
+                    ]
+                });
+            }
+
+            this.picker.show();
+        });
     },
 
     onNotificationInit: function() {
@@ -267,31 +279,6 @@ Ext.define("Igor.controller.Main", {
         }
     },
 
-    // Updates
-    // Hàm này thực hiện chính: khi có routes báo #updates thì hàm này sẽ thực hiện tất cả các thao tác 
-    // để đưa dữ liệu lên list chính
-    doUpdates: function(){
-        // Thực hiện hàm ensureLoadingUserInfo() đầu tiên
-        // Thực hiện hàm getAllUpdates() tiếp theo
-        this.showListForm();
-    },
-
-    // Hàm này lấy về thông tin của user sau khi đăng nhập thành công
-    ensureLoadingUserInfo: function(){
-        // Lấy được user_id
-    },
-
-    // (*) Đây là hàm tương tác vs server IgoR để lấy về toàn bộ notifications, updates...
-    getAllUpdates: function(user_id){
-        // Sử dụng hàm Get_all_notification(owner) trong file .doc
-    },
-
-    // Sau khi 2 hàm trên thực hiện thì sẽ có dữ liệu để hiển thị trên giao diện
-    // Hàm này sẽ thực hiện binding dữ liệu đã load về được lên list view
-    showListForm: function(){
-        // abc...
-    },
-
     viewUpdateDetails: function(list, index, target, record){
         // Show 1 popup để hiển thị details của notification này
         // Trên popup này sẽ có 1 nút "Read/Unread" để xác định việc xem notification này, 
@@ -377,7 +364,6 @@ Ext.define("Igor.controller.Main", {
     doUser: function() {
         // Thực hiện 3 hàm filters trước (dưới)
         // Sau đó, binding dữ liệu lên các 3 form đã khai báo tương ứng
-        alert('dcm');
     },
 
     // (*) WS lấy về thông tin chi tiết user theo ID
@@ -385,19 +371,9 @@ Ext.define("Igor.controller.Main", {
         // sử dụng hàm Get_user_detail(user_id) trong file .doc
     },
 
-    // (*) WS lấy về toàn bộ friend list của user này theo ID
-    getFriendsListByUser: function() {
-
-    },
-
     // (*) WS lấy về toàn bộ class list của user này theo ID
     getClassesListByUser: function(user_id) {
         // Sử dụng hàm Get_classes_by_user(user_id) trong file .doc
-    },
-
-    // Hàm này sẽ mở màn hình thông tin chi tiết về user theo ID tương ứng (màn hình User Details)
-    viewFriendDetails: function(id) {
-        this.redirectTo('url'); // Cập nhật route
     },
 
     // Hàm này xem thông tin chi tiết về lớp theo ID tương ứng (màn hình Class Details)

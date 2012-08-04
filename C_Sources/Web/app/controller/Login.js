@@ -39,6 +39,10 @@ Ext.define("Igor.controller.Login", {
     checkSession: function() {
         var userStores = Ext.getStore('Users');
 
+        this.getAuthenForm().onAfter('erased', function(){
+            this.destroy();
+        });
+
         userStores.load({
             callback: function(records, operation, success) {
                     if (records != null && userStores.first() !== undefined) {
@@ -46,10 +50,6 @@ Ext.define("Igor.controller.Login", {
                     }
                 },
                 scope: this
-        });
-
-        this.getAuthenForm().onAfter('erased', function(){
-            this.destroy();
         });
     },
 
@@ -69,9 +69,6 @@ Ext.define("Igor.controller.Login", {
 
     // (*) Web Service
     communicatingServer: function (_email, _password){
-        var userStore = Ext.getStore('Users');
-        userStore.removeAll();
-
         Ext.data.JsonP.request({    
             url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/login/',
             params: {
@@ -82,10 +79,12 @@ Ext.define("Igor.controller.Login", {
 
             success: function(result, request) {
                 if (result.status == 'OK' && result.message !== 'Authentication failed! Check your email or password again') {
+                    var userStore = Ext.getStore('Users'), userDetails = {};
+                    userStore.removeAll();
+                    userStore.sync();
+
                     // Save the current user for the logged in session
-                    Ext.Array.each(result.message, function(user) {
-                        var userStore = Ext.getStore('Users'), userDetails = {};
-                        userStore.removeAll();
+                    Ext.Array.each(result.message, function(user) {      
                         user.avatar = "default_male.png";
                         userDetails = Ext.create('Igor.model.User', user);
                         userDetails.set('loggedIn', true);
