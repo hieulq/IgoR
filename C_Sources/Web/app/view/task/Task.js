@@ -90,32 +90,32 @@ Ext.define("Igor.view.task.Task", {
                                 items: [
                                     {
                                         text: 'Monday',
-                                        value: '0',
+                                        itemId: '0',
                                         pressed: true
                                     },
                                     {
                                         text   : 'Tuesday',
-                                        value: '1',                                        
+                                        itemId: '1',                                        
                                     },
                                     {
                                         text: 'Wednesday',
-                                        value: '2',
+                                        itemId: '2',
                                     },
                                     {
                                         text   : 'Thursday',
-                                        value: '3',                                        
+                                        itemId: '3',                                        
                                     },
                                     {
                                         text   : 'Friday',
-                                        value: '4',                                        
+                                        itemId: '4',                                        
                                     },
                                     {
                                         text   : 'Saturday',
-                                        value: '5',                                        
+                                        itemId: '5',                                        
                                     },
                                     {
                                         text   : 'Sunday',
-                                        value: '6',                                        
+                                        itemId: '6',                                        
                                     }
                                 ],
                             }
@@ -131,8 +131,7 @@ Ext.define("Igor.view.task.Task", {
                         //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
                         //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
                         var navView = this.up('navigationview');
-                        var addTaskBtn = Ext.getCmp('addTaskBtn');
-                        var termBtn = Ext.getCmp('termSelectBtn');
+                        var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
 
                         navView.push({xtype: 'classDetailsForm'});
                         termBtn.hide();

@@ -29,16 +29,12 @@ Ext.define("Igor.controller.Main", {
 
             daySelBtn: {
                 toggle: 'onDayToggle',
-                initialize: 'onSelBtnInit',
-            },
-
-            termSelBtn: {
-                initialize: 'onTermSelBtnInit'
             },
 
             tasksForm: {
                 pop: 'onTaskPop',
-                push: 'onTaskPush'
+                push: 'onTaskPush',
+                initialize: 'onTaskInit'
             },
 
             refreshNewsButton: {
@@ -83,9 +79,9 @@ Ext.define("Igor.controller.Main", {
 
             // Tasks
             tasksForm:'tasksForm',
-            addTaskBtn: 'tasksForm #addTaskBtn',
+            addTaskBtn: '.tasksForm #addTaskBtn',
             tasksListByDay:'#tasksListByDay',
-            termSelBtn: 'tasksForm #termSelectBtn',
+            termSelBtn: '.tasksForm #termSelectBtn',
 
             // Users
             userDetailsForm: 'userDetailsForm',
@@ -102,7 +98,19 @@ Ext.define("Igor.controller.Main", {
         var a = this.getMainPnl().getTabBar().getComponent(0);
     },
 
-    onTermSelBtnInit: function() {
+    onTaskInit: function() {
+        var segmentedButton = this.getDaySelBtn();
+        var date = new Date().getDay();
+
+        if (date == 0) {
+            segmentedButton.setPressedButtons(6);
+            this.showTasksByDay(6);    
+        } 
+        else {
+            segmentedButton.setPressedButtons(date - 1);
+            this.showTasksByDay(date - 1); 
+        }
+
         this.getTermSelBtn().setHandler(function() {
             if (!this.picker) {
                 this.picker = Ext.Viewport.add({
@@ -125,9 +133,8 @@ Ext.define("Igor.controller.Main", {
                     ]
                 });
             }
-
             this.picker.show();
-        });
+        });     
     },
 
     onNotificationInit: function() {
@@ -192,21 +199,7 @@ Ext.define("Igor.controller.Main", {
 
     onDayToggle: function(container, button, pressed, eOpts){
         //console.log("User toggled the '" + button.getText() + button.getId() + "' button: " + (pressed ? 'on' : 'off'));
-        window.location.href = 'index.html#tasks/taskbyday/' + button.getId();
-    },
-
-    onSelBtnInit: function(){
-        var segmentedButton = this.getDaySelBtn();
-        var date = new Date().getDay();
-
-        if (date == 0) {
-            segmentedButton.setPressedButtons(6);
-            this.showTasksByDay(6);    
-        } 
-        else {
-            segmentedButton.setPressedButtons(date - 1);
-            this.showTasksByDay(date - 1); 
-        }
+        window.location.href = 'index.html#tasks/taskbyday/' + button.getItemId();
     },
 
     onProfilePop: function(){
