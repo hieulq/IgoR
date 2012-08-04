@@ -206,20 +206,3 @@ def format_client_data(projects):
 	return client_data
 
 
-	# 	if user != None:
-	# 		client.update(
-	# 			userid   = user.id,
-	# 			username = user.name,
-	# 			avatar   = user.avatar,
-	# 			)
-
-	# 	if job != None:
-	# 		client.update (
-	# 			objectid = job.id,
-	# 			object   = job.name,
-	# 			)
-
-	# 	client_data.append (client)
-
-	# return client_data
-# end phucnh edit 20120730
