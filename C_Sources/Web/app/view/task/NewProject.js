@@ -4,7 +4,8 @@ Ext.define("Igor.view.task.NewProject", {
     itemId: 'newProjectForm',
 
     requires: [
-        'Igor.store.Classusers'
+        'Igor.store.Classusers',
+        'Igor.view.MultiSelect'
     ],
 
     config: {
@@ -30,7 +31,8 @@ Ext.define("Igor.view.task.NewProject", {
                         name: 'description'
                     },
                     {
-                        xtype: 'selectfield',
+                        xtype: 'multiselectfield',
+                        usePicker : false,
                         itemId: 'userListField',
                         label: 'Select Member',
                         name: 'members',
