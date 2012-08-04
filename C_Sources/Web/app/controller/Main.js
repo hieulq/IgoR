@@ -1,6 +1,5 @@
 Ext.define("Igor.controller.Main", {
     extend: 'Ext.app.Controller',
-    views: ['Main', 'task.Task'], 
 
     requires: [
          'Igor.view.task.NewProject',
@@ -89,6 +88,7 @@ Ext.define("Igor.controller.Main", {
             //Class
             classDetails: 'classDetailsForm',
             schedulerList: 'tasksForm #schedulerList',
+            userListField: 'newProjectForm #userListField',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -221,7 +221,11 @@ Ext.define("Igor.controller.Main", {
 
     onNewProjectInit: function() {
         var id = this.getNewProjectForm().getClassid();
-        console.log(id);
+        var classUserStore = Ext.getStore('Classusers');
+        classUserStore.load(function(store, recs, success) {
+            Ext.ComponentQuery.query('#userListField')[0].setOptions(store);
+        });
+        
     },
 
     onDayToggle: function(container, button, pressed, eOpts){
