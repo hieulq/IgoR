@@ -47,7 +47,7 @@ def get_projects(user_id):
 			db.test.test_type == 2).select()
 		projects.append(project)
 
-	#projects = format_client_data(projects)
+	projects = format_client_data(projects)
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, projects)
 
@@ -91,7 +91,7 @@ def get_project_by_class(class_id):
 	project = db(db.test.class_subject == class_id and
 		db.test.test_type == 2).select()
 
-	#project = format_client_data(project)
+	project = format_client_data(project)
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, project)
 
