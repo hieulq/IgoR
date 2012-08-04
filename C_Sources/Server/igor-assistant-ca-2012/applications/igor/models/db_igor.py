@@ -63,7 +63,7 @@ db.define_table('test',
 
 # Define project member
 db.define_table('project_member',
-    Field('class_subject', db.class_subject),
+    Field('test', 'integer'),
     Field('user', 'integer'),
     Field('note', 'text')
     )
