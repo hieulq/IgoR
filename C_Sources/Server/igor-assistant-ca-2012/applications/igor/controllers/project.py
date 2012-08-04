@@ -69,7 +69,7 @@ def get_project_detail(project_id):
 	project = db(db.test.id == project_id and
 		db.test.test_type == 2).select()
 
-	#project = format_client_data(project)
+	project = format_client_data(project)
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, project)
 
@@ -136,43 +136,90 @@ def get_project_by_user_class(user_id, class_id):
 		MessageStatus.ERROR, "can not find project")
 
 
-# def format_client_data(projects):
-# 	if (projects == None):
-# 		return
+def format_client_data(projects):
+	if projects == None:
+		return
 
-# 	client_data = list()
+	client_data = list()
 
-# 	for project in projects:
-
-# 		subject = db(db.subject.id == class_subject.subject).select().first()
-# 		class_schedulers = db(db.class_scheduler.class_subject == class_subject.id).select()
+	for project in projects:
 		
-# 		if (subject == None):
-# 			continue
-# 		# print class_schedulers
-# 		for class_scheduler in class_schedulers:
-			
-# 			# Get session list (integer)
-# 			sessions = get_class_sessions(class_scheduler.period)
+		class_subject = db(db.class_subject.id == project.class_subject).select().first()
+		
+		if class_subject != None:
+			subject = db(db.subject.id == class_subject.subject).select().first()
+			if subject != None:
+				client = dict(
+					
+					projectid 		= project.id,
+					name	        = subject.name,
+					description     = subject.note,
+		        	
+					)
 
-# 			# Morning session
-# 			morning = [session for session in sessions if session <= 6]
-# 			afternoon = [session for session in sessions if session >= 7]
+		client_data.append (client)
+
+		#################
+		members_users = db(db.project_member.test == project.id).select()
+		members = list()
+
+		if members_users != None:
+			for members_user in members_users:
+				user = db(db.user.id == members_user.user).select().first()
+				auth = db(db.auth_user.id == user.auth).select().first()
+				member = dict(
+
+					userid 			=	user.id,
+					fullname		=	user.name,
+#					password		=	#???,
+					avatar			=	user.avatar,
+					studentid		=	user.student_code,
+					email			=	auth.email,
+					group			=	user.class_group,
+					course			=	user.user_course,
+					)
+				members.append (member)
+
+		client_data.append (members)
+
+		################
+		project_jobs = db(db.job.test == project.id).select()
+		jobs = list()
+		if project_jobs != None:
+			for project_job in project_jobs:
+
+				job = dict(
+
+					jobid 			=	project_job.id,
+					name			=	project_job.name,
+					status			=	project_job.status,
+					start_time		=	project_job.start_time,
+					end_time		=	project_job.end_time,
+					repeat_date		=	project_job.repeat_date,
+					location		=	project_job.location,
+					note			=	project_job.note,
+					)
+				jobs.append (job)
+
+		client_data.append (jobs)
+
+	return client_data
 
 
-# 			if (morning):
-# 				client = class_data_format(
-# 					class_subject, class_scheduler,
-# 					subject, morning, "Morning")
-				
-# 				client_data.append(client)
+	# 	if user != None:
+	# 		client.update(
+	# 			userid   = user.id,
+	# 			username = user.name,
+	# 			avatar   = user.avatar,
+	# 			)
 
-# 			if (afternoon):
-# 				afternoon = map(lambda s: s - 6, afternoon)
-# 				client = class_data_format(
-# 					class_subject, class_scheduler,
-# 					subject, afternoon, "Afternoon")
+	# 	if job != None:
+	# 		client.update (
+	# 			objectid = job.id,
+	# 			object   = job.name,
+	# 			)
 
-# 				client_data.append (client)
+	# 	client_data.append (client)
 
-# 	return client_data
+	# return client_data
+# end phucnh edit 20120730
