@@ -1,7 +1,6 @@
 Ext.define("Igor.view.profile.Edit", {
     extend: 'Ext.form.Panel',
     xtype: 'profileEdit',
-    id: 'profileEdit',
 
     config: {
         title: 'Edit',

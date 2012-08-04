@@ -33,7 +33,7 @@ Ext.define("Igor.view.notification.News", {
                 },
                 {
                     xtype: 'button',
-                    id: 'refreshNewsButton',
+                    itemId: 'refreshNewsButton',
                     iconCls: 'time_repeat',
                     iconMask: true,
                     ui: 'plain',
@@ -45,7 +45,7 @@ Ext.define("Igor.view.notification.News", {
         items: [
             {
                 xtype: 'list',
-                id: 'updateList',
+                itemId: 'updateList',
                 title: 'News',
                 cls: 'x-feeds',
                 disclosure: true, 

@@ -28,7 +28,7 @@ Ext.define("Igor.view.task.Task", {
             items: [                    
                 {
                     xtype: 'button',
-                    id: 'termSelectBtn',
+                    itemId: 'termSelectBtn',
                     iconCls: 'doc_drawer',
                     iconMask: true,
                     ui: 'plain',
@@ -36,7 +36,7 @@ Ext.define("Igor.view.task.Task", {
                 },
                 {
                     xtype: 'button',
-                    id: 'addTaskBtn',
+                    itemId: 'addTaskBtn',
                     iconCls: 'add',
                     iconMask: true,
                     ui: 'plain',
@@ -44,7 +44,7 @@ Ext.define("Igor.view.task.Task", {
                     
                     handler: function() {
                         var navView = this.up('navigationview');
-                        var termBtn = Ext.getCmp('termSelectBtn');
+                        var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
 
                         navView.push({xtype: 'newTask'});
                         this.hide();
@@ -57,7 +57,7 @@ Ext.define("Igor.view.task.Task", {
         items: [
             {
                 xtype: 'list',
-                id: 'schedulerList',
+                itemId: 'schedulerList',
                 ui: 'round',
                 title: 'Schedulers',                
                 itemTpl: '{title}',
@@ -84,38 +84,38 @@ Ext.define("Igor.view.task.Task", {
                                     width: '95px' 
                                 },
                                 xtype: 'segmentedbutton',
-                                id: 'daySelectBtn',
+                                itemId: 'daySelectBtn',
                                 allowDepress: true,
 
                                 items: [
                                     {
                                         text: 'Monday',
-                                        id: '0',
+                                        value: '0',
                                         pressed: true
                                     },
                                     {
                                         text   : 'Tuesday',
-                                        id: '1',                                        
+                                        value: '1',                                        
                                     },
                                     {
                                         text: 'Wednesday',
-                                        id: '2',
+                                        value: '2',
                                     },
                                     {
                                         text   : 'Thursday',
-                                        id: '3',                                        
+                                        value: '3',                                        
                                     },
                                     {
                                         text   : 'Friday',
-                                        id: '4',                                        
+                                        value: '4',                                        
                                     },
                                     {
                                         text   : 'Saturday',
-                                        id: '5',                                        
+                                        value: '5',                                        
                                     },
                                     {
                                         text   : 'Sunday',
-                                        id: '6',                                        
+                                        value: '6',                                        
                                     }
                                 ],
                             }

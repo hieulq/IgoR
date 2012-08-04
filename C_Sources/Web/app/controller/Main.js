@@ -75,20 +75,21 @@ Ext.define("Igor.controller.Main", {
 
         refs: {
             // Updates
-            refreshNewsButton: '#refreshNewsButton',
+            refreshNewsButton: 'updatesListForm #refreshNewsButton',
             updatesListForm: 'updatesListForm',
-            daySelBtn: '#daySelectBtn',
+            daySelBtn: 'tasksForm #daySelectBtn',
             mainPnl: 'mainpanel',
             newProjectForm: 'newProjectForm',
 
             // Tasks
             tasksForm:'tasksForm',
+            addTaskBtn: 'tasksForm #addTaskBtn',
             tasksListByDay:'#tasksListByDay',
-            termSelBtn: '#termSelectBtn',
+            termSelBtn: 'tasksForm #termSelectBtn',
 
             // Users
             userDetailsForm: 'userDetailsForm',
-            editProfileButton: '#editProfileButton',
+            editProfileButton: 'userDetailsForm #editProfileButton',
         },
 
         before: {
@@ -131,10 +132,6 @@ Ext.define("Igor.controller.Main", {
 
     onNotificationInit: function() {
 
-        this.getMainPnl().onAfter('erased', function(){
-            this.destroy();
-        });
-
         this.getMainPnl().setMasked({
             xtype: 'loadmask',
             message: 'Loading...'
@@ -154,7 +151,7 @@ Ext.define("Igor.controller.Main", {
 
             success: function(result, request) {
                 // Unmask the viewport
-                mainPanel = Ext.getCmp('mainpanel');
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
                 mainPanel.unmask();
 
                 if (result.status = 'OK') {
@@ -213,43 +210,35 @@ Ext.define("Igor.controller.Main", {
     },
 
     onProfilePop: function(){
-        var editProfileBtn = Ext.getCmp('editProfileButton');
+        var editProfileBtn = this.getEditProfileButton();
         editProfileBtn.show();
     },
 
     onTaskPop: function(){
         var taskForm = this.getTasksForm();
         var previousCtn = taskForm.getPreviousItem();
+        var addTaskBtn = this.getAddTaskBtn();
 
         //console.log(activeCtn.getItemId());
 
         if (previousCtn == null) {
-            var termBtn = Ext.getCmp('termSelectBtn');
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
-
             addTaskBtn.setHandler(function() {
                 var navView = this.up('navigationview');
-                var termBtn = Ext.getCmp('termSelectBtn');
-
+                var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
                 navView.push({xtype: 'newTask'});
                 this.hide();
                 termBtn.hide();
             });
-
-            termBtn.show();
+            this.getTermSelBtn().show();
             addTaskBtn.show();
         }    
         else if (previousCtn.getItemId().indexOf('scheduler') != -1) {
-            //console.log(previousCtn.getItemId());
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
+            //console.log(previousCtn.getItemId());     
             addTaskBtn.show();
-
             addTaskBtn.setHandler(this.getFuncForAddBtn("class"));
         }
         else if (previousCtn.getItemId().indexOf('classDetailsForm') != -1) {
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
             addTaskBtn.show();
-
             addTaskBtn.setHandler(this.getFuncForAddBtn("project"));
         }
     },
@@ -260,22 +249,16 @@ Ext.define("Igor.controller.Main", {
 
         if (activeCtn.getItemId().indexOf('classDetailsForm') != -1) {
             //console.log(activeCtn.getItemId());
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
-
-            addTaskBtn.setHandler(this.getFuncForAddBtn("class"));
+            this.getAddTaskBtn().setHandler(this.getFuncForAddBtn("class"));
         }
         else if (activeCtn.getItemId().indexOf('projectDetailsForm') != -1) {
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
-
-            addTaskBtn.setHandler(this.getFuncForAddBtn("project"));
+            this.getAddTaskBtn().setHandler(this.getFuncForAddBtn("project"));
         }
         else if (activeCtn.getItemId().indexOf('classTaskDetailsForm') != -1) {
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
-            addTaskBtn.hide();
+            this.getAddTaskBtn().hide();
         }
         else if (activeCtn.getItemId().indexOf('jobDetailsForm') != -1) {
-            var addTaskBtn = Ext.getCmp('addTaskBtn');
-            addTaskBtn.hide();
+            this.getAddTaskBtn().hide();
         }
     },
 
@@ -332,7 +315,7 @@ Ext.define("Igor.controller.Main", {
 
             success: function(result, request) {
                 // Unmask the viewport
-                Ext.getCmp('mainpanel').unmask();
+                Ext.ComponentQuery.query('mainpanel')[0].unmask();
 
                 if (result.status = 'OK') {
                     var taskStore = Ext.getStore('Tasks'),

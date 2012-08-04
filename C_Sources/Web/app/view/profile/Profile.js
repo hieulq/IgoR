@@ -26,7 +26,7 @@ Ext.define("Igor.view.profile.Profile", {
             items: [
                 {
                     xtype: 'button',
-                    id: 'logoutButton',
+                    itemId: 'logoutButton',
                     iconCls: 'reply',
                     iconMask: true,
                     ui: 'plain',
@@ -42,7 +42,7 @@ Ext.define("Igor.view.profile.Profile", {
                 },
                 {
                     xtype: 'button',
-                    id: 'editProfileButton',
+                    itemId: 'editProfileButton',
                     iconCls: 'compose',
                     iconMask: true,
                     ui: 'plain',

@@ -7,7 +7,7 @@ Ext.define("Igor.store.Users", {
         autoSync: true,
         proxy: {
             type: 'localstorage',
-            id  : 'authenStore'
+            id  : 'usersStorage'
         },
         autoload: true,
 
