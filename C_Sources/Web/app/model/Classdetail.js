@@ -3,6 +3,7 @@ Ext.define("Igor.model.Classdetail", {
 
     config: {
         fields: [
+            'class_id',
             'class_code',
             'subject_name',
             'num_of_day',//Monday, ...

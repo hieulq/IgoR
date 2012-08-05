@@ -221,9 +221,36 @@ Ext.define("Igor.controller.Main", {
 
     onNewProjectInit: function() {
         var id = this.getNewProjectForm().getClassid();
-        var classUserStore = Ext.getStore('Classusers');
-        classUserStore.load(function(store, recs, success) {
-            Ext.ComponentQuery.query('#userListField')[0].setOptions(store);
+        var classId = Ext.getStore('Classdetails').getAt(0).get('class_id');
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_users_by_class',
+            params: {
+                class_id: classId,
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var classUserStore = Ext.getStore('Classusers'),
+                        classUserModel = {};
+
+                        classUserStore.removeAll();
+
+                    Ext.Array.each(result.message, function(user) {
+                        classUserModel = Ext.create('Igor.model.Classuser', user);
+                        classUserStore.add(classUserModel);
+                    });
+
+                    Ext.ComponentQuery.query('#userListField')[0].setOptions(classUserStore.getData().all);
+                }
+                
+                
+            }
         });
         
     },
