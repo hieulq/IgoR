@@ -50,7 +50,8 @@ Ext.define("Igor.controller.Main", {
             },
 
             schedulerList: {
-                itemtap: 'onTaskTap'
+                itemtap: 'onTaskTap',
+                itemtaphold: 'onTaskTapHold'
             },
 
             newProjectForm: {
@@ -116,13 +117,26 @@ Ext.define("Igor.controller.Main", {
     },
 
     onTaskTap: function(list, index, target, record) {
-        var rec = list.getStore().getAt(index);
+        //var rec = list.getStore().getAt(index);
         //console.log(rec.data);
         //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
         //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
         var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
-        window.location.href = 'index.html#tasks/' + rec.get('class_id');
+        window.location.href = 'index.html#tasks/' + record.get('class_id');
         termBtn.hide();
+    },
+
+    onTaskTapHold: function(list, index, target, record) {
+        //var rec = list.getStore().getAt(index);
+        Ext.Msg.confirm(
+            "Delete",
+            "Are you sure you want to delete this scheduler ?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    console.log(record);
+                }
+            }
+        );
     },
 
     onTaskInit: function() {
