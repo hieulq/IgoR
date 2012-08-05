@@ -72,7 +72,7 @@ Ext.define("Igor.controller.Main", {
             'tasks/:id':'viewTaskDetails', // Hàm này sẽ thực thi khi có route tương ứng việc click 1 item trên list task
 
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks thì sẽ thực hiện hàm doTasks()
-            'user/:id': 'doUser',
+            'user/:id': 'viewUserDetails',
             'user/frienddetails/:id':'viewFriendDetails',
             'user/classdetails/:id':'viewClassDetails',
         },
@@ -425,9 +425,40 @@ Ext.define("Igor.controller.Main", {
     },
 
     // User
-    doUser: function() {
-        // Thực hiện 3 hàm filters trước (dưới)
-        // Sau đó, binding dữ liệu lên các 3 form đã khai báo tương ứng
+    viewUserDetails: function(userid) {
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail',
+            params: {
+                id: userid
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                Ext.ComponentQuery.query('mainpanel')[0].unmask();
+
+                if (result.status = 'OK') {
+                    var profileStore = Ext.getStore('Profiles'),
+                        profileModel = {};
+
+                    profileStore.removeAll();
+
+                    Ext.Array.each(result.message, function(profile) {
+                        profileModel = Ext.create('Igor.model.Profile',profile);
+                        profileStore.add(profileModel);
+                        //console.log(classdetail);
+                    });
+                    //Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
+                }
+                
+                
+            }
+        });
     },
 
     // (*) WS lấy về thông tin chi tiết user theo ID

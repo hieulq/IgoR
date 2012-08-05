@@ -15,14 +15,14 @@ Ext.define("Igor.model.Classdetail", {
             'location'
         ],
 
-        proxy: {
+        /*proxy: {
             type: 'ajax',
             url : 'data/job_project.json',
             reader: {
                 type: 'json',
                 rootProperty: 'class'
             }
-        }
+        }*/
 
     }
 });
