@@ -128,11 +128,36 @@ Ext.define("Igor.controller.Main", {
 
     onTaskTapHold: function(list, index, target, record) {
         //var rec = list.getStore().getAt(index);
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
         Ext.Msg.confirm(
             "Delete",
             "Are you sure you want to delete this scheduler ?",
             function(buttonId) {
                 if (buttonId === 'yes') {
+                    this.getMainPnl().setMasked({
+                        xtype: 'loadmask',
+                        message: 'Loading...'
+                    });
+
+                    Ext.data.JsonP.request({
+                        url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/delete_class',
+                        params: {
+                            user_id: userId,
+                            class_id: record.get('class_id')
+                        },
+                        disableCaching: false,
+
+                        success: function(result, request) {
+                            // Unmask the viewport
+                            mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                            mainPanel.unmask();
+
+                            if (result.status = 'OK') {
+                                
+                            }
+                        }
+                    });
+
                     console.log(record);
                 }
             }
@@ -227,8 +252,6 @@ Ext.define("Igor.controller.Main", {
 
                     });
                 }
-                
-                
             }
         });
     },
@@ -262,8 +285,6 @@ Ext.define("Igor.controller.Main", {
 
                     Ext.ComponentQuery.query('#userListField')[0].setOptions(classUserStore.getData().all);
                 }
-                
-                
             }
         });
         
@@ -394,9 +415,7 @@ Ext.define("Igor.controller.Main", {
                         //console.log(scheduler);
 
                     });
-                }
-                
-                
+                }        
             }
         });
     },
@@ -432,8 +451,6 @@ Ext.define("Igor.controller.Main", {
                     });
                     Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
                 }
-                
-                
             }
         });
     },
@@ -469,8 +486,6 @@ Ext.define("Igor.controller.Main", {
                     });
                     //Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
                 }
-                
-                
             }
         });
     },
