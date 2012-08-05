@@ -19,6 +19,10 @@ Ext.define("Igor.controller.Login", {
             authenForm: {
                 initialize: 'checkSession'
             },
+
+            registerButton: {
+                tap: 'doRegister'
+            }
         },
 
         routes: {
@@ -28,7 +32,8 @@ Ext.define("Igor.controller.Login", {
         refs: {
             authenForm: 'authenForm',
             loginForm: 'authenForm #loginForm',
-            submitButton: 'authenForm #submitBtn'
+            submitButton: 'authenForm #submitBtn',
+            registerButton: 'authenForm #registerBtn'
         },
 
         before: {
@@ -99,5 +104,9 @@ Ext.define("Igor.controller.Login", {
                 }
             }
         });
+    },
+
+    doRegister: function() {
+        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Register'));
     }
 });

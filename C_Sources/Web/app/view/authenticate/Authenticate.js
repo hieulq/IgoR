@@ -52,16 +52,9 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                     },
                     {
                         xtype: 'button',
+                        itemId: 'registerBtn',
                         text: 'Register with Gmail',
-                        ui: 'action',
                         margin: '5',
-
-                        // The handler is called when the button is tapped
-                        handler: function() {
-                            var navView = this.up('navigationview');
-
-                            navView.push({xtype: 'registerpage'});
-                        }
                     }
                 ]
             }
