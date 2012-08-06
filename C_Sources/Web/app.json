@@ -36,6 +36,9 @@
             "path": "sdk/sencha-touch-all.js"
         },
         {
+            "path": "cordova-1.5.0.js"
+        },
+        {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
