@@ -9,8 +9,8 @@ Ext.application({
 
     controllers: ['Main', 'ClassDetails', 'Login', 'Register'],
     views: ['Main','authenticate.Authenticate', 'authenticate.Register'],
-    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers'],
-    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser', 'Profile'],
+    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers', 'Subject'],
+    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser', 'Profile', 'Subject'],
 
     icon: {
         57: 'resources/icons/Icon.png',

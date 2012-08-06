@@ -5,6 +5,7 @@ Ext.define("Igor.controller.Main", {
          'Igor.view.task.NewProject',
          'Igor.view.task.NewClassTask',
          'Igor.view.task.ClassDetails',
+         'Igor.view.task.New',
          'Igor.utility.ux.PathMenu'
     ],
     
@@ -62,6 +63,11 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onNotificationInit'
             },
 
+            subjectList: {
+                //initialize: 'onSubjectListInit'
+                getWsSubject: 'onSubjectListInit'
+            },
+
             'button[pathButtonType=menuitem]': {
                 itemtap: 'onPathMenuItemTap'
             }
@@ -94,6 +100,10 @@ Ext.define("Igor.controller.Main", {
             classDetails: 'classDetailsForm',
             schedulerList: 'tasksForm #schedulerList',
             userListField: 'newProjectForm #userListField',
+
+            // New Task
+            newSchedulerForm: 'newTask',
+            subjectList: 'newTask #subjectList',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -289,6 +299,46 @@ Ext.define("Igor.controller.Main", {
 
                     });
                 }
+            }
+        });
+    },
+
+    onSubjectListInit: function() {
+
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+
+        var userId = Ext.getStore('Users').getAt(0).get('userid');        
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/subject/call/jsonp/get_all_subjects',
+
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var subjectStore = Ext.getStore('Subject'),
+                        subjectModel = {}, read_count = 0;
+
+                        subjectStore.removeAll();
+
+                    Ext.Array.each(result.message, function(subject) {
+                        
+                        subjectModel = Ext.create('Igor.model.Subject', subject);
+                        subjectStore.add(subjectModel);
+
+                        //console.log(notify);
+                    });
+
+                }
+
             }
         });
     },
