@@ -10031,3 +10031,19 @@
 127.0.0.1, 2012-08-06 22:40:52, GET, /igor/class_subject/call/json/get_classes_by_user/2/20111, HTTP/1.1, 200, 0.056000
 127.0.0.1, 2012-08-06 22:40:53, GET, /favicon.ico, HTTP/1.1, 400, 0.000000
 >>>>>>> 1493eba1d1c9209a3264067b59ac1b3846991f2d
+127.0.0.1, 2012-08-07 00:02:56, GET, /, HTTP/1.1, 303, 0.002000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/default/index, HTTP/1.1, 200, 1.561000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/css/calendar.css, HTTP/1.1, 200, 0.006000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/js/jquery.js, HTTP/1.1, 200, 0.007000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/css/web2py.css, HTTP/1.1, 200, 0.011000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/js/modernizr.custom.js, HTTP/1.1, 200, 0.021000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/css/superfish.css, HTTP/1.1, 200, 0.025000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/css/skeleton.css, HTTP/1.1, 200, 0.028000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/js/web2py.js, HTTP/1.1, 200, 0.012000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/js/superfish.js, HTTP/1.1, 200, 0.013000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/js/calendar.js, HTTP/1.1, 200, 0.126000
+127.0.0.1, 2012-08-07 00:02:58, GET, /welcome/static/images/poweredby.png, HTTP/1.1, 200, 0.002000
+127.0.0.1, 2012-08-07 00:03:05, GET, /igor/class_subject/call/json/get_classes_by_user/2, HTTP/1.1, 200, 0.081000
+127.0.0.1, 2012-08-07 00:03:05, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2012-08-07 00:03:09, GET, /igor/class_subject/call/json/get_classes_by_user/2/20111, HTTP/1.1, 200, 0.059000
+127.0.0.1, 2012-08-07 00:03:09, GET, /favicon.ico, HTTP/1.1, 400, 0.000000
