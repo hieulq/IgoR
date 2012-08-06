@@ -5,6 +5,7 @@ Ext.define("Igor.controller.Main", {
          'Igor.view.task.NewProject',
          'Igor.view.task.NewClassTask',
          'Igor.view.task.ClassDetails',
+         'Igor.utility.ux.PathMenu'
     ],
     
     init: function() {
@@ -13,7 +14,6 @@ Ext.define("Igor.controller.Main", {
 
     config: {
         control: {
-            // Sự kiện click vào 1 item trên list Updates
             updatesList: {
                 itemtap: 'viewUpdateDetails',
                 disclose: 'viewUpdateDiscloseDetails'
@@ -46,7 +46,7 @@ Ext.define("Igor.controller.Main", {
             },
 
             updatesListForm: {
-                //initialize: 'onNotificationInit',
+                initialize: 'onNewsInit',
             },
 
             schedulerList: {
@@ -60,6 +60,10 @@ Ext.define("Igor.controller.Main", {
 
             mainPnl: {
                 initialize: 'onNotificationInit'
+            },
+
+            'button[pathButtonType=menuitem]': {
+                itemtap: 'onPathMenuItemTap'
             }
         },
         routes: {
@@ -110,6 +114,39 @@ Ext.define("Igor.controller.Main", {
 
     testFunc: function() {
         var a = this.getMainPnl().getTabBar().getComponent(0);
+    },
+
+    onPathMenuItemTap: function(menu, menuitem) {
+        console.log(menu, menuitem);
+    },
+
+    onNewsInit: function() {
+        Ext.create('Igor.utility.ux.PathMenu',{
+            bottom: 10,
+            left: 10,
+            items: [
+                {
+                    iconCls: 'action',
+                    cardIndex: 0
+                },
+                {
+                    iconCls: 'add',
+                    cardIndex: 1
+                },
+                {
+                    iconCls: 'compose',
+                    cardIndex: 2
+                },
+                {
+                    iconCls: 'home',
+                    cardIndex: 3
+                },
+                {
+                    iconCls: 'refresh',
+                    cardIndex: 4
+                }
+            ]
+        });
     },
 
     classDetailInit: function() {
