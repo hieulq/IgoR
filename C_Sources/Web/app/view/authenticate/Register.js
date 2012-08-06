@@ -3,6 +3,7 @@ Ext.define("Igor.view.authenticate.Register", {
     xtype: 'registerForm',
 
     config: {
+        title: 'Register',
 
         items: [
             {

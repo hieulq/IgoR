@@ -3,7 +3,8 @@ Ext.define("Igor.controller.Login", {
     views: ['authenticate.Authenticate'], // tương ứng sheet 2
 
     requires: [
-        'Igor.view.Main'
+        'Igor.view.Main',
+        'Igor.view.authenticate.Register'
     ],
     
     init: function() {
@@ -107,6 +108,7 @@ Ext.define("Igor.controller.Login", {
     },
 
     doRegister: function() {
-        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Register'));
+        //Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Register'));
+        this.getAuthenForm().push({xtype: 'registerForm'});
     }
 });

@@ -52,8 +52,9 @@ Ext.define("Igor.view.authenticate.Authenticate", {
                     },
                     {
                         xtype: 'button',
+                        ui: 'decline',
                         itemId: 'registerBtn',
-                        text: 'Register with Gmail',
+                        text: 'Register',
                         margin: '5',
                     }
                 ]
