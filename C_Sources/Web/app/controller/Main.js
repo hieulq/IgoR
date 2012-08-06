@@ -63,10 +63,6 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onNotificationInit'
             },
 
-            subjectList: {
-                //initialize: 'onSubjectListInit'
-                getWsSubject: 'onSubjectListInit'
-            },
 
             'button[pathButtonType=menuitem]': {
                 itemtap: 'onPathMenuItemTap'
@@ -432,6 +428,10 @@ Ext.define("Igor.controller.Main", {
         }
         else if (activeCtn.getItemId().indexOf('jobDetailsForm') != -1) {
             this.getAddTaskBtn().hide();
+        }
+        else if (activeCtn.getItemId().indexOf('newTask') != -1) {
+            this.onSubjectListInit();
+            this.getTermSelBtn().hide();
         }
     },
 

@@ -90,13 +90,6 @@ Ext.define("Igor.view.task.New", {
                     }
                 ]
             }
-        ],
-
-        listener: {
-                            'initialize': function() {
-                                this.fireEvent('getWsSubject',this);
-                                console.log('dcm');
-                            }
-                        }
+        ]
     }
 });
