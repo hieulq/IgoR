@@ -1,0 +1,20 @@
+-- Table: job
+CREATE TABLE job ( 
+    id            INTEGER      PRIMARY KEY AUTOINCREMENT,
+    name          CHAR( 50 )   NOT NULL,
+    start_time    INTEGER,
+    end_time      INTEGER,
+    job_type      INTEGER,
+    subject       INTEGER      REFERENCES subject ( id ) ON DELETE CASCADE,
+    date          INTEGER,
+    repeat_date   CHAR( 512 ),
+    owner         INTEGER,
+    note          TEXT,
+    location      CHAR( 512 ),
+    test          INTEGER      REFERENCES test ( id ) ON DELETE CASCADE,
+    class_subject INTEGER      REFERENCES class_subject ( id ) ON DELETE CASCADE 
+);
+
+
+
+
