@@ -7,20 +7,20 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    controllers: ['Main', 'ClassDetails', 'Login'],
-    views: ['Main','authenticate.Authenticate'],
-    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers'],
-    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser'],
+    controllers: ['Main', 'ClassDetails', 'Login', 'Register'],
+    views: ['Main','authenticate.Authenticate', 'authenticate.Register'],
+    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers', 'Subject'],
+    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser', 'Profile', 'Subject'],
 
     icon: {
-        57: 'resources/icons/icon.png',
+        57: 'resources/icons/Icon.png',
         72: 'resources/icons/icon@72.png',
-        114: 'resources/icons/icon@2x.png',
+        114: 'resources/icons/Icon@2x.png',
         144: 'resources/icons/icon@114.png'
     },
 
-    phoneStartupScreen: 'resources/loading/Homescreen.jpg',
-    tabletStartupScreen: 'resources/loading/Homescreen~ipad.jpg',
+    phoneStartupScreen: 'resources/loading/Default.jpg',
+    tabletStartupScreen: 'resources/loading/Default~ipad.jpg',
 
     launch: function() {
         // Destroy the #appLoadingIndicator element

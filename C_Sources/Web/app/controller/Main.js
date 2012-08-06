@@ -5,6 +5,8 @@ Ext.define("Igor.controller.Main", {
          'Igor.view.task.NewProject',
          'Igor.view.task.NewClassTask',
          'Igor.view.task.ClassDetails',
+         'Igor.view.task.New',
+         'Igor.utility.ux.PathMenu'
     ],
     
     init: function() {
@@ -13,7 +15,6 @@ Ext.define("Igor.controller.Main", {
 
     config: {
         control: {
-            // Sự kiện click vào 1 item trên list Updates
             updatesList: {
                 itemtap: 'viewUpdateDetails',
                 disclose: 'viewUpdateDiscloseDetails'
@@ -46,11 +47,12 @@ Ext.define("Igor.controller.Main", {
             },
 
             updatesListForm: {
-                //initialize: 'onNotificationInit',
+                initialize: 'onNewsInit',
             },
 
             schedulerList: {
-                itemtap: 'onTaskTap'
+                itemtap: 'onTaskTap',
+                itemtaphold: 'onTaskTapHold'
             },
 
             newProjectForm: {
@@ -59,6 +61,15 @@ Ext.define("Igor.controller.Main", {
 
             mainPnl: {
                 initialize: 'onNotificationInit'
+            },
+
+            subjectList: {
+                //initialize: 'onSubjectListInit'
+                getWsSubject: 'onSubjectListInit'
+            },
+
+            'button[pathButtonType=menuitem]': {
+                itemtap: 'onPathMenuItemTap'
             }
         },
         routes: {
@@ -72,7 +83,7 @@ Ext.define("Igor.controller.Main", {
             'tasks/:id':'viewTaskDetails', // Hàm này sẽ thực thi khi có route tương ứng việc click 1 item trên list task
 
             // Khi xuất hiện url dạng http://abc.com/afterLogin/.../#tasks thì sẽ thực hiện hàm doTasks()
-            'user/:id': 'doUser',
+            'user/:id': 'viewUserDetails',
             'user/frienddetails/:id':'viewFriendDetails',
             'user/classdetails/:id':'viewClassDetails',
         },
@@ -89,6 +100,10 @@ Ext.define("Igor.controller.Main", {
             classDetails: 'classDetailsForm',
             schedulerList: 'tasksForm #schedulerList',
             userListField: 'newProjectForm #userListField',
+
+            // New Task
+            newSchedulerForm: 'newTask',
+            subjectList: 'newTask #subjectList',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -111,18 +126,89 @@ Ext.define("Igor.controller.Main", {
         var a = this.getMainPnl().getTabBar().getComponent(0);
     },
 
+    onPathMenuItemTap: function(menu, menuitem) {
+        console.log(menu, menuitem);
+    },
+
+    onNewsInit: function() {
+        Ext.create('Igor.utility.ux.PathMenu',{
+            bottom: 10,
+            left: 10,
+            items: [
+                {
+                    iconCls: 'action',
+                    cardIndex: 0
+                },
+                {
+                    iconCls: 'add',
+                    cardIndex: 1
+                },
+                {
+                    iconCls: 'compose',
+                    cardIndex: 2
+                },
+                {
+                    iconCls: 'home',
+                    cardIndex: 3
+                },
+                {
+                    iconCls: 'refresh',
+                    cardIndex: 4
+                }
+            ]
+        });
+    },
+
     classDetailInit: function() {
 
     },
 
     onTaskTap: function(list, index, target, record) {
-        var rec = list.getStore().getAt(index);
+        //var rec = list.getStore().getAt(index);
         //console.log(rec.data);
         //Ext.Msg.alert('Test', 'Redirect to class_code ' + rec.get('class_code'));
         //Ext.Viewport.setActiveItem(Ext.create('Igor.view.task.ClassDetails'));
         var termBtn = Ext.ComponentQuery.query('#termSelectBtn')[0];
-        window.location.href = 'index.html#tasks/' + rec.get('class_id');
+        window.location.href = 'index.html#tasks/' + record.get('class_id');
         termBtn.hide();
+    },
+
+    onTaskTapHold: function(list, index, target, record) {
+        //var rec = list.getStore().getAt(index);
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
+        Ext.Msg.confirm(
+            "Delete",
+            "Are you sure you want to delete this scheduler ?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    this.getMainPnl().setMasked({
+                        xtype: 'loadmask',
+                        message: 'Loading...'
+                    });
+
+                    Ext.data.JsonP.request({
+                        url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/delete_class',
+                        params: {
+                            user_id: userId,
+                            class_id: record.get('class_id')
+                        },
+                        disableCaching: false,
+
+                        success: function(result, request) {
+                            // Unmask the viewport
+                            mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                            mainPanel.unmask();
+
+                            if (result.status = 'OK') {
+                                
+                            }
+                        }
+                    });
+
+                    console.log(record);
+                }
+            }
+        );
     },
 
     onTaskInit: function() {
@@ -213,17 +299,80 @@ Ext.define("Igor.controller.Main", {
 
                     });
                 }
-                
-                
+            }
+        });
+    },
+
+    onSubjectListInit: function() {
+
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+
+        var userId = Ext.getStore('Users').getAt(0).get('userid');        
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/subject/call/jsonp/get_all_subjects',
+
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var subjectStore = Ext.getStore('Subject'),
+                        subjectModel = {}, read_count = 0;
+
+                        subjectStore.removeAll();
+
+                    Ext.Array.each(result.message, function(subject) {
+                        
+                        subjectModel = Ext.create('Igor.model.Subject', subject);
+                        subjectStore.add(subjectModel);
+
+                        //console.log(notify);
+                    });
+
+                }
+
             }
         });
     },
 
     onNewProjectInit: function() {
         var id = this.getNewProjectForm().getClassid();
-        var classUserStore = Ext.getStore('Classusers');
-        classUserStore.load(function(store, recs, success) {
-            Ext.ComponentQuery.query('#userListField')[0].setOptions(store);
+        var classId = Ext.getStore('Classdetails').getAt(0).get('class_id');
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_users_by_class',
+            params: {
+                class_id: classId,
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var classUserStore = Ext.getStore('Classusers'),
+                        classUserModel = {};
+
+                        classUserStore.removeAll();
+
+                    Ext.Array.each(result.message, function(user) {
+                        classUserModel = Ext.create('Igor.model.Classuser', user);
+                        classUserStore.add(classUserModel);
+                    });
+
+                    Ext.ComponentQuery.query('#userListField')[0].setOptions(classUserStore.getData().all);
+                }
+            }
         });
         
     },
@@ -353,9 +502,7 @@ Ext.define("Igor.controller.Main", {
                         //console.log(scheduler);
 
                     });
-                }
-                
-                
+                }        
             }
         });
     },
@@ -391,16 +538,43 @@ Ext.define("Igor.controller.Main", {
                     });
                     Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
                 }
-                
-                
             }
         });
     },
 
     // User
-    doUser: function() {
-        // Thực hiện 3 hàm filters trước (dưới)
-        // Sau đó, binding dữ liệu lên các 3 form đã khai báo tương ứng
+    viewUserDetails: function(userid) {
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail',
+            params: {
+                id: userid
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                Ext.ComponentQuery.query('mainpanel')[0].unmask();
+
+                if (result.status = 'OK') {
+                    var profileStore = Ext.getStore('Profiles'),
+                        profileModel = {};
+
+                    profileStore.removeAll();
+
+                    Ext.Array.each(result.message, function(profile) {
+                        profileModel = Ext.create('Igor.model.Profile',profile);
+                        profileStore.add(profileModel);
+                        //console.log(classdetail);
+                    });
+                    //Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
+                }
+            }
+        });
     },
 
     // (*) WS lấy về thông tin chi tiết user theo ID

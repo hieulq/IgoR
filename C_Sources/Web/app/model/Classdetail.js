@@ -3,6 +3,7 @@ Ext.define("Igor.model.Classdetail", {
 
     config: {
         fields: [
+            'class_id',
             'class_code',
             'subject_name',
             'num_of_day',//Monday, ...
@@ -14,14 +15,14 @@ Ext.define("Igor.model.Classdetail", {
             'location'
         ],
 
-        proxy: {
+        /*proxy: {
             type: 'ajax',
             url : 'data/job_project.json',
             reader: {
                 type: 'json',
                 rootProperty: 'class'
             }
-        }
+        }*/
 
     }
 });

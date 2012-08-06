@@ -3,7 +3,7 @@ Ext.define("Igor.view.notification.News", {
     xtype: 'updatesListForm',
 
     requires: [
-        'Ext.List',
+        'Ext.List'
     ],
 
     config: {
@@ -63,11 +63,8 @@ Ext.define("Igor.view.notification.News", {
                     '<div class="feed" style="background-image:url(resources/images/headshots/{avatar});"></div>',
                     '{username}',
                     '<span>{action} <a href="">{object}</a></span>',
-                ].join(''),
-
-                
-                
-            }
+                ].join(''), 
+            },
         ]
     }
 });

@@ -9955,6 +9955,7 @@
 127.0.0.1, 2012-08-05 00:46:31, GET, /igor/project/call/json/get_project_detail/4, HTTP/1.1, 200, 0.041597
 127.0.0.1, 2012-08-05 00:46:33, GET, /igor/project/call/json/get_project_detail/6, HTTP/1.1, 200, 0.040548
 127.0.0.1, 2012-08-05 00:46:36, GET, /igor/project/call/json/get_project_detail/10, HTTP/1.1, 200, 0.047264
+<<<<<<< HEAD
 127.0.0.1, 2012-08-05 17:10:10, GET, /, HTTP/1.1, 303, 0.002281
 127.0.0.1, 2012-08-05 17:10:11, GET, /welcome/default/index, HTTP/1.1, 200, 0.269041
 127.0.0.1, 2012-08-05 17:10:11, GET, /welcome/static/css/calendar.css, HTTP/1.1, 304, 0.000433
@@ -10016,3 +10017,17 @@
 127.0.0.1, 2012-08-06 23:30:17, GET, /welcome/default/index, HTTP/1.1, 200, 0.535489
 127.0.0.1, 2012-08-06 23:30:24, GET, /igor/project/call/json/get_project_detail/2, HTTP/1.1, 200, 0.227941
 127.0.0.1, 2012-08-06 23:31:27, GET, /igor/project/call/json/get_project_detail/2, HTTP/1.1, 200, 0.042198
+=======
+127.0.0.1, 2012-08-06 22:40:06, GET, /igor/class_subject/call/json/get_classes_by_user/2, HTTP/1.1, 200, 0.071000
+127.0.0.1, 2012-08-06 22:40:06, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2012-08-06 22:40:09, GET, /igor/class_subject/call/json/get_classes_by_user/3, HTTP/1.1, 200, 0.038000
+127.0.0.1, 2012-08-06 22:40:09, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2012-08-06 22:40:11, GET, /igor/class_subject/call/json/get_classes_by_user/4, HTTP/1.1, 200, 0.046000
+127.0.0.1, 2012-08-06 22:40:12, GET, /favicon.ico, HTTP/1.1, 400, 0.000000
+127.0.0.1, 2012-08-06 22:40:14, GET, /igor/class_subject/call/json/get_classes_by_user/5, HTTP/1.1, 200, 0.042000
+127.0.0.1, 2012-08-06 22:40:14, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2012-08-06 22:40:49, GET, /igor/class_subject/call/json/get_classes_by_user/2, HTTP/1.1, 200, 0.052000
+127.0.0.1, 2012-08-06 22:40:50, GET, /favicon.ico, HTTP/1.1, 400, 0.000000
+127.0.0.1, 2012-08-06 22:40:52, GET, /igor/class_subject/call/json/get_classes_by_user/2/20111, HTTP/1.1, 200, 0.056000
+127.0.0.1, 2012-08-06 22:40:53, GET, /favicon.ico, HTTP/1.1, 400, 0.000000
+>>>>>>> 1493eba1d1c9209a3264067b59ac1b3846991f2d

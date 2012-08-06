@@ -2,7 +2,7 @@ Ext.define("Igor.store.Profiles", {
     extend: 'Ext.data.Store',
 
     config: {
-        model: 'Igor.model.User',
+        model: 'Igor.model.Profile',
         pageSize: 5,
         autoLoad: true,
         sorters: 'date',
@@ -11,9 +11,9 @@ Ext.define("Igor.store.Profiles", {
                 return record.get('!username');
             }
         },
-        proxy: {
+        /*proxy: {
             type: 'ajax',
             url: 'data/profiles.json'
-        }
+        }*/
     }
 });

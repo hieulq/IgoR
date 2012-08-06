@@ -7,5 +7,6 @@ Author
 IgoR Web Source Code
 
 * Based on Sencha Touch Framework
+* Integrated with PhoneGap
 * Clone and test in local webserver  
 
