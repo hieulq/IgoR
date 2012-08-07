@@ -45,8 +45,8 @@ def get_projects(user_id):
 	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 
 	for classs in classes:
-		project = db(db.test.class_subject == classs and
-			db.test.test_type == 2).select()
+		project = db((db.test.class_subject == classs) &
+			(db.test.test_type == 2)).select()
 		projects.append(project)
 
 	projects = format_client_data(projects)
@@ -68,8 +68,8 @@ def get_project_detail(project_id):
 			MessageStatus.ERROR, 
 			"project id can not less than 0")	
 	###
-	project = db(db.test.id == project_id and
-		db.test.test_type == 2).select()
+	project = db((db.test.id == project_id) &
+		(db.test.test_type == 2)).select()
 
 	project = format_client_data(project)
 
@@ -90,8 +90,8 @@ def get_project_by_class(class_id):
 			"class id can not less than 0")	
 	###
 	
-	project = db(db.test.class_subject == class_id and
-		db.test.test_type == 2).select()
+	project = db((db.test.class_subject == class_id) &
+		(db.test.test_type == 2)).select()
 
 	project = format_client_data(project)
 
@@ -127,8 +127,8 @@ def get_project_by_user_class(user_id, class_id):
 
 
 	for classs in classes:
-		project = db(db.test.class_subject == classs and
-			db.test.test_type == 2).select()
+		project = db((db.test.class_subject == classs) &
+			(db.test.test_type == 2)).select()
 		if (project.class_subject == class_id):
 			#project = format_client_data(project)
 			return MessagePackager.get_packaged_message (

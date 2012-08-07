@@ -120,7 +120,7 @@ class IgorTime:
         hour_str = ''
 
         if (hours == 1):
-            hour_str = "one hour"
+            hour_str = "an hour"
         elif (hours > 1):
             hour_str = str (hours) + ' hours'
 

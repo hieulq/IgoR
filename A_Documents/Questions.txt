@@ -1,0 +1,6 @@
+﻿Ở trang notification, nếu đã có "pull to refresh" thì cần gì phải có nút refresh nhỉ. :-?
+Bắt sự kiện để ko cần bấm nút back vấn chuyển trang.
+Chưa có chức năng logout!!
+Làm menu của scheduler
+Tìm cách tích hợp path menu lên mobile.
+Header và footer là màu bạc, trong khi khi click vào các record là màu đỏ, trông hơi ngược mắt 1 chút --> ý kiến cá nhân
