@@ -1,5 +1,5 @@
 Ext.define("Igor.view.task.New", {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.Container',
     xtype: 'newTask',
 
     requires: [
@@ -16,27 +16,45 @@ Ext.define("Igor.view.task.New", {
         items: [
             {
                 xtype: 'fieldset',
+                margin: 15,
 
                 items: [
                     {
                         xtype: 'searchfield',
-                    },
-                    {
-                        xtype  : 'list',
-                        itemId : 'subjectList',
-                        
-                        // store  : 'Subjects',
-                        data: [
-                            {
-                                subject_name: 'test name 1',
-                                subject_code: 'test code 1',
-                            },
-                        ]
-                        itemTpl: [
-                            'subject_name',
-                        ].join(''), 
-                    },
+                        itemId: 'subjectSearch',
+                        flex: 1,
+                        scrollable: false,
+                        height: '42px',
+                        placeHolder: 'Search...',
+                    }
                 ]
+                
+            },
+            {
+
+                xtype: 'list',
+                ui: 'round',
+                itemId: 'subjectList',
+                cls: 'x-feeds',
+                flex: 1,
+                disclosure: true,
+                onItemDisclosure: true, 
+                emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Subject</div>',
+
+                store: 'Subjects',
+                itemTpl: [
+                    '<div class="feed" style="background-image:url(resources/images/subject-icon.png);"></div>',
+                    '{subject_name}',
+                    '<span>ID: {subject_code} - {class_count} class(es)</span>',
+                ].join(''), 
+
+                items: [
+                    {
+                        xtype: 'listitemheader',
+                        cls: 'dark',
+                        html: 'Subject List'
+                    }
+                ],
             },
         ]
     }

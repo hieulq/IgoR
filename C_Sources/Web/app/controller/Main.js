@@ -55,6 +55,11 @@ Ext.define("Igor.controller.Main", {
                 itemtaphold: 'onTaskTapHold'
             },
 
+            subjectSearch: {
+                clearicontap: 'onSearchClearIconTap',
+                keyup: 'onSearchKeyUp'
+            },
+
             newProjectForm: {
                 initialize: 'onNewProjectInit'
             },
@@ -99,6 +104,7 @@ Ext.define("Igor.controller.Main", {
 
             // New Task
             newSchedulerForm: 'newTask',
+            subjectSearch: 'newTask #subjectSearch',
             subjectList: 'newTask #subjectList',
 
             // Tasks
@@ -124,6 +130,47 @@ Ext.define("Igor.controller.Main", {
 
     onPathMenuItemTap: function(menu, menuitem) {
         console.log(menu, menuitem);
+    },
+
+    onSearchKeyUp: function(field) {
+        var value = field.getValue(),
+            store = this.getSubjectList().getStore();
+
+        store.clearFilter();
+
+        if (value) {
+            var searches = value.split(' '),
+                regexps = [],
+                i;
+
+            for (i = 0; i < searches.length; i++) {
+                if (!searches[i]) continue;
+
+                regexps.push(new RegExp(searches[i], 'i'));
+            }
+
+            store.filter(function(record) {
+                var matched = [];
+
+                for (i = 0; i < regexps.length; i++) {
+                    var search = regexps[i],
+                        didMatch = record.get('subject_name').match(search) || record.get('subject_code').match(search);
+
+                    matched.push(didMatch);
+                }
+
+                if (regexps.length > 1 && matched.indexOf(false) != -1) {
+                    return false;
+                } else {
+                    return matched[0];
+                }
+            });
+        }
+    },
+
+    onSearchClearIconTap: function() {
+        //call the clearFilter method on the store instance
+        this.getSubjectList().getStore().clearFilter();
     },
 
     onNewsInit: function() {
@@ -333,10 +380,14 @@ Ext.define("Igor.controller.Main", {
                         // console.log(subject);
                     });
 
+                    Ext.ComponentQuery.query('#subjectList')[0].setRecord(subjectStore.data.all);
+
                 }
 
             }
         });
+
+        //this.getSubjectList().setRecord(Ext.getStore('Subjects').data);
     },
 
     onNewProjectInit: function() {
@@ -365,8 +416,6 @@ Ext.define("Igor.controller.Main", {
                         classUserModel = Ext.create('Igor.model.Classuser', user);
                         classUserStore.add(classUserModel);
                     });
-
-                    Ext.ComponentQuery.query('#userListField')[0].setOptions(classUserStore.getData().all);
                 }
             }
         });
@@ -431,6 +480,7 @@ Ext.define("Igor.controller.Main", {
         }
         else if (activeCtn.getItemId().indexOf('newTask') != -1) {
             this.onSubjectListInit();
+            //this.getSubjectList().setStore('Subject');
             this.getTermSelBtn().hide();
         }
     },
