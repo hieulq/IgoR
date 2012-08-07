@@ -320,7 +320,7 @@ Ext.define("Igor.controller.Main", {
                 mainPanel.unmask();
 
                 if (result.status = 'OK') {
-                    var subjectStore = Ext.getStore('Subject'),
+                    var subjectStore = Ext.getStore('Subjects'),
                         subjectModel = {}, read_count = 0;
 
                         subjectStore.removeAll();
@@ -330,7 +330,7 @@ Ext.define("Igor.controller.Main", {
                         subjectModel = Ext.create('Igor.model.Subject', subject);
                         subjectStore.add(subjectModel);
 
-                        //console.log(notify);
+                        // console.log(subject);
                     });
 
                 }

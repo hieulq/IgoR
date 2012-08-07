@@ -78,10 +78,11 @@ def format_client_data(subjects):
 			(db.class_subject.term == term)).count()
 
 		client = dict(
+			subject_id   = subject.id,
 			subject_name = subject.name,
 			subject_code = subject.subject_code,
-			note = subject.note,
-			class_count = classes
+			note         = subject.note,
+			class_count  = classes
 			)
 
 		client_data.append (client)
