@@ -6,7 +6,8 @@ Ext.define("Igor.controller.Main", {
          'Igor.view.task.NewClassTask',
          'Igor.view.task.ClassDetails',
          'Igor.view.task.New',
-         'Igor.utility.ux.PathMenu'
+         'Igor.utility.ux.PathMenu',
+         'Igor.utility.ux.AccordionList',
     ],
     
     init: function() {
@@ -480,7 +481,7 @@ Ext.define("Igor.controller.Main", {
         }
         else if (activeCtn.getItemId().indexOf('newTask') != -1) {
             this.onSubjectListInit();
-            //this.getSubjectList().setStore('Subject');
+            this.getSubjectList().setStore('Subject');
             this.getTermSelBtn().hide();
         }
     },

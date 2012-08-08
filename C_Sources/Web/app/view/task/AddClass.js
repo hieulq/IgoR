@@ -1,14 +1,14 @@
-Ext.define("Igor.view.task.New", {
+Ext.define("Igor.view.task.AddClass", {
     extend: 'Ext.Container',
-    xtype: 'newTask',
+    xtype: 'addclass',
 
     requires: [
         'Ext.List',
-        'Igor.store.Subjects'
+        'Igor.store.Classdetails'
     ],
 
     config: {
-        title      : 'New Scheduler',
+        title      : 'All class(es) of ',
         iconCls    : 'team',
         layout     : 'vbox',
         autoDestroy: true, 
@@ -52,12 +52,12 @@ Ext.define("Igor.view.task.New", {
                     { xclass: 'Ext.plugin.PullRefresh' }
                 ],              
 
-                store: 'Subjects',
-                itemTpl: [
-                    '<div class="feed" style="background-image:url(resources/images/subject-icon.png);"></div>',
-                    '{subject_name}',
-                    '<span>ID: {subject_code} - {class_count} class(es)</span>',
-                ].join(''), 
+                store: 'Classdetails',
+                // itemTpl: [
+                //     '<div class="feed" style="background-image:url(resources/images/subject-icon.png);"></div>',
+                //     '{subject_name}',
+                //     '<span>ID: {subject_code} - {class_count} class(es)</span>',
+                // ].join(''), 
 
                 items: [
                     {
@@ -70,3 +70,7 @@ Ext.define("Igor.view.task.New", {
         ]
     }
 });
+
+
+
+
