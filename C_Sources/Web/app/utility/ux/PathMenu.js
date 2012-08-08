@@ -154,7 +154,7 @@ Ext.define('Igor.utility.ux.PathMenu', {
 			left = menuButton.getLeft(),
 			radius = 150,
 			section = items.length - 1
-			angle = 90 / section;
+			angle = 180 / section;
 
 		menuButton.replaceCls('close', 'open');
 
@@ -162,7 +162,7 @@ Ext.define('Igor.utility.ux.PathMenu', {
 			item.addCls('menuitembutton');
 			item.replaceCls('close', 'open');
 
-			var currentAngle = (90 - (angle * (section - index))),
+			var currentAngle = (180 - (angle * (section - index))),
 				radiant = Math.PI / 180,
 				currnetRadiant = radiant * currentAngle,
 				x = Math.round(Math.cos(currnetRadiant) * radius),
@@ -186,19 +186,21 @@ Ext.define('Igor.utility.ux.PathMenu', {
 
 		menuButton.replaceCls('open', 'close');
 
-		Ext.each(items, function(item, index) {
+		Ext.each(items, function(item, index, target, e) {
+			menuButton = Ext.ComponentQuery.query('button[pathButtonType=menu]')[0];
+
 			if (item.getCls().indexOf('tapped') === -1) {
 				item.replaceCls('open', 'close');
-				item.setLeft(10);
-				item.setBottom(10);
+				item.setLeft(menuButton.getLeft());
+				item.setBottom(menuButton.getBottom());
 			} else {
 
 				var task = Ext.create(
 					'Ext.util.DelayedTask',
 					function() {
 						item.removeCls('menuitembutton');
-						item.setLeft(10);
-						item.setBottom(10);
+						item.setLeft(menuButton.getLeft());
+						item.setBottom(menuButton.getBottom());
 						item.removeCls('tapped');
 					}
 				);
