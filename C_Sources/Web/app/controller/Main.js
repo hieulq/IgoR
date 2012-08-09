@@ -69,9 +69,12 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onNotificationInit'
             },
 
-
             'button[pathButtonType=menuitem]': {
                 itemtap: 'onPathMenuItemTap'
+            },
+
+            saveUpdatedProfileBtn: {
+                tap: 'doSaveUpdatedProfile'
             }
         },
         routes: {
@@ -117,6 +120,8 @@ Ext.define("Igor.controller.Main", {
             // Users
             userDetailsForm: 'userDetailsForm',
             editProfileButton: 'userDetailsForm #editProfileButton',
+            profileEditForm: 'profileEdit',
+            saveUpdatedProfileBtn: 'profileEdit #saveUpdatedProfileBtn'
         },
 
         before: {
@@ -722,6 +727,47 @@ Ext.define("Igor.controller.Main", {
             }
         }
 
-    }
+    },
 
+    doSaveUpdatedProfile: function() {
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
+        var profileForm = this.getProfileEditForm().getValues();
+        var fullNameText = profileForm['fullname'];
+        var studentIDText = profileForm['studentid'];
+        var courseText = profileForm['course'];
+        var groupText = profileForm['group'];
+        var avatarText = profileForm['avatarPath'];
+        if (fullNameText != '' && studentIDText != '') {
+            Ext.data.JsonP.request({    
+                url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/update_user_detail/',
+                params: {
+                    user_id: userId,
+                    name: fullNameText,
+                    class_group: groupText,
+                    student_code: studentIDText,
+                    user_course: courseText,
+                    avatar: avatarText
+                },
+                disableCaching: false,
+                success: function(result, request) {
+                    if (result.status == 'OK' && result.message != '') {
+                        var store = Ext.getStore('Users'), userDetails = {};
+                        store.removeAll();
+                        store.sync();
+                        Ext.Array.each(result.message, function(user) {
+                            userDetails = Ext.create('Igor.model.User', user);
+                            userDetails.set('loggedIn', true);
+                            store.add(userDetails);
+                            store.sync();
+                        });
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                    } else {
+                        Ext.Msg.alert('Failed updating!');
+                    }
+                }
+            });
+        } else {
+            Ext.Msg.alert('Not enough information!');
+        }
+    }
 });

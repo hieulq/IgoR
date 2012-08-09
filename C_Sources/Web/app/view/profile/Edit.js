@@ -47,13 +47,18 @@ Ext.define("Igor.view.profile.Edit", {
                         displayField: 'title',
                         store: {
                             data: [
-                                { groupid: '1', title: 'HTTT'},
-                                { groupid: '2', title: 'TTM'},
-                                { groupid: '3', title: 'KHMT'},
-                                { groupid: '4', title: 'KTMT'},
-                                { groupid: '5', title: 'CNPM'}
+                                { groupid: 'HTTT', title: 'HTTT'},
+                                { groupid: 'TTM', title: 'TTM'},
+                                { groupid: 'KHMT', title: 'KHMT'},
+                                { groupid: 'KTMT', title: 'KTMT'},
+                                { groupid: 'CNPM', title: 'CNPM'}
                             ]
                         }
+                    },
+                    {
+                        xtype: 'textfield',
+                        label: 'Avatar URL',
+                        name: 'avatarPath'
                     }
                 ]
             },
@@ -65,42 +70,28 @@ Ext.define("Igor.view.profile.Edit", {
                 docked: 'bottom',
                 items: [
                     {
+                        xtype: 'button',
                         text: 'Save',
                         ui: 'confirm',
+                        itemId: 'saveUpdatedProfileBtn',
                         scope: this,
-                        handler: function() {
-                            var form = this.form;
-
-                            // Mask the form
-                            form.setMasked({
-                                xtype: 'loadmask',
-                                message: 'Saving...'
-                            });
-
-                            // Put it inside a timeout so it feels like it is going to a server.
-                            setTimeout(function() {
-                                if (form.user) {
-                                    // Call the updateRecord method of formpanel with the user record instance. This will update the user record
-                                    // with the latest values.
-                                    form.updateRecord(form.user, true);
-                                }
-
-                                // Unmask the formpanel
-                                form.setMasked(false);
-                            }, 1000);
-                        }
                     },
 
-                    { xtype: 'spacer' },
+                    { 
+                        xtype: 'spacer' 
+                    },
 
                     // Here we add a reset button which will reset all fields within the form panel back to their original value
                     {
+                        xtype: 'button',
                         text: 'Reset',
+                        ui : 'action',
 
                         handler: function() {
                             // Call the form.reset method
-                            Ext.getCmp('profileEdit').reset();
-
+                            //Ext.getCmp('profileEdit').setValue('');
+                            var form = Ext.ComponentQuery.query('#profileEdit.form')[0];
+                            form.reset();
                         }
                     }
                 ]
