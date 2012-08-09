@@ -22,8 +22,8 @@ Ext.define('Igor.utility.ux.PathMenu', {
 		bottom: null,
 		right: null,
 		left: null,
-		height: 40,
-		width: 40,
+		height: 30,
+		width: 30,
 
 		items: [],
 

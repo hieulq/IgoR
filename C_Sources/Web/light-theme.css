@@ -6026,21 +6026,26 @@ audio {
   border: 3px solid #fff;
   border-radius: 50%;
   padding-left: 5px;
+  font-size: 65%;
   -webkit-box-shadow: 0px 0px 2px #999; }
 .x-button.x-button-pathmenu .x-button-icon.x-icon-mask {
   background-color: #fff;
   color: #fff;
-  background-image: none; }
+  background-image: none;
+  margin-left: auto;
+  margin-right: auto; }
 .x-button.x-button-pathmenu.x-button-active, .x-button.x-button-pathmenu.x-button-pressing {
   background: #555; }
 .x-button.x-button-pathmenu.menubutton {
-  background: orange; }
+  background: #DE171F; }
 .x-button.x-button-pathmenu.open {
   -webkit-transform: rotate(360deg) translateZ(0); }
 .x-button.x-button-pathmenu.close {
   -webkit-transform: rotate(-360deg) translateZ(0); }
 .x-button.x-button-pathmenu.menubutton {
-  -webkit-transition: all 300ms; }
+  -webkit-transition: all 300ms;
+  margin-left: auto;
+  margin-right: auto; }
 .x-button.x-button-pathmenu.menubutton.open {
   -webkit-transform: rotate(45deg) translateZ(0); }
 .x-button.x-button-pathmenu.menubutton.close {

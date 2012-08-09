@@ -182,7 +182,7 @@ Ext.define("Igor.controller.Main", {
     onNewsInit: function() {
         Ext.create('Igor.utility.ux.PathMenu',{
             bottom: 10,
-            left: screen.width / 2,
+            right: window.innerWidth / 2 - 15,
             items: [
                 {
                     iconCls: 'action',
