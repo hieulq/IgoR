@@ -50,54 +50,68 @@ Ext.define("Igor.controller.Register", {
     // (*) Web Service
     sendRegisterRequest: function (_email, _password, _name, _class_group, _student_code, _user_course, _avatar){
         Ext.data.JsonP.request({    
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/register/',
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/check_email_available/',
             params: {
-                email: _email,
-                password: _password,
-                name: _name,
-                class_group: _class_group,
-                student_code: _student_code,
-                user_course: _user_course,
-                avatar: _avatar
+                email: _email
             },
             disableCaching: false,
 
             success: function(result, request) {
-                if (result.status == 'OK' && result.message != '') {
-                    var user_id = result.message;
+                if (result.status == 'OK' && result.message == '1') {
                     Ext.data.JsonP.request({    
-                    url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail/',
-                    params: {
-                        id: user_id
-                    },
-                    disableCaching: false,
+                        url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/register/',
+                        params: {
+                            email: _email,
+                            password: _password,
+                            name: _name,
+                            class_group: _class_group,
+                            student_code: _student_code,
+                            user_course: _user_course,
+                            avatar: _avatar
+                        },
+                        disableCaching: false,
 
-                    success: function(result, request) {
-                        if (result.status == 'OK' && result.message != '') {
-                            var userStore = Ext.getStore('Users'), userDetails = {};
-                            userStore.removeAll();
-                            userStore.sync();
+                        success: function(result, request) {
+                            if (result.status == 'OK' && result.message != '') {
+                                var user_id = result.message;
+                                Ext.data.JsonP.request({    
+                                url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail/',
+                                params: {
+                                    id: user_id
+                                },
+                                disableCaching: false,
 
-                            // Save the current user for the logged in session
-                            Ext.Array.each(result.message, function(user) {
-                                if (user.avatar == '') {
-                                    user.avatar = "default_male.png";
-                                }      
-                                userDetails = Ext.create('Igor.model.User', user);
-                                userDetails.set('loggedIn', true);
-                                userStore.add(userDetails);
-                                userStore.sync();
+                                success: function(result, request) {
+                                    if (result.status == 'OK' && result.message != '') {
+                                        var userStore = Ext.getStore('Users'), userDetails = {};
+                                        userStore.removeAll();
+                                        userStore.sync();
+
+                                        // Save the current user for the logged in session
+                                        Ext.Array.each(result.message, function(user) {
+                                            if (user.avatar == '') {
+                                                user.avatar = "default_male.png";
+                                            }      
+                                            userDetails = Ext.create('Igor.model.User', user);
+                                            userDetails.set('loggedIn', true);
+                                            userStore.add(userDetails);
+                                            userStore.sync();
+                                        });
+
+                                        // Route to the Main view
+                                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                                    } else {
+                                        Ext.Msg.alert('Failed Registering!');
+                                    }
+                                }
                             });
-
-                            // Route to the Main view
-                            Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
-                        } else {
-                            Ext.Msg.alert('Failed Registering!');
+                            } else {
+                                Ext.Msg.alert('Failed Registering!');
+                            }
                         }
-                    }
-                });
+                    });
                 } else {
-                    Ext.Msg.alert('Failed Registering!');
+                    Ext.Msg.alert('Email Address existed!');
                 }
             }
         });
