@@ -6026,6 +6026,7 @@ audio {
   border: 3px solid #fff;
   border-radius: 50%;
   padding-left: 5px;
+  font-size: 65%;
   -webkit-box-shadow: 0px 0px 2px #999; }
 .x-button.x-button-pathmenu .x-button-icon.x-icon-mask {
   background-color: #fff;
@@ -6034,7 +6035,7 @@ audio {
 .x-button.x-button-pathmenu.x-button-active, .x-button.x-button-pathmenu.x-button-pressing {
   background: #555; }
 .x-button.x-button-pathmenu.menubutton {
-  background: orange; }
+  background: #DE171F; }
 .x-button.x-button-pathmenu.open {
   -webkit-transform: rotate(360deg) translateZ(0); }
 .x-button.x-button-pathmenu.close {
