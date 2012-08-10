@@ -6043,9 +6043,7 @@ audio {
 .x-button.x-button-pathmenu.close {
   -webkit-transform: rotate(-360deg) translateZ(0); }
 .x-button.x-button-pathmenu.menubutton {
-  -webkit-transition: all 300ms;
-  margin-left: auto;
-  margin-right: auto; }
+  -webkit-transition: all 300ms; }
 .x-button.x-button-pathmenu.menubutton.open {
   -webkit-transform: rotate(45deg) translateZ(0); }
 .x-button.x-button-pathmenu.menubutton.close {

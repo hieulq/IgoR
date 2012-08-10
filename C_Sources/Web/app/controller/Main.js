@@ -443,7 +443,10 @@ Ext.define("Igor.controller.Main", {
         }
         else {
             button.setCentered(false);
+            //button.setStyle('transition:width 5s;-webkit-transition:width 5s;');
+            //console.log(button.getStyle());
             button.setWidth('92px');
+            
         }
     },
 
