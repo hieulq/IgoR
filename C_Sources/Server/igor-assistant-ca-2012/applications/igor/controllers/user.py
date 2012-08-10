@@ -47,6 +47,38 @@ def register(email, password, name, class_group, student_code, user_course, avat
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, user)
 
+@service.jsonp
+@service.json
+def update_user_detail(
+	user_id			 ,
+	name         = '', 
+	class_group  = '', 
+	student_code = '', 
+	user_course  = '', 
+	avatar       = ''):
+	
+	try:
+		user = db(db.user.id == user_id)
+
+		if name != '':
+			user.update(name = name)
+		if class_group != '':
+			user.update(class_group = class_group)
+		if student_code != '':
+			user.update(student_code = student_code)
+		if user_course != '':
+			user.update(user_course = user_course)
+		if avatar != '':
+			user.update(avatar = avatar)
+
+		db.commit()
+		user = format_client_data(user.select())
+	except Exception, e:
+		db.rollback()
+		return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err))
+
+	return MessagePackager.get_packaged_message(MessageStatus.OK, user)
+
 # Check user's email available
 @service.jsonp
 @service.json

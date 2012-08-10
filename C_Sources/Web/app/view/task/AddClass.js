@@ -1,6 +1,6 @@
 Ext.define("Igor.view.task.AddClass", {
     extend: 'Ext.Container',
-    xtype: 'addclass',
+    xtype: 'addclassForm',
 
     requires: [
         'Ext.List',
@@ -14,32 +14,29 @@ Ext.define("Igor.view.task.AddClass", {
         autoDestroy: true, 
 
         items: [
-            {
-                xtype: 'fieldset',
-                margin: 15,
-                items: [
-                    {
-                        xtype: 'searchfield',
-                        itemId: 'subjectSearch',
-                        flex: 1,
-                        scrollable: false,
-                        height: '42px',
-                        placeHolder: 'Search...',
-                    }
-                ]
-            },
+            // {
+            //     xtype: 'fieldset',
+            //     margin: 15,
+            //     items: [
+            //         {
+            //             xtype: 'searchfield',
+            //             itemId: 'subjectSearch',
+            //             flex: 1,
+            //             scrollable: false,
+            //             height: '42px',
+            //             placeHolder: 'Search...',
+            //         }
+            //     ]
+            // },
             {
 
                 xtype: 'list',
                 ui: 'round',
-                itemId: 'subjectList',
+                itemId: 'classesList',
                 cls: 'x-feeds',
                 flex: 1,
                 disclosure: true,
                 limit: 5,
-                // onItemDisclosure: function(record) {
-                //     alert(record.data.subject_id);
-                // },
                 listeners: {
                     itemtap: function (object, index, target, record) {
                         alert(record.data.subject_id); 

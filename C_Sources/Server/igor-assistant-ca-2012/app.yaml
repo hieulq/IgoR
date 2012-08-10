@@ -37,9 +37,9 @@ handlers:
 - url: .*
 #  script: gaehandler.py         # CGI
   script: gaehandler.wsgiapp    # WSGI (Python 2.7 only)
-  #secure: optional
-  login: required
-  secure: always
+  secure: optional
+  #login: required
+  #secure: always
 
 admin_console:
   pages:

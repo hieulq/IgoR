@@ -111,6 +111,9 @@ Ext.define("Igor.controller.Main", {
             subjectSearch: 'newTask #subjectSearch',
             subjectList: 'newTask #subjectList',
 
+            // Add class form
+            newClassForm: 'addclassForm',
+
             // Tasks
             tasksForm:'tasksForm',
             addTaskBtn: '.tasksForm #addTaskBtn',

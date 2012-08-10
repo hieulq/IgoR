@@ -6,7 +6,8 @@ Ext.define("Igor.view.Main", {
         'Igor.view.notification.News',
         'Igor.view.profile.Profile',
         'Igor.view.task.Task',
-        'Igor.view.about.About'
+        'Igor.view.task.AddClass',
+        'Igor.view.about.About',
     ],
 
     config: {
@@ -31,6 +32,12 @@ Ext.define("Igor.view.Main", {
                 xtype: 'tasksForm',
                 title: 'Scheduler',
                 iconCls: 'calendar2',
+                cls: 'task'
+            },
+
+            {
+                xtype: 'addclassForm',
+                title: 'Add Class',
                 cls: 'task'
             },
 
