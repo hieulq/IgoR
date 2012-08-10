@@ -76,7 +76,7 @@ Ext.define("Igor.controller.Login", {
     // (*) Web Service
     communicatingServer: function (_email, _password){
         Ext.data.JsonP.request({    
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/login/',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/login/',
             params: {
                 email: _email,
                 password: _password

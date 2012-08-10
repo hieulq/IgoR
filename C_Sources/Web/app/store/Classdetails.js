@@ -11,7 +11,7 @@ Ext.define("Igor.store.Classdetails", {
             type: 'jsonp',
             noCache: false,
             enablePagingParams: false,
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/get_user_detail/2004',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/user/get_user_detail/2004',
             reader: {
                 type: 'json',
                 rootProperty: 'messages'

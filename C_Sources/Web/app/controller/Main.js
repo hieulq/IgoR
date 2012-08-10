@@ -239,7 +239,7 @@ Ext.define("Igor.controller.Main", {
                     });
 
                     Ext.data.JsonP.request({
-                        url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/delete_class',
+                        url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/delete_class',
                         params: {
                             user_id: userId,
                             class_id: record.get('class_id')
@@ -315,7 +315,7 @@ Ext.define("Igor.controller.Main", {
         
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/notification/call/jsonp/get_all_notification',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/notification/call/jsonp/get_all_notification',
             params: {
                 owner: userId,
             },
@@ -366,7 +366,7 @@ Ext.define("Igor.controller.Main", {
         var userId = Ext.getStore('Users').getAt(0).get('userid');        
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/subject/call/jsonp/get_all_subjects',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/subject/call/jsonp/get_all_subjects',
 
             disableCaching: false,
 
@@ -404,7 +404,7 @@ Ext.define("Igor.controller.Main", {
         var classId = Ext.getStore('Classdetails').getAt(0).get('class_id');
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_users_by_class',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_users_by_class',
             params: {
                 class_id: classId,
             },
@@ -537,7 +537,7 @@ Ext.define("Igor.controller.Main", {
         var userId = Ext.getStore('Users').getAt(0).get('userid');
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
             params: {
                 user_id: userId,
                 term: '20111', 
@@ -574,7 +574,7 @@ Ext.define("Igor.controller.Main", {
         });
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_class_detail',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_class_detail',
             params: {
                 id: id
             },
@@ -609,7 +609,7 @@ Ext.define("Igor.controller.Main", {
         });
 
         Ext.data.JsonP.request({
-            url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail',
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/get_user_detail',
             params: {
                 id: userid
             },

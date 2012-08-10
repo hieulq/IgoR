@@ -84,7 +84,7 @@ Ext.define('Igor.view.MultiSelect', {
         }
         this.isFocused = true;
         //hide the keyboard
-        //the causes https://sencha.jira.com/browse/TOUCH-1679
+        //the causes http://sencha.jira.com/browse/TOUCH-1679
         // Ext.Viewport.hideKeyboard();
         if (this.getUsePicker()) {
             var picker = this.getPhonePicker(),
