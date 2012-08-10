@@ -35,11 +35,11 @@ Ext.define("Igor.view.Main", {
                 cls: 'task'
             },
 
-            {
+            /*{
                 xtype: 'addclassForm',
                 title: 'Add Class',
                 cls: 'task'
-            },
+            },*/
 
             {
                 title: 'Me',
