@@ -40,7 +40,7 @@
 
 
 		&.menubutton {
-			-webkit-transition: all 900ms;
+			-webkit-transition: all 500ms;
 
 			&.open {
 				-webkit-transform: rotate(45deg) translateZ(0);
@@ -51,7 +51,7 @@
 			}
 		}
 		&.menuitembutton {
-			-webkit-transition-duration: 900ms;
+			-webkit-transition-duration: 500ms;
 			-webkit-transition-property: opacity, left, bottom, -webkit-transform;
 			-webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 			opacity: 1;
