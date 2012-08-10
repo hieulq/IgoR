@@ -274,6 +274,9 @@ Ext.define("Igor.controller.Main", {
         else {
             segmentedButton.setPressedButtons(date - 1);
             this.showTasksByDay(date - 1); 
+            var press = segmentedButton.getPressedButtons()[0];
+            press.setWidth(window.innerWidth);
+            press.setCentered(true);
         }
 
         this.getTermSelBtn().setHandler(function() {
@@ -433,7 +436,15 @@ Ext.define("Igor.controller.Main", {
 
     onDayToggle: function(container, button, pressed, eOpts){
         //console.log("User toggled the '" + button.getText() + button.getId() + "' button: " + (pressed ? 'on' : 'off'));
-        window.location.href = 'index.html#tasks/taskbyday/' + button.getItemId();
+        if (pressed) {
+            button.setWidth(window.innerWidth);
+            button.setCentered(true);
+            window.location.href = 'index.html#tasks/taskbyday/' + button.getItemId();
+        }
+        else {
+            button.setCentered(false);
+            button.setWidth('92px');
+        }
     },
 
     onProfilePop: function(){
