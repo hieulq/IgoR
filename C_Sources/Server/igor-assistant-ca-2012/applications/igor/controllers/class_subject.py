@@ -44,8 +44,8 @@ def get_classes_by_subject(subject_id, term = 0):
 		term = get_current_term()
 
 	classes = db(
-		db.class_subject.subject == subject_id and 
-		db.class_subject.term == term).select()
+		(db.class_subject.subject == subject_id) &
+		(db.class_subject.term == term)).select()
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, classes)
 

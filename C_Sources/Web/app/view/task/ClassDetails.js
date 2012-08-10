@@ -1,4 +1,4 @@
-Ext.define("Igor.view.task.ClassDetails", {
+ Ext.define("Igor.view.task.ClassDetails", {
     extend: 'Ext.Container',
     xtype: 'classDetailsForm',
     itemId: 'classDetailsForm',

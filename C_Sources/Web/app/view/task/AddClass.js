@@ -32,14 +32,14 @@ Ext.define("Igor.view.task.AddClass", {
 
                 xtype: 'list',
                 ui: 'round',
-                itemId: 'classesList',
+                itemId: 'selectClassesList',
                 cls: 'x-feeds',
                 flex: 1,
                 disclosure: true,
                 limit: 5,
                 listeners: {
                     itemtap: function (object, index, target, record) {
-                        alert(record.data.subject_id); 
+                         
                     }
                 },
                 emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Subject</div>',
@@ -60,7 +60,7 @@ Ext.define("Igor.view.task.AddClass", {
                     {
                         xtype: 'listitemheader',
                         cls: 'dark',
-                        html: 'Subject List'
+                        html: 'Classes',
                     }
                 ],
             },

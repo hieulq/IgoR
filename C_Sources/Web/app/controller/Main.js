@@ -185,7 +185,7 @@ Ext.define("Igor.controller.Main", {
     onNewsInit: function() {
         Ext.create('Igor.utility.ux.PathMenu',{
             bottom: 10,
-            right: window.innerWidth / 2 - 15,
+            left: window.innerWidth / 2 - 15,
             items: [
                 {
                     iconCls: 'action',
@@ -402,6 +402,51 @@ Ext.define("Igor.controller.Main", {
         //this.getSubjectList().setRecord(Ext.getStore('Subjects').data);
     },
 
+    onSelectClassesListInit: function () {
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+
+        // var userId = Ext.getStore('Users').getAt(0).get('userid');        
+
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_subject/',
+            params: {
+                subject_id: '4007',
+                term      : '20111'
+            },
+
+            disableCaching: false,
+
+            success: function(result, request) {
+                // Unmask the viewport
+                mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                mainPanel.unmask();
+
+                if (result.status = 'OK') {
+                    var classDetailStore = Ext.getStore('Classdetails'),
+                        classDetailModel = {}, read_count = 0;
+
+                        classDetailStore.removeAll();
+
+                    Ext.Array.each(result.message, function(classDetail) {
+                        
+                        classDetailModel = Ext.create('Igor.model.Classdetail', classDetail);
+                        classDetailStore.add(classDetailModel);
+
+                        // console.log(subject);
+                    });
+
+                    Ext.ComponentQuery.query('#selectClassesList')[0].setRecord(classDetailStore.data.all);
+
+                }
+
+            }
+        });
+    },
+
     onNewProjectInit: function() {
         var id = this.getNewProjectForm().getClassid();
         var classId = Ext.getStore('Classdetails').getAt(0).get('class_id');
@@ -504,6 +549,11 @@ Ext.define("Igor.controller.Main", {
         else if (activeCtn.getItemId().indexOf('newTask') != -1) {
             this.onSubjectListInit();
             this.getSubjectList().setStore('Subject');
+            this.getTermSelBtn().hide();
+        }
+        else if (activeCtn.getItemId().indexOf('addclassForm') != -1) {
+            this.onSelectClassesListInit();
+            this.getSelectClassesList().setStore('Classdetails');
             this.getTermSelBtn().hide();
         }
     },
