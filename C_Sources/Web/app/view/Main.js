@@ -1,5 +1,5 @@
 Ext.define("Igor.view.Main", {
-    extend: 'Ext.tab.Panel',
+    extend: 'Ext.Panel',
     xtype: 'mainpanel',
 
     requires: [
@@ -12,7 +12,7 @@ Ext.define("Igor.view.Main", {
 
     config: {
         fullscreen: true,
-        tabBarPosition: 'bottom',
+        //tabBarPosition: 'bottom',
         ui: 'dark',
 
         layout: {

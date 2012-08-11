@@ -48,7 +48,7 @@ Ext.define("Igor.controller.Main", {
             },
 
             updatesListForm: {
-                initialize: 'onNewsInit',
+                //initialize: 'onNewsInit',
             },
 
             schedulerList: {
@@ -69,7 +69,7 @@ Ext.define("Igor.controller.Main", {
                 initialize: 'onNotificationInit'
             },
 
-            'button[pathButtonType=menuitem]': {
+            pathBtn: {
                 itemtap: 'onPathMenuItemTap'
             },
 
@@ -94,6 +94,8 @@ Ext.define("Igor.controller.Main", {
         },
 
         refs: {
+            pathBtn: 'button[pathButtonType=menuitem]',
+            newsPathItemBtn: 'button[pathButtonType=menu]',
             // Updates
             refreshNewsButton: 'updatesListForm #refreshNewsButton',
             updatesListForm: 'updatesListForm',
@@ -138,7 +140,8 @@ Ext.define("Igor.controller.Main", {
     },
 
     onPathMenuItemTap: function(menu, menuitem) {
-        console.log(menu, menuitem);
+        //console.log(menuitem);
+        this.getMainPnl().setActiveItem(menuitem.getItemId() - 1);
     },
 
     onSearchKeyUp: function(field) {
@@ -188,24 +191,29 @@ Ext.define("Igor.controller.Main", {
             left: window.innerWidth / 2 - 15,
             items: [
                 {
-                    iconCls: 'action',
-                    cardIndex: 0
+                    iconCls: 'chat_black2',
+                    cardIndex: 0,
+                    itemId: 5
                 },
                 {
-                    iconCls: 'add',
-                    cardIndex: 1
+                    iconCls: 'info',
+                    cardIndex: 1,
+                    itemId: 4
                 },
                 {
-                    iconCls: 'compose',
-                    cardIndex: 2
+                    iconCls: 'team',
+                    cardIndex: 2,
+                    itemId: 3
                 },
                 {
-                    iconCls: 'home',
-                    cardIndex: 3
+                    iconCls: 'calendar2',
+                    cardIndex: 3,
+                    itemId: 2
                 },
                 {
-                    iconCls: 'refresh',
-                    cardIndex: 4
+                    iconCls: 'rss',
+                    cardIndex: 4,
+                    itemId: 1
                 }
             ]
         });
@@ -306,13 +314,15 @@ Ext.define("Igor.controller.Main", {
     },
 
     onNotificationInit: function() {
+        this.onNewsInit();
 
         this.getMainPnl().setMasked({
             xtype: 'loadmask',
             message: 'Loading...'
         });
 
-        this.getMainPnl().getTabBar().getComponent(0).setBadgeText(null);
+        //this.getMainPnl().getTabBar().getComponent(0).setBadgeText(null);
+        var a = this.getNewsPathItemBtn().menuItems;
 
         var userId = Ext.getStore('Users').getAt(0).get('userid');
         
@@ -348,7 +358,7 @@ Ext.define("Igor.controller.Main", {
 
                         if (read_count != 0) {
                             //console.log(read_count);
-                            mainPanel.getTabBar().getComponent(0).setBadgeText(read_count);
+                            //mainPanel.getTabBar().getComponent(0).setBadgeText(read_count);
                         }
                         //console.log(notify);
 
