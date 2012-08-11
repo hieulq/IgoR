@@ -50,7 +50,7 @@ Ext.define("Igor.controller.Main", {
             },
 
             updatesListForm: {
-                //initialize: 'onNewsInit',
+                initialize: 'onNewsInit',
             },
 
             schedulerList: {
@@ -332,7 +332,7 @@ Ext.define("Igor.controller.Main", {
     },
 
     onNotificationInit: function() {
-        this.onNewsInit();
+        //this.onNewsInit();
 
         this.getMainPnl().setMasked({
             xtype: 'loadmask',
