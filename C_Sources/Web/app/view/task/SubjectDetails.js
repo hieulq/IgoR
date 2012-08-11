@@ -92,8 +92,8 @@ Ext.define("Igor.view.task.SubjectDetails", {
                 itemTpl: [
                     '<div class="feed" style="background-image:url(resources/images/subject-icon.png);"></div>',
                     '{class_code}',
-                    '<span>Location: {localtion} - Teacher: {teacher_name}</span>',
-                    '<span>Duration: {total_session} weeks - Term: {term}</span>',
+                    '<span>Location: {location} - Teacher: {teacher}</span>',
+                    '<span>Duration: {duration} weeks - Term: {term}</span>',
                 ].join(''), 
                 
                 items: [
