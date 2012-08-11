@@ -606,7 +606,7 @@ Ext.define("Igor.controller.Main", {
         }
         else if (activeCtn.getItemId().indexOf('addclassForm') != -1) {
             this.onSelectClassesListInit();
-            //this.getSelectClassesList().setStore('Classdetails');
+            this.getNewClassForm().setStore('Classdetails');
             this.getTermSelBtn().hide();
         }
     },
