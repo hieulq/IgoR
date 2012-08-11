@@ -75,6 +75,17 @@ h4 {
     padding: 0.4em 1.3em;
 }
 
+.x-phapphui-in {
+    width: 95px;
+    -webkit-transition: width 1s;
+    -webkit-transition-delay: 100s;
+}
+
+.x-phapphui-out {
+    -webkit-transition: width 1s;
+    -webkit-transition-delay: 100s;
+}
+
 //non-editable field
 .nonEditable {
     color: #000;

@@ -6027,11 +6027,11 @@ audio {
   background-color: black;
   -webkit-transform-origin: 0% 0%; }
 .x-anchor.x-anchor-top {
-  margin-left: -0.816em;
+  margin-left: -0.8155em;
   margin-top: -0.7em; }
 .x-anchor.x-anchor-bottom {
   -webkit-transform: rotate(180deg);
-  margin-left: 0.816em;
+  margin-left: 0.8155em;
   margin-top: 0.6em; }
 .x-anchor.x-anchor-left {
   -webkit-transform: rotate(270deg);
@@ -6167,32 +6167,32 @@ audio {
 .x-button-forward:before, .x-button-forward:after, .x-button-back:before, .x-button-back:after {
   content: "";
   position: absolute;
-  width: 0.773em;
+  width: 0.77253em;
   height: 1.8em;
   top: -0.1em;
   left: auto;
   z-index: 2;
   -webkit-mask: 0.145em 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABGCAYAAADb7SQ4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAiNJREFUeNrEWb9LQlEUvj5BcHoQvMnVKXD1D3CLwqBJbHJsazQaWoSCxgbHJiMIAiNok6AhCDdXVycnJ8EQOgeOYaG+d39998KH+HyP753zzjnfd325xfdSgVeV8B6BScuEV0IRSbxHeCMk/AVFXCA8ScQKSXxPqK0fQBBfE5r/D+Y8VzUT9jb94DPimqRYIYkrhGcpKhhxIqTxrpNcExdlQJTTTnRJnCc8ykhUSOIOoZ71ZFfEZ4S2zgUu+rguxZRHEnPbfKRVsOtUl0RtYpOLTYljIS2Z3nVk2DY9SbNCEt8RDm0rUpe4La1jvXSqmtum72raZI24KuNQIYl/nSGSOJb0Jq61M0pxhjwK9304hUjHGSKILzc5Q5drUzttdYY+I97pDH1FzG0zNFUb04gTG4kzJS5kdYauiZtZnaFr4ooKsCIVaDHxKAQxt1NBnGIVHfGCcEQYh3jGU8KBfMKLiyM+lgzAq/qT0ArVTg+Ei1B9fEPoovV4fcfQd2HedScX39GprwGTNjJn0maTELN6IuSzECLB6T5x2eM66jQgnIeSxa60GnS3uL56tr7b1Ai0JPVwYi6yho2U2lgfKym19VxjMRHzEGbvS9K+RBPzetGVUpf29lZHSl2/DMnLvwh1ZMQrKW3Ic4fvJOZS6ZMQW5hpmpT63DvtlFLfm7bBNruM2C2yXb7y3U6ZpRS5P/4jpUjihRTbCJ3q1eL3GMMfAQYAJmB6SBO619IAAAAASUVORK5CYII=') no-repeat;
-  -webkit-mask-size: 0.773em 1.8em;
+  -webkit-mask-size: 0.77253em 1.8em;
   overflow: hidden; }
 
 .x-button-back, .x-toolbar .x-button-back {
-  margin-left: 0.828em;
+  margin-left: 0.82753em;
   padding-left: .4em; }
 .x-button-back:before, .x-toolbar .x-button-back:before {
-  left: -0.693em; }
+  left: -0.69253em; }
 .x-button-back:after, .x-toolbar .x-button-back:after {
-  left: -0.628em; }
+  left: -0.62753em; }
 
 .x-button-forward, .x-toolbar .x-button-forward {
-  margin-right: 0.828em;
+  margin-right: 0.82753em;
   padding-right: .4em; }
 .x-button-forward:before, .x-button-forward:after, .x-toolbar .x-button-forward:before, .x-toolbar .x-button-forward:after {
   -webkit-mask: -0.145em 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABGCAYAAADb7SQ4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXlJREFUaN7lmTFqAlEQhh8EhFSCYJXW1law9QAewMrWAwQWAmmtbPcGHiCQ1gPYCla2QsDKSsgmQecvFqImu2/fzry/2OLb9mt23vwz47Kvn5MwEFxM8DkLB6HHEIOd0GGIwUpoMcRgyRKDOUsMJizxpzBiiMFR6DPEeZl1GWKwFh4ZYvAmPDDEqmVWVQxmLPG3MGaIVcosVAz2whNDDDZCmyEG7yFlpiEGKUsMEpb4XKXMtMXeiVVb7J1YLcRgW1ZmVuLSxGopLkys1mLwwhL/mVhjie8Sayxx3kp7DPFVYo0tzhNriyEGU5Z40TjxtDE/F6WcDowHBE/msDFNImG0xZQRBAonDCvxhhH2vKZIZ9Ds+7EDfaWFnKZ4xhja5owxdcnYCAQv1p1Gi4sprn08cZbDt6ZYZasXIn5mLFHTjLCvVt1V+4rVt/M+4r3FPaJMbHaBKRKb3pyKxKZXtv/Er4yjZpRL6q042u34tzh4xV9H/FHnqBHKBQeEd6aqqwD6AAAAAElFTkSuQmCC') no-repeat; }
 .x-button-forward:before, .x-toolbar .x-button-forward:before {
-  right: -0.693em; }
+  right: -0.69253em; }
 .x-button-forward:after, .x-toolbar .x-button-forward:after {
-  right: -0.628em; }
+  right: -0.62753em; }
 
 .x-button.x-button-plain, .x-toolbar .x-button.x-button-plain {
   background: none;
@@ -6713,7 +6713,7 @@ audio {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(50%, #ededed), color-stop(51%, #e0e0e0), color-stop(100%, #d3d3d3));
   background-image: -webkit-linear-gradient(top, #ffffff, #ededed 50%, #e0e0e0 51%, #d3d3d3);
   background-image: linear-gradient(top, #ffffff, #ededed 50%, #e0e0e0 51%, #d3d3d3);
-  border-top-color: #d3d3d3;
+  border-top-color: lightgrey;
   border-bottom-color: #bababa; }
 .x-tabbar-neutral .x-tab {
   color: #7a7a7a; }
@@ -6733,7 +6733,7 @@ audio {
   background-image: linear-gradient(top, #d3d3d3, #bababa 50%, #adadad 51%, #a0a0a0); }
 .x-tabbar-neutral.x-docked-bottom .x-tab-active {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bababa), color-stop(10%, #c7c7c7), color-stop(65%, #d3d3d3), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
@@ -6749,7 +6749,7 @@ audio {
 
 .x-tabbar-neutral.x-docked-top .x-tab-active {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bababa), color-stop(10%, #c7c7c7), color-stop(65%, #d3d3d3), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
@@ -6928,7 +6928,7 @@ audio {
   background: #a0a0a0; }
 .x-toolbar-neutral .x-button, .x-toolbar-neutral .x-button.x-button-back:after, .x-toolbar-neutral .x-button.x-button-forward:after, .x-toolbar .x-toolbar-neutral .x-button, .x-toolbar .x-toolbar-neutral .x-button.x-button-back:after, .x-toolbar .x-toolbar-neutral .x-button.x-button-forward:after, .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:after, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar-neutral .x-field-select .x-component-outer:before, .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-back:after, .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-forward:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-back:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer:before.x-button-forward:after {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(50%, #e0e0e0), color-stop(51%, #d3d3d3), color-stop(100%, #c7c7c7));
   background-image: -webkit-linear-gradient(top, #fafafa, #e0e0e0 50%, #d3d3d3 51%, #c7c7c7);
   background-image: linear-gradient(top, #fafafa, #e0e0e0 50%, #d3d3d3 51%, #c7c7c7); }
@@ -7898,7 +7898,7 @@ html, body {
   position: absolute;
   width: auto;
   height: 0.8em;
-  top: 0.737em;
+  top: 0.7375em;
   left: 0;
   right: 0;
   margin: 0 0.925em;

@@ -275,8 +275,20 @@ Ext.define("Igor.controller.Main", {
             segmentedButton.setPressedButtons(date - 1);
             this.showTasksByDay(date - 1); 
             var press = segmentedButton.getPressedButtons()[0];
-            press.setWidth(window.innerWidth);
+            press.replaceCls('x-phapphui-in', 'x-phapphui-out');
+            //press.setWidth(window.innerWidth);
+            style = {
+                'width': window.innerWidth + 'px',
+                '-webkit-transition': 'width 1s',
+                '-webkit-transition-delay': '100ms'
+            };
             press.setCentered(true);
+            if (!press.rendered) {
+                press.setStyle(style);
+            }
+            else {
+                press.element.applyStyles(style);
+            }
         }
 
         this.getTermSelBtn().setHandler(function() {
@@ -482,15 +494,40 @@ Ext.define("Igor.controller.Main", {
     onDayToggle: function(container, button, pressed, eOpts){
         //console.log("User toggled the '" + button.getText() + button.getId() + "' button: " + (pressed ? 'on' : 'off'));
         if (pressed) {
-            button.setWidth(window.innerWidth);
+            style = {
+                'width': window.innerWidth + 'px',
+                '-webkit-transition': 'width 1s',
+                '-webkit-transition-delay': '100ms'
+            };
+            //button.setWidth(window.innerWidth);
             button.setCentered(true);
+            if (!button.rendered) {
+                button.setStyle(style);
+            }
+            else {
+                button.element.applyStyles(style);
+            }
+            button.replaceCls('x-phapphui-in', 'x-phapphui-out');
             window.location.href = 'index.html#tasks/taskbyday/' + button.getItemId();
         }
         else {
+            style = {
+                'width': '95px',
+                '-webkit-transition': 'width 1s',
+                '-webkit-transition-delay': '100ms'
+            };
             button.setCentered(false);
+            button.setStyle('');
+            //button.setWidth('95px');
             //button.setStyle('transition:width 5s;-webkit-transition:width 5s;');
             //console.log(button.getStyle());
-            button.setWidth('92px');
+            button.replaceCls('x-phapphui-out', 'x-phapphui-in');
+            if (!button.rendered) {
+                button.style = style;
+            }
+            else {
+                button.element.applyStyles(style);
+            }
             
         }
     },
