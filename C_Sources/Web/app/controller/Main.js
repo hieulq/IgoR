@@ -6,8 +6,10 @@ Ext.define("Igor.controller.Main", {
          'Igor.view.task.NewClassTask',
          'Igor.view.task.ClassDetails',
          'Igor.view.task.New',
+         'Igor.view.task.AddClass',
          'Igor.utility.ux.PathMenu',
          'Igor.utility.ux.AccordionList',
+         'Igor.view.task.SubjectDetails',
     ],
     
     init: function() {
@@ -75,6 +77,10 @@ Ext.define("Igor.controller.Main", {
 
             saveUpdatedProfileBtn: {
                 tap: 'doSaveUpdatedProfile'
+            },
+
+            subjectList: {
+                itemtap: 'onSubjectTapHold'
             }
         },
         routes: {
@@ -112,7 +118,7 @@ Ext.define("Igor.controller.Main", {
             subjectList: 'newTask #subjectList',
 
             // Add class form
-            newClassForm: 'addclassForm',
+            //newClassForm: 'addclassForm',
 
             // Tasks
             tasksForm:'tasksForm',
@@ -590,7 +596,7 @@ Ext.define("Igor.controller.Main", {
         }
         else if (activeCtn.getItemId().indexOf('addclassForm') != -1) {
             this.onSelectClassesListInit();
-            this.getSelectClassesList().setStore('Classdetails');
+            //this.getSelectClassesList().setStore('Classdetails');
             this.getTermSelBtn().hide();
         }
     },
@@ -873,5 +879,10 @@ Ext.define("Igor.controller.Main", {
         } else {
             Ext.Msg.alert('Not enough information!');
         }
+    },
+
+    onSubjectTapHold: function(list, index, target, record) {
+        window.location.href = 'index.html#subjectDetails/' + record.get('subject_id');
+        this.getTasksForm().push({xtype: 'subjectDetailsForm'});
     }
 });

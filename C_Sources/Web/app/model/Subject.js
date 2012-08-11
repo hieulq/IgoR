@@ -7,6 +7,7 @@ Ext.define("Igor.model.Subject", {
             'subject_name',
             'subject_code',
             'class_count',
+            'note',
         ],
     }
 });

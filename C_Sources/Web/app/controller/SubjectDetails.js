@@ -1,6 +1,6 @@
 Ext.define("Igor.controller.SubjectDetails", {
     extend: 'Ext.app.Controller',
-    views: ['SubjectDetails'], // tương ứng sheet 7
+    views: ['task.SubjectDetails'], // tương ứng sheet 7
     
     init: function() {
         
@@ -8,43 +8,85 @@ Ext.define("Igor.controller.SubjectDetails", {
 
     config: {
         control: {
-            classesListForm: 'List' {
-                itemSelected: 'viewClassDetails',
+            // classesListForm: 'List' {
+            //     itemSelected: 'viewClassDetails',
+            // }
+            testButton: {
+                tap: 'doTest'
             }
         },
         routes: {
-            'subjectdetails/:id': 'doSubjectDetails'
+            'subjectDetails/:id': 'doSubjectDetails'
             // Khi xuat hien url dang http://abc.com/#login thi se thuc hien ham showLogin
         },
 
         refs: {
             // Subject Details
-            subjectDetailsForm: '#subjectDetailsForm' 
+            subjectDetailsForm: 'subjectDetailsForm',
+            subjectDetailsPanel: 'subjectDetailsForm #subjectDetailsPanel',
 
             // Classes List By Subject
-            classesListForm: '#classesListForm'
-        }
+            classesListForm: 'subjectDetailsForm #selectClassesList'
+        },
 
         before: {
             doSubjectDetails: ['getSubjectDetails', 'getAllClassesBySubject'],
             // Truoc khi thuc hien ham doLogin thi se invoke ham authenticate trước!
-        },
+        }
     },
 
     // Hàm chính
-    doSubjectDetails: function() {
-        // Thực hiện 2 hàm filter và binding dữ liệu lên giao diện
-    },
+    doSubjectDetails: function(id) {
+        // var subjectStore = Ext.getStore('Subjects');
+        // var result = subjectStore.findRecord('subject_id', id);
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/subject/call/jsonp/get_subject_detail/',
+            params: {
+                id: id
+            },
+            disableCaching: false,
 
-    // (*) WS lấy về thông tin chi tiết của Subject theo id
-    getSubjectDetails: function(subject_id) {
-        // Sử dụng hàm Get_subject_detail(subject_id) trong file .doc
+            success: function(result, request) {
+                var subjectDetailsStore = Ext.getStore('SubjectDetails'), subjectDetails = {};
+                    subjectDetailsStore.removeAll();
+                    subjectDetailsStore.sync();
+                if (result.status == 'OK' && result.message != '') {
+                    Ext.Array.each(result.message, function(subject) {      
+                        subjectDetails = Ext.create('Igor.model.Subject', subject);
+                        subjectDetailsStore.add(subjectDetails);
+                        subjectDetailsStore.sync();
+                    });
+                }
+            }
+        });
+
+        this.getAllClassesBySubject(id);
     },
 
     // (*) WS lấy về toàn bộ các classes của subject này
-    getAllClassesBySubject: function(subject_id) {
-        // Sử dụng hàm Get_class_by_subject(subject_id) trong file .doc
-    }
+    getAllClassesBySubject: function(_id) {
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_subject/',
+            params: {
+                subject_id: _id,
+                term: '20111'
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                var subjectClassesStore = Ext.getStore('SubjectClasses'), subjectClasses = {};
+                    subjectClassesStore.removeAll();
+                    subjectClassesStore.sync();
+                if (result.status == 'OK' && result.message != '') {
+                    Ext.Array.each(result.message, function(classDetails) {      
+                        subjectClasses = Ext.create('Igor.model.Classdetail', classDetails);
+                        subjectClassesStore.add(subjectClasses);
+                        subjectClassesStore.sync();
+                    });
+                }
+            }
+        });
+    },
 
     // Hàm này để xem chi tiết về 1 class
     viewClassDetails: function(class_id) {
