@@ -12,7 +12,6 @@ Ext.define("Igor.view.task.Task", {
     config: {
         autoDestroy: true,
         
-
         navigationBar: {
             defaults: {
                     hideAnimation: Ext.os.is.Android ? false : {
@@ -82,6 +81,11 @@ Ext.define("Igor.view.task.Task", {
                                 defaults: {
                                     cls: 'x-phapphui-in'
                                 },
+                                style: {
+                                        'width': '95px',
+                                        'transition':'width 10s',
+                                        '-webkit-transition':'width 10s'
+                                    },
                                 xtype: 'segmentedbutton',
                                 itemId: 'daySelectBtn',
                                 allowDepress: true,

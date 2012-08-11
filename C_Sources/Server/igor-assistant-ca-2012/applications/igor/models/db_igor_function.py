@@ -27,7 +27,7 @@ def get_classes_of_user(user_id, term = 0, day_of_week = None):
 	# Get data
 	if (term == 0):
 		term = get_current_term ()
-
+	
 	# Get all user scheduler
 	user_schedulers = db(db.scheduler.owner == user_id).select()
 		
