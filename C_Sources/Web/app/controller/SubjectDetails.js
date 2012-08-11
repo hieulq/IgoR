@@ -8,12 +8,7 @@ Ext.define("Igor.controller.SubjectDetails", {
 
     config: {
         control: {
-            // classesListForm: 'List' {
-            //     itemSelected: 'viewClassDetails',
-            // }
-            testButton: {
-                tap: 'doTest'
-            }
+            
         },
         routes: {
             'subjectDetails/:id': 'doSubjectDetails'
@@ -86,12 +81,5 @@ Ext.define("Igor.controller.SubjectDetails", {
                 }
             }
         });
-    },
-
-    // Hàm này để xem chi tiết về 1 class
-    viewClassDetails: function(class_id) {
-        // Cập nhật route: .../classdetails/abc
-        // Chuyển sang màn hình xem Class Details
-        this.redirectTo('url');
     }
 });

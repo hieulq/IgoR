@@ -80,12 +80,12 @@
             {
                 xtype: 'list',
                 itemId: 'classProjectList',
-                store: 'Classprojects',
                 disclosure: true,
                 onItemDisclosure: true,
                 flex: 1,                 
 
                 cls: 'x-feeds',
+                store: 'Classprojects',
                 itemTpl: [
                     '<div class="feed" style="background-image:url(resources/images/project_icon.png);"></div>',
                     '{name}',
@@ -109,18 +109,17 @@
                         navView.push({xtype: 'projectDetailsForm'});
                     }
                 }
-
             },
 
             {
                 xtype: 'list',
                 itemId: 'classTaskList',
-                store: 'Classtasks',
                 disclosure: true,
                 onItemDisclosure: true,
                 flex: 1,                 
 
                 cls: 'x-feeds',
+                store: 'Classtasks',
                 itemTpl: [
                     '<div class="feed" style="background-image:url(resources/images/{status}.png);"></div>',
                     '{name}',
@@ -144,26 +143,12 @@
                         navView.push({xtype: 'classTaskDetailsForm'});
                     }
                 }
-
             },
 
         ]
     },
 
     initialize: function() {
-        /*var store = Ext.data.StoreManager.lookup('Classprojects');
-        store.load({
-            callback: function(records, operation, success) {
-                    var class1 = store.first();
-                    console.log('Class code is: ' + class1.get('class_code'));
-
-                    class1.projects().each(function(project) {
-                        console.log("Project ID: " + project.getId());
-                    });
-
-                    console.log(records);
-                },
-                scope: this
-        });*/
+        
     }
 });

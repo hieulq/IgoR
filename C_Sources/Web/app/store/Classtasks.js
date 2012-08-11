@@ -4,7 +4,5 @@ Ext.define("Igor.store.Classtasks", {
     config: {
         model: 'Igor.model.Classtask',
         autoLoad: true,
-
-        
     }
 });
