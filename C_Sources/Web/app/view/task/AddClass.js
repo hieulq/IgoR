@@ -14,20 +14,6 @@ Ext.define("Igor.view.task.AddClass", {
         autoDestroy: true, 
 
         items: [
-            // {
-            //     xtype: 'fieldset',
-            //     margin: 15,
-            //     items: [
-            //         {
-            //             xtype: 'searchfield',
-            //             itemId: 'subjectSearch',
-            //             flex: 1,
-            //             scrollable: false,
-            //             height: '42px',
-            //             placeHolder: 'Search...',
-            //         }
-            //     ]
-            // },
             {
 
                 xtype: 'list',

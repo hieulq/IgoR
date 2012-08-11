@@ -7,10 +7,10 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    controllers: ['Main', 'ClassDetails', 'Login', 'Register'],
+    controllers: ['Main', 'ClassDetails', 'Login', 'Register', 'SubjectDetails'],
     views: ['Main','authenticate.Authenticate', 'authenticate.Register'],
-    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers', 'Subjects'],
-    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser', 'Profile', 'Subject'],
+    stores: ['Notifications','Users','Profiles','Tasks', 'Classdetails', 'Classprojects', 'Classtasks', 'Projectmembers', 'Projectjobs', 'Classusers', 'Subjects', 'SubjectDetails','SubjectClasses'],
+    models: ['Notification','User','Task', 'Classdetail', 'Classproject', 'Classtask', 'Projectjob', 'Projectmember', 'Classuser', 'Profile', 'Subject', 'ClassOfSubject'],
 
     icon: {
         57: 'resources/icons/Icon.png',

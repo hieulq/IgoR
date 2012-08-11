@@ -80,11 +80,7 @@ Ext.define("Igor.view.task.Task", {
                         items: [
                             {
                                 defaults: {
-                                    style: {
-                                        'width': '95px',
-                                        'transition':'width 10s',
-                                        '-webkit-transition':'width 10s'
-                                    }
+                                    cls: 'x-phapphui-in'
                                 },
                                 xtype: 'segmentedbutton',
                                 itemId: 'daySelectBtn',

@@ -37,17 +37,7 @@ Ext.define("Igor.view.task.New", {
                 flex: 1,
                 disclosure: true,
                 limit: 5,
-                // onItemDisclosure: function(record) {
-                //     alert(record.data.subject_id);
-                // },
-                listeners: {
-                    itemtap: function (object, index, target, record) {
-                        // alert(record.data.subject_id); 
-                        var navView = this.up('navigationview');
-                        
-                        navView.push({xtype: 'addclassForm'});
-                    }
-                },
+                
                 emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Subject</div>',
 
                 plugins: [
