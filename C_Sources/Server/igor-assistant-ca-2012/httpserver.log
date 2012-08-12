@@ -10143,3 +10143,25 @@
 127.0.0.1, 2012-08-08 23:30:55, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
 127.0.0.1, 2012-08-08 23:36:02, GET, /igor/user/call/json/update_user_detail/1/nguyen hong phuc/TTM/20072236/52, HTTP/1.1, 200, 0.098000
 127.0.0.1, 2012-08-08 23:36:02, GET, /favicon.ico, HTTP/1.1, 400, 0.001000
+127.0.0.1, 2012-08-12 11:33:11, GET, /, HTTP/1.1, 303, 0.001699
+127.0.0.1, 2012-08-12 11:33:11, GET, /welcome/default/index, HTTP/1.1, 200, 0.597331
+127.0.0.1, 2012-08-12 11:33:11, GET, /welcome/static/favicon.ico, HTTP/1.1, 200, 0.000477
+127.0.0.1, 2012-08-12 11:33:12, GET, /welcome/static/favicon.png, HTTP/1.1, 200, 0.000665
+127.0.0.1, 2012-08-12 11:33:12, GET, /welcome/static/css/calendar.css, HTTP/1.1, 200, 0.000467
+127.0.0.1, 2012-08-12 11:33:12, GET, /welcome/static/css/skeleton.css, HTTP/1.1, 200, 0.000507
+127.0.0.1, 2012-08-12 11:33:12, GET, /welcome/static/css/web2py.css, HTTP/1.1, 200, 0.000495
+127.0.0.1, 2012-08-12 11:35:31, GET, /igor/job/call/json/get_jobs_detail/1, HTTP/1.1, 404, 0.205278
+127.0.0.1, 2012-08-12 11:35:31, GET, /favicon.ico, HTTP/1.1, 400, 0.000994
+127.0.0.1, 2012-08-12 11:35:31, GET, /favicon.ico, HTTP/1.1, 400, 0.001076
+127.0.0.1, 2012-08-12 11:35:38, GET, /igor/jobs/call/json/get_jobs_detail/1, HTTP/1.1, 200, 0.163272
+127.0.0.1, 2012-08-12 11:36:00, GET, /igor/jobs/call/json/get_jobs_detail/5, HTTP/1.1, 200, 0.044058
+127.0.0.1, 2012-08-12 11:36:03, GET, /igor/jobs/call/json/get_jobs_detail/3, HTTP/1.1, 200, 0.036652
+127.0.0.1, 2012-08-12 11:36:08, GET, /igor/jobs/call/json/get_jobs_detail/wf, HTTP/1.1, 200, 0.038648
+127.0.0.1, 2012-08-12 11:36:11, GET, /igor/jobs/call/json/get_jobs_detail/-1, HTTP/1.1, 200, 0.046584
+127.0.0.1, 2012-08-12 11:36:14, GET, /igor/jobs/call/json/get_jobs_detail/0, HTTP/1.1, 200, 0.042018
+127.0.0.1, 2012-08-12 11:36:36, GET, /igor/jobs/call/json/get_jobs_by_class/1/1, HTTP/1.1, 200, 0.035223
+127.0.0.1, 2012-08-12 11:37:12, GET, /igor/jobs/call/json/delete_job/1, HTTP/1.1, 200, 0.183921
+127.0.0.1, 2012-08-12 11:40:40, GET, /igor/jobs/call/json/mark_job_finished/2, HTTP/1.1, 200, 0.180290
+127.0.0.1, 2012-08-12 11:41:13, GET, /igor/jobs/call/json/mark_job_finished/2_5, HTTP/1.1, 200, 0.042457
+127.0.0.1, 2012-08-12 11:41:26, GET, /igor/jobs/call/json/mark_jobs_finished/2_5, HTTP/1.1, 200, 0.194208
+127.0.0.1, 2012-08-12 11:42:35, GET, /igor/jobs/call/json/mark_jobs_finished/2_5, HTTP/1.1, 200, 0.182736

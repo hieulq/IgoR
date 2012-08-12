@@ -173,38 +173,36 @@ def mark_job_finished(job_id):
 
 	return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 
-@request.restful()
-def mark_jobs_finished():
-	response.view = 'generic.json'
-	def GET(*job_ids):
+@service.jsonp
+@service.json
+def mark_jobs_finished(job_ids):
 
-		#update data
-		try:
-			for job_id in job_ids:
-				#validate input
-				if (not job_id.isdigit()):
-					raise Exception('job id must be numberic')
-					# return MessagePackager.get_packaged_message (
-					# MessageStatus.ERROR, 
-					# "job id must be numberic")
+	job_ids = job_ids.split('_')
+	#update data
+	try:
+		for job_id in job_ids:
+			#validate input
+			if (not job_id.isdigit()):
+				raise Exception('job id must be numberic')
+				# return MessagePackager.get_packaged_message (
+				# MessageStatus.ERROR, 
+				# "job id must be numberic")
 
-				if (int (job_id) < 0):
-					raise Exception('job id can not less than 0')
-					# return MessagePackager.get_packaged_message (
-					# MessageStatus.ERROR, 
-					# "job id can not less than 0")
-			
-				row = db(db.job.id == job_id).update(status = 1)
-					
-		except Exception, err:
-			db.rollback ()
-			return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
+			if (int (job_id) < 0):
+				raise Exception('job id can not less than 0')
+				# return MessagePackager.get_packaged_message (
+				# MessageStatus.ERROR, 
+				# "job id can not less than 0")
+		
+			row = db(db.job.id == job_id).update(status = 1)
+				
+	except Exception, err:
+		db.rollback ()
+		return MessagePackager.get_packaged_message(MessageStatus.ERROR, str (err) )
 
-		return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
+	return MessagePackager.get_packaged_message(MessageStatus.OK, "Done")
 
-	return locals()
-
-
+	
 @service.jsonp
 @service.json
 def accept_job(job_id, owner, from_user):
@@ -375,7 +373,7 @@ def share_job_to_class(job_id, from_user_id, class_id):
 ##
 ##############################
 
-def format_client_data(job):
-	if (job == None):
-		return
+# def format_client_data(job):
+# 	if (job == None):
+# 		return
 

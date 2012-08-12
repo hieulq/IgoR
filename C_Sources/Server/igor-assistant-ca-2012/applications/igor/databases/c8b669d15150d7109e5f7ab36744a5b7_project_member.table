@@ -2,13 +2,13 @@
 S'class_subject'
 p2
 (dp3
-S'sortable'
+S'type'
 p4
-I2
-sS'type'
-p5
 S'reference class_subject'
+p5
+sS'sortable'
 p6
+I2
 sS'sql'
 p7
 S'INTEGER REFERENCES class_subject(id) ON DELETE CASCADE'
