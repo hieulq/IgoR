@@ -321,7 +321,8 @@ Ext.define("Igor.controller.Main", {
                                 {text: '20111', value: 20111},
                                 {text: '20112', value: 20112},
                                 {text: '20113', value: 20113},
-                                {text: '20121', value: 20121}
+                                {text: '20121', value: 20121},
+                                {text: '20123', value: 20123}
                             ]
                         }
                     ]
@@ -657,7 +658,7 @@ Ext.define("Igor.controller.Main", {
             url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
             params: {
                 user_id: userId,
-                term: '20111', 
+                term: '20113', 
                 day_of_week: day_of_week
             },
             disableCaching: false,
@@ -690,6 +691,7 @@ Ext.define("Igor.controller.Main", {
             message: 'Loading...'
         });
 
+        // Get Class Details by class_id
         Ext.data.JsonP.request({
             url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_class_detail',
             params: {
@@ -713,6 +715,52 @@ Ext.define("Igor.controller.Main", {
                         //console.log(classdetail);
                     });
                     Ext.ComponentQuery.query('tasksForm')[0].push({xtype: 'classDetailsForm'});
+                }
+            }
+        });
+    
+        // Get All Projects of Class by class_id
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/project/call/jsonp/get_project_by_class/',
+            params: {
+                class_id: id
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                var projectClassStore = Ext.getStore('Classprojects'), classProjectDetails = {};
+                    projectClassStore.removeAll();
+                    projectClassStore.sync();
+                if (result.status == 'OK' && result.message != '') {
+                    Ext.Array.each(result.message, function(classProject) {      
+                        classProjectDetails = Ext.create('Igor.model.Classproject', classProject);
+                        projectClassStore.add(classProjectDetails);
+                        projectClassStore.sync();
+                    });
+                }
+            }
+        });
+
+        // Get All Tasks/Jobs of Class by class_id
+        var user_id = Ext.getStore('Users').getAt(0).get('userid');
+        Ext.data.JsonP.request({
+            url: 'https://igor-assistant-ca-2012.appspot.com/igor/jobs/call/jsonp/get_jobs_by_class/',
+            params: {
+                user_id: user_id,
+                class_id: id
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                var classTaskStore = Ext.getStore('Classtasks'), classTaskDetails = {};
+                    classTaskStore.removeAll();
+                    classTaskStore.sync();
+                if (result.status == 'OK' && result.message != '') {
+                    Ext.Array.each(result.message, function(classTask) {      
+                        classTaskDetails = Ext.create('Igor.model.Classproject', classTask);
+                        classTaskStore.add(classTaskDetails);
+                        classTaskStore.sync();
+                    });
                 }
             }
         });

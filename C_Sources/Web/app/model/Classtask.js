@@ -3,24 +3,28 @@ Ext.define("Igor.model.Classtask", {
 
     config: {
         fields: [
-            'jobid',
+            'id',
             'name',
             'status',
             'start_time',
             'end_time',
             'repeat_date',
             'location',
-            'note'
+            'note',
+            'class_subject',
+            'owner',
+            'test',
+            'date',
         ],
 
-        proxy: {
-            type: 'ajax',
-            url : 'data/job_project.json',
-            reader: {
-                type: 'json',
-                rootProperty: 'tasks'
+        // proxy: {
+        //     type: 'ajax',
+        //     url : 'data/job_project.json',
+        //     reader: {
+        //         type: 'json',
+        //         rootProperty: 'tasks'
 
-            }
-        }
+        //     }
+        // }
     }
 });

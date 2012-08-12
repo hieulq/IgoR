@@ -3,8 +3,6 @@ Ext.define("Igor.store.Classprojects", {
 
     config: {
         model: 'Igor.model.Classproject',
-        autoLoad: true,
-
-        
+        autoLoad: true,        
     }
 });
