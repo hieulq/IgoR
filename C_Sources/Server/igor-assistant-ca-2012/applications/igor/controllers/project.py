@@ -137,6 +137,45 @@ def get_project_by_user_class(user_id, class_id):
 	return MessagePackager.get_packaged_message (
 		MessageStatus.ERROR, "can not find project")
 
+# phuc add 20120812
+@service.jsonp
+@service.json
+def get_projects_by_user(user_id):
+
+	# Validate input 
+	if (not user_id.isdigit()):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id must be numberic")
+
+	if (int (user_id) < 0):
+		return MessagePackager.get_packaged_message (
+			MessageStatus.ERROR, 
+			"user id can not less than 0")
+
+	###
+
+	classes = get_classes_of_user(user_id, 0, None)
+	projects = list ()
+
+	for classs in classes:
+		project = db((db.test.class_subject == classs) &
+			(db.test.test_type == 2)).select().first()
+		
+		if (project.class_subject == classs.id):
+			#project = format_client_data(project)
+			projects.append (project)
+
+	projects = format_client_data(projects)
+
+	return MessagePackager.get_packaged_message (
+				MessageStatus.OK, projects)
+
+	# return MessagePackager.get_packaged_message (
+	# 	MessageStatus.ERROR, "can not find project")
+
+# end phuc add 20120812
+
 
 def format_client_data(projects):
 	if projects == None:
