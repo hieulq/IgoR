@@ -288,7 +288,7 @@ Ext.define("Igor.controller.Main", {
         else {
             segmentedButton.setPressedButtons(date - 1);
             this.showTasksByDay(date - 1); 
-            var press = segmentedButton.getPressedButtons()[0];
+            /*var press = segmentedButton.getPressedButtons()[0];
             press.replaceCls('x-phapphui-in', 'x-phapphui-out');
             //press.setWidth(window.innerWidth);
             style = {
@@ -302,7 +302,7 @@ Ext.define("Igor.controller.Main", {
             }
             else {
                 press.element.applyStyles(style);
-            }
+            }*/
         }
 
         this.getTermSelBtn().setHandler(function() {
@@ -511,7 +511,7 @@ Ext.define("Igor.controller.Main", {
     onDayToggle: function(container, button, pressed, eOpts){
         //console.log("User toggled the '" + button.getText() + button.getId() + "' button: " + (pressed ? 'on' : 'off'));
         if (pressed) {
-            style = {
+            /*style = {
                 'width': window.innerWidth + 'px',
                 '-webkit-transition': 'width 1s',
                 '-webkit-transition-delay': '100ms'
@@ -524,11 +524,11 @@ Ext.define("Igor.controller.Main", {
             else {
                 button.element.applyStyles(style);
             }
-            button.replaceCls('x-phapphui-in', 'x-phapphui-out');
+            button.replaceCls('x-phapphui-in', 'x-phapphui-out');*/
             window.location.href = 'index.html#tasks/taskbyday/' + button.getItemId();
         }
         else {
-            style = {
+            /*style = {
                 'width': '95px',
                 '-webkit-transition': 'width 1s',
                 '-webkit-transition-delay': '100ms'
@@ -544,7 +544,7 @@ Ext.define("Igor.controller.Main", {
             }
             else {
                 button.element.applyStyles(style);
-            }
+            }*/
             
         }
     },
