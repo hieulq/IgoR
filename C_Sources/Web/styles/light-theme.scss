@@ -41,10 +41,10 @@ a:visited {
   color: lighten(#900, 15%) !important;
 }
 body.x-android.x-phone {
-  font-size: 106%; 
+  font-size: 112%; 
 }
 body.x-desktop {
-  font-size: 104%; 
+  font-size: 110%; 
   overflow: hidden;
 }
 
@@ -67,6 +67,12 @@ h4 {
     text-overflow: ellipsis;
     margin: 0 0.3em;
     max-width: 100%;
+}
+.x-title .x-innerhtml {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0em;
 }
 .x-list-header.dark {
     color: #000;

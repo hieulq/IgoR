@@ -1,10 +1,6 @@
 package com.smilenet.igor;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 import org.apache.cordova.*;
 
 public class IgoR extends DroidGap {
