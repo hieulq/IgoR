@@ -3,7 +3,7 @@ IgoR App
 
 A mobile app for CyberAgent HUST Contest
 
-Igor is HTML5 mobile app that help students dinding an efficient way to control their study plan. Normally, they remember through brain or papers; so they will quickly forget, by subjective or objective reasons.  
+Igor is HTML5 mobile app that help students finding an efficient way to control their study plan. Normally, they remember through brain or papers; so they will quickly forget, by subjective or objective reasons.  
 This app aim to become an friendly assistant with controlling time tables, study schedulers, subject deadline...
 
 Igor includes 2 components: HTML5 Mobile apps built in Sencha framework and Service provider server built in web2py framework, hosted in Google App Engine.

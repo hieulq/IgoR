@@ -31,7 +31,7 @@ Ext.define('Igor.utility.ux.PathMenu', {
 		 * Radius in px defaults to 150 which fits for 6 menu items
 		 * @type Number
 		 */
-		radius: 150,
+		radius: 110,
 
 		/**
 		 * config for the menu button
@@ -152,7 +152,7 @@ Ext.define('Igor.utility.ux.PathMenu', {
 		var	items = Ext.ComponentQuery.query('button[pathButtonType=menuitem]'),
 			bottom = menuButton.getBottom(),
 			left = menuButton.getLeft(),
-			radius = 150,
+			radius = 110,
 			section = items.length - 1
 			angle = 180 / section;
 

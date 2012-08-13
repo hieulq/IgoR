@@ -1,32 +1,20 @@
 Ext.define("Igor.view.about.About", {
-    extend: 'Ext.navigation.View',
+    extend: 'Ext.Panel',
     xtype: 'aboutPage',
-
-    requires: [
-        'Ext.List'
-    ],
 
     config: {
         autoDestroy: true,
-        
+        styleHtmlContent: true,
+        scrollable: true,
 
-        navigationBar: {
-            items: [
-                {
-                    xtype: 'image',
-                    docked: 'top',
-                    ui: 'light',
-                    width: 100,
-                    height: 45,
-                    src: 'resources/images/Igor.png'
-                }
-            ]
-        },
+        contentEl: 'about',
 
         items: [
             {
-                xtype: 'container',
-                title: 'About Igor'
+                docked: 'top',
+                xtype: 'toolbar',
+                title: 'About Igor',
+                
             }
         ]
     }
