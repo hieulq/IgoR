@@ -5,6 +5,7 @@ Ext.define("Igor.view.profile.Profile", {
     requires: [
         'Ext.List',
         'Igor.store.Users',
+        'Igor.utility.ux.PathMenu',
         'Igor.view.profile.Edit',
     ],
 
@@ -37,7 +38,28 @@ Ext.define("Igor.view.profile.Profile", {
                         userStore.removeAll();
                         userStore.sync();
 
-                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Authenticate'), {type: 'slide'});               
+                        Ext.Viewport.setActiveItem(Ext.create('Igor.view.authenticate.Authenticate'), {type: 'slide'});
+
+                        var hasClassName = new RegExp("(?:^|\\s)" + "x-button-pathmenu" + "(?:$|\\s)");
+                        var hasParentName = new RegExp("(?:^|\\s)" + "x-layout-card-container" + "(?:$|\\s)");
+                        var allElements = document.getElementsByTagName("div");
+                        var parent = [];
+                        var results = [];
+
+                        var element;
+                        for (var i = 0; (element = allElements[i]) != null; i++) {
+                            var elementClass = element.className;
+                            if (elementClass && elementClass.indexOf("x-button-pathmenu") != -1 && hasClassName.test(elementClass))
+                                results.push(element);
+                            else if (elementClass.indexOf("x-layout-card-container") != -1 && hasParentName.test(elementClass))
+                                parent.push(element);
+                        }
+
+                        for(var i = 0; i < results.length; i++) {
+                            parent[0].removeChild(results[i]);
+                        }
+
+                                       
                     }
                 },
                 {
