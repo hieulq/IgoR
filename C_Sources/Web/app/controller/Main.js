@@ -20,7 +20,7 @@ Ext.define("Igor.controller.Main", {
         control: {
             updatesList: {
                 itemtap: 'viewUpdateDetails',
-                disclose: 'viewUpdateDiscloseDetails'
+                disclose: 'viewUpdateDetails'
             },
 
             tasksListByDay: {
@@ -108,6 +108,7 @@ Ext.define("Igor.controller.Main", {
             daySelBtn: 'tasksForm #daySelectBtn',
             mainPnl: 'mainpanel',
             newProjectForm: 'newProjectForm',
+            updatesList: 'updatesListForm #updateList',
 
             //Class
             classDetails: 'classDetailsForm',
