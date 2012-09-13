@@ -79,8 +79,8 @@ def get_jobs_detail(job_id):
 
 @service.jsonp
 @service.json
-def add_class_job(user_id, name, start_time, end_time, job_type, date, 
-		repeat_date, note, location, test, class_id):
+def add_class_job(user_id, name, start_time = 0, end_time = 0, job_type = 0, date = 0, 
+		repeat_date = "", note = "", location ="", test = 0, class_id = "0"):
 
 	# Validate input
 	if (not class_id.isdigit()):

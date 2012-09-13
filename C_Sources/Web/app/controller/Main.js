@@ -81,6 +81,26 @@ Ext.define("Igor.controller.Main", {
 
             subjectList: {
                 itemtap: 'onSubjectTapHold'
+            },
+
+            saveClassTaskBtn: {
+                tap: 'doSaveNewClassTask'
+            },
+
+            saveProjectBtn: {
+                tap: 'doSaveNewProject'
+            },
+
+            classTaskList: {
+                itemtap: 'doClassTaskTap'
+            },
+
+            markCompletedBtn: {
+                tap: 'doSetCompletedMark'
+            },
+
+            deleteJobBtn: {
+                tap: 'doDeleteJob'
             }
         },
         routes: {
@@ -97,6 +117,8 @@ Ext.define("Igor.controller.Main", {
             'user/:id': 'viewUserDetails',
             'user/frienddetails/:id':'viewFriendDetails',
             'user/classdetails/:id':'viewClassDetails',
+
+            'classJobTaskDetails/:id': 'viewJobTaskDetails'
         },
 
         refs: {
@@ -107,13 +129,17 @@ Ext.define("Igor.controller.Main", {
             updatesListForm: 'updatesListForm',
             daySelBtn: 'tasksForm #daySelectBtn',
             mainPnl: 'mainpanel',
+
+            // Add New Project
             newProjectForm: 'newProjectForm',
             updatesList: 'updatesListForm #updateList',
+            saveProjectBtn: 'newProjectForm #saveProjectBtn',
 
             //Class
             classDetails: 'classDetailsForm',
             schedulerList: 'tasksForm #schedulerList',
             userListField: 'newProjectForm #userListField',
+            classTaskList: 'classDetailsForm #classTaskList',
 
             // New Task
             newSchedulerForm: 'newTask',
@@ -133,7 +159,16 @@ Ext.define("Igor.controller.Main", {
             userDetailsForm: 'userDetailsForm',
             editProfileButton: 'userDetailsForm #editProfileButton',
             profileEditForm: 'profileEdit',
-            saveUpdatedProfileBtn: 'profileEdit #saveUpdatedProfileBtn'
+            saveUpdatedProfileBtn: 'profileEdit #saveUpdatedProfileBtn',
+
+            // Add Class Task
+            newClassTaskForm: 'newClassTaskForm',
+            saveClassTaskBtn: 'newClassTaskForm #saveClassTaskBtn',
+
+            // Job Details Form
+            jobDetailsForm: 'jobDetailsForm',
+            markCompletedBtn: 'jobDetailsForm #markCompletedBtn',
+            deleteJobBtn: 'jobDetailsForm #deleteJobBtn'
         },
 
         before: {
@@ -619,7 +654,10 @@ Ext.define("Igor.controller.Main", {
         // sử dụng hàm Mark_read(notifications) trong file .doc
         var rec = list.getStore().getAt(index);
         //console.log(rec.data);
-        Ext.Msg.alert('Test', '1Redirect to objectid ' + rec.get('objectid'));
+
+        window.location.href = 'index.html#classJobTaskDetails/' + rec.get('objectid');
+        this.getUpdatesListForm().push({xtype: 'jobDetailsForm'});
+        //this.getTasksForm().push({xtype: 'jobDetailsForm'});
     },
 
     // Tasks
@@ -758,7 +796,7 @@ Ext.define("Igor.controller.Main", {
                     classTaskStore.sync();
                 if (result.status == 'OK' && result.message != '') {
                     Ext.Array.each(result.message, function(classTask) {      
-                        classTaskDetails = Ext.create('Igor.model.Classproject', classTask);
+                        classTaskDetails = Ext.create('Igor.model.Classtask', classTask);
                         classTaskStore.add(classTaskDetails);
                         classTaskStore.sync();
                     });
@@ -907,7 +945,7 @@ Ext.define("Igor.controller.Main", {
         var groupText = profileForm['group'];
         var avatarText = profileForm['avatarPath'];
         if (fullNameText != '' && studentIDText != '') {
-            Ext.data.JsonP.request({    
+            Ext.data.JsonP.request({
                 url: 'https://igor-assistant-ca-2012.appspot.com/igor/user/call/jsonp/update_user_detail/',
                 params: {
                     user_id: userId,
@@ -943,5 +981,144 @@ Ext.define("Igor.controller.Main", {
     onSubjectTapHold: function(list, index, target, record) {
         window.location.href = 'index.html#subjectDetails/' + record.get('subject_id');
         this.getTasksForm().push({xtype: 'subjectDetailsForm'});
+    },
+
+    doSaveNewClassTask: function() {
+        var newClassTaskForm = this.getNewClassTaskForm().getValues();
+        var name = newClassTaskForm['name'];
+        var location = newClassTaskForm['location'];
+        var note = newClassTaskForm['note'];
+        var startDate = newClassTaskForm['startdate'];
+        var startTime = newClassTaskForm['starttime'];
+        var endDate = newClassTaskForm['enddate'];
+        var endTime = newClassTaskForm['endtime'];
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
+        var currentHref = window.location.href;
+        var getParamsId = currentHref.split("#", 2)[1];
+        var classId = getParamsId.split("/", 2)[1];
+
+        if (name != '' && location != '') {
+            Ext.data.JsonP.request({    
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/jobs/call/jsonp/add_class_job/',
+            params: {
+                user_id: userId,
+                name: name,
+                job_type: 0,
+                note: note,
+                location: location,
+                class_id: classId
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                if (result.status == 'OK' && result.message != '') {
+                    var store = Ext.getStore('Classtasks'), classTaskDetails = {};
+                        store.sync();
+                        Ext.Array.each(result.message, function(classTask) {
+                            classTaskDetails = Ext.create('Igor.model.Classtask', classTask);
+                            store.add(classTaskDetails);
+                            store.sync();
+                        });
+
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                } else {
+                    Ext.Msg.alert('Failed! Try again!');
+                }
+            }
+        });
+        } else {
+            Ext.Msg.alert('Not enough information!');
+        }
+    },
+
+    doSaveNewProject: function() {
+        var newProjectForm = this.getNewProjectForm().getValues();
+        var nameProject = newProjectForm['name'];
+        var description = newProjectForm['description'];
+
+        if (nameProject != '' && description != '') {
+
+        } else {
+            Ext.Msg.alert('Not enough information!');
+        }
+    },
+
+    doClassTaskTap: function(list, index, target, record) {
+        window.location.href = 'index.html#classJobTaskDetails/' + record.get('id');
+        this.getTasksForm().push({xtype: 'jobDetailsForm'});
+    },
+
+    viewJobTaskDetails: function(id) {
+        this.getMainPnl().setMasked({
+            xtype: 'loadmask',
+            message: 'Loading...'
+        });
+
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/jobs/call/jsonp/get_jobs_detail/',
+            params: {
+                job_id: id
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                Ext.ComponentQuery.query('mainpanel')[0].unmask();
+
+                if (result.status = 'OK' && result.message != '') {
+                    var store = Ext.getStore('Classtasks'), classJobTaskDetails = {};
+                        store.removeAll();
+                        store.sync();
+                    Ext.Array.each(result.message, function(classJobTask) {
+                        classJobTaskDetails = Ext.create('Igor.model.Classtask', classJobTask);
+                        store.add(classJobTaskDetails);
+                        store.sync();
+                    });
+                }
+            }
+        });
+    },
+
+    doSetCompletedMark: function() {
+        var currentHref = window.location.href;
+        var getParamsId = currentHref.split("#", 2)[1];
+        var jobId = getParamsId.split("/", 2)[1];
+
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/jobs/call/jsonp/mark_job_finished/',
+            params: {
+                job_id: jobId
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                if (result.status = 'OK' && result.message != '') {
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                } else {
+                    Ext.Msg.alert('Failed! Try again!');
+                }
+            }
+        });
+    },
+
+    doDeleteJob: function() {
+        var currentHref = window.location.href;
+        var getParamsId = currentHref.split("#", 2)[1];
+        var jobId = getParamsId.split("/", 2)[1];
+
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/jobs/call/jsonp/delete_job/',
+            params: {
+                job_id: jobId
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                if (result.status = 'OK' && result.message != '') {
+                    Ext.Viewport.setActiveItem(Ext.create('Igor.view.Main'));
+                } else {
+                    Ext.Msg.alert('Failed! Try again!');
+                }
+            }
+        });
     }
 });

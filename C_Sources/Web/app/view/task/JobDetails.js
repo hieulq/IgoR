@@ -21,7 +21,7 @@ Ext.define("Igor.view.task.JobDetails", {
                 flex: 1,
                 scrollable: true,
 
-                store: 'Projectjobs',
+                store: 'Classtasks',
                 itemTpl: [
                     '<div class="header">',
                     '   <div class="avatar" style="background-image:url(resources/images/task-icon.png);"></div>',
@@ -79,24 +79,19 @@ Ext.define("Igor.view.task.JobDetails", {
                 items: [
                     {
                         text: 'Mark Completed',
+                        xtype: 'button',
+                        itemId: 'markCompletedBtn',
                         ui: 'confirm',
-                        scope: this,
-                        handler: function() {
-                            
-                        }
                     },
 
                     { xtype: 'spacer' },
 
                     // Here we add a reset button which will reset all fields within the form panel back to their original value
                     {
-                        text: 'Mark Incompeleted',
-                        ui: 'decline',
-
-                        handler: function() {
-                            
-
-                        }
+                        text: 'Delete',
+                        xtype: 'button',
+                        itemId: 'deleteJobBtn',
+                        ui: 'confirm',
                     }
                 ]
             }

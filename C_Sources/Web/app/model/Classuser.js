@@ -13,6 +13,5 @@ Ext.define("Igor.model.Classuser", {
             'group',
             'course'
         ]
-
     }
 });

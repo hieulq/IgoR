@@ -58,7 +58,6 @@ Ext.define("Igor.view.profile.Profile", {
                         for(var i = 0; i < results.length; i++) {
                             parent[0].removeChild(results[i]);
                         }
-
                                        
                     }
                 },

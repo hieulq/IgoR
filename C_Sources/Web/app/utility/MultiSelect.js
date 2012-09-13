@@ -3,9 +3,10 @@ Ext.define('Igor.view.MultiSelect', {
     alias : 'widget.multiselectfield',
     xtype : 'multiselectfield',
     usePicker : false,  //force list panel, not picker
+
     getTabletPicker: function() {  //override with modified function
         var config = this.getDefaultTabletPickerConfig();
-        if (!(this.listPanel)) {
+        if (!this.listPanel) {
             this.listPanel = Ext.create('Ext.Panel', Ext.apply({
                 centered: true,
                 modal: true,
@@ -16,7 +17,6 @@ Ext.define('Igor.view.MultiSelect', {
                     xtype: 'list',
                     mode: 'MULTI', //set list to multi-select mode
                     store: this.getStore(),
-                    //data:this.getOptions(),
                     itemTpl: '<span class="x-list-label">{' + this.getDisplayField() + '}</span>',
                     listeners: {
                         select : this.onListSelect,
@@ -42,23 +42,22 @@ Ext.define('Igor.view.MultiSelect', {
         }
         return this.listPanel;
     },
-
-
+    
     applyValue: function(value) {  //override with modified function
         var record = value,
-        displayStringArray = new Array(),
-        valueStringArray = new Array();
-        valueStringArray = (value == null? '':value.split(','));
-        if ((value != null )&& value.trim().localeCompare('')){
-            for (v=0;v <valueStringArray.length;v++){
-                item = this.getStore().find(this.getValueField(), valueStringArray[v], null, null, null, true);
-                displayStringArray.push(this.getOptions()[item].get(this.getDisplayField()));
+            index;
+        this.getOptions();
+        if (!(value instanceof Ext.data.Model)) {
+            index = this.getStore().find(this.getValueField(), value, null, null, null, true);
+
+            if (index == -1) {
+                index = this.getStore().find(this.getDisplayField(), value, null, null, null, true);
             }
+            //We do not want to get record from store //record = this.getStore().getAt(index);
+             this.element.dom.lastChild.firstChild.firstChild.value = value; //display csv string in field when value applied
         }
-        this.element.dom.lastChild.firstChild.firstChild.value = displayStringArray.join(', '); //display csv string in field when value applied
         return record;
     },
-
 
     updateValue: function(newValue, oldValue) {  //override with modified function
         this.previousRecord = oldValue;
@@ -67,12 +66,10 @@ Ext.define('Igor.view.MultiSelect', {
         this.fireEvent('change', this, newValue, oldValue);
     },
 
-
     getValue: function() {  //override with modified function
         var record = this.record;
         return (record) // Use literal string value of field // ? record.get(this.getValueField()) : null;
     },
-
 
     showPicker: function() {  //override with modified function
         //check if the store is empty, if it is, return
@@ -84,12 +81,13 @@ Ext.define('Igor.view.MultiSelect', {
         }
         this.isFocused = true;
         //hide the keyboard
-        //the causes http://sencha.jira.com/browse/TOUCH-1679
+        //the causes https://sencha.jira.com/browse/TOUCH-1679
         // Ext.Viewport.hideKeyboard();
         if (this.getUsePicker()) {
             var picker = this.getPhonePicker(),
-            name   = this.getName(),
-            value  = {};
+                name   = this.getName(),
+                value  = {};
+
             value[name] = this.record.get(this.getValueField());
             picker.setValue(value);
             if (!picker.getParent()) {
@@ -98,22 +96,21 @@ Ext.define('Igor.view.MultiSelect', {
             picker.show();
         } else { //reworked code to split csv string into array and select correct list items
             var listPanel = this.getTabletPicker(),
-            list = listPanel.down('list'),
-            store = list.getStore(),
-            itemStringArray = new Array(),
-            values = (this.getValue() == null? '':this.getValue().split(',')),
-            v = 0,
-            vNum = values.length;
+                list = listPanel.down('list'),
+                store = list.getStore(),
+                itemStringArray = new Array(),
+                values = this.getValue().split(','),
+                v = 0,
+                vNum = values.length;
             if (!listPanel.getParent()) {
                 Ext.Viewport.add(listPanel);
             }
-            for (v = 0; v < vNum; v++) {
+            for (; v < vNum; v++) {
                 itemStringArray.push(values[v]);
             }
             v = 0;
-            for (v = 0; v < vNum; v++) {
-                //var record = store.findRecord(this.getDisplayField(), itemStringArray[v], 0, true, false, false );
-                var record = store.findRecord(this.getValueField(), itemStringArray[v], 0, true,false,false );
+            for (; v < vNum; v++) {
+                var record = store.findRecord(this.getDisplayField(), itemStringArray[v], 0, true, false, false );
                 list.select(record, true, false);
             }
             listPanel.showBy(this.getComponent());
@@ -121,14 +118,11 @@ Ext.define('Igor.view.MultiSelect', {
         }
     },
 
-
     onListSelect: function(item, record) {  //override with empty function
     },
 
-
     onListTap: function() {  //override with empty function
     },
-
 
     onButtonTap: function() {
         this.setValue('');
@@ -140,25 +134,21 @@ Ext.define('Igor.view.MultiSelect', {
         });
     },
 
-
     onListHide: function(cmp, opts) {
         var me = this,
-        recordArray = this.listPanel.down('list').selected.items,
-        //itemStringArray = new Array(),
-        valueStringArray = new Array(),
-        v = 0,
-        vNum = recordArray.length;
-        for (v = 0; v < vNum; v++) {
-            if  (recordArray[v].data[this.getDisplayField()]){
-                valueStringArray.push(recordArray[v].data[this.getValueField()]);
-            }
+            recordArray = this.listPanel.down('list').selected.items,
+            itemStringArray = new Array(),
+            v = 0,
+            vNum = recordArray.length;
+        for (; v < vNum; v++) {
+            var value = this.getDisplayField();
+            itemStringArray.push(recordArray[v].data.value);
         }
-        if (valueStringArray.length > 0) {
-            //me.setValue(itemStringArray.join(','));
-            me.setValue(valueStringArray.join(','));
+        if (itemStringArray.length > 0) {
+            me.setValue(itemStringArray.join(','));
             this.listPanel.down('list').deselectAll();
         } else {
-            me.setValue(null);
+            me.setValue('None');
         }
     }
-});  
+});

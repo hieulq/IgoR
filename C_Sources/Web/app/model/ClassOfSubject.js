@@ -10,7 +10,7 @@ Ext.define("Igor.model.ClassOfSubject", {
             'duration',//morning,..
             'is_finished',
             'teacher',
-            'subject',
+            'subject'
         ],
     }
 });

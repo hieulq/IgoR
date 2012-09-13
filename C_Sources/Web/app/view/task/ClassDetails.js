@@ -132,17 +132,7 @@
                         cls: 'dark',
                         html: 'Tasks'
                     }
-                ],
-
-                listeners: {
-                    itemtap: function(list, index, target, record) {
-                        //var rec = list.getStore().getAt(index);
-                        //console.log(rec.get('jobid'));
-                        var navView = this.up('navigationview');
-                        
-                        navView.push({xtype: 'classTaskDetailsForm'});
-                    }
-                }
+                ]
             },
 
         ]

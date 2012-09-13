@@ -11,16 +11,6 @@ Ext.define("Igor.model.Projectjob", {
             'repeat_date',
             'location',
             'note'
-        ],
-
-        proxy: {
-            type: 'ajax',
-            url : 'data/job_project.json',
-            reader: {
-                type: 'json',
-                rootProperty: 'projects.jobs'
-
-            }
-        }
+        ]
     }
 });

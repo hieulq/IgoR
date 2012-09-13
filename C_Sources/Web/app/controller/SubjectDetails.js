@@ -8,7 +8,9 @@ Ext.define("Igor.controller.SubjectDetails", {
 
     config: {
         control: {
-            
+            classesListForm: {
+                itemtap: 'doAddNewClassToUser'
+            }
         },
         routes: {
             'subjectDetails/:id': 'doSubjectDetails'
@@ -25,8 +27,7 @@ Ext.define("Igor.controller.SubjectDetails", {
         },
 
         before: {
-            doSubjectDetails: ['getSubjectDetails', 'getAllClassesBySubject'],
-            // Truoc khi thuc hien ham doLogin thi se invoke ham authenticate trước!
+            
         }
     },
 
@@ -63,8 +64,8 @@ Ext.define("Igor.controller.SubjectDetails", {
         Ext.data.JsonP.request({
             url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_subject/',
             params: {
-                subject_id: _id,
-                term: '20111'
+                subject_id: _id
+                //term: '20111'
             },
             disableCaching: false,
 
@@ -74,10 +75,30 @@ Ext.define("Igor.controller.SubjectDetails", {
                     subjectClassesStore.sync();
                 if (result.status == 'OK' && result.message != '') {
                     Ext.Array.each(result.message, function(classDetails) {      
-                        subjectClasses = Ext.create('Igor.model.Classdetail', classDetails);
+                        subjectClasses = Ext.create('Igor.model.ClassOfSubject', classDetails);
                         subjectClassesStore.add(subjectClasses);
                         subjectClassesStore.sync();
                     });
+                }
+            }
+        });
+    },
+
+    doAddNewClassToUser: function(list, index, target, record) {
+        var userId = Ext.getStore('Users').getAt(0).get('userid');
+        Ext.data.JsonP.request({
+            url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/add_class_to_user/',
+            params: {
+                class_id: record.get('id'),
+                user_id: userId
+            },
+            disableCaching: false,
+
+            success: function(result, request) {
+                if (result.status == 'OK' && result.message != '') {
+                    Ext.Msg.alert('Succeeded!');
+                } else {
+                    Ext.Msg.alert('Failed! Try again, please!');
                 }
             }
         });

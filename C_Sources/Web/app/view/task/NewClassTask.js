@@ -80,30 +80,10 @@ Ext.define("Igor.view.task.NewClassTask", {
                 docked: 'bottom',
                 items: [
                     {
+                        xtype: 'button',
                         text: 'Save',
+                        itemId: 'saveClassTaskBtn',
                         ui: 'confirm',
-                        scope: this,
-                        handler: function() {
-                            var form = this.form;
-
-                            // Mask the form
-                            form.setMasked({
-                                xtype: 'loadmask',
-                                message: 'Saving...'
-                            });
-
-                            // Put it inside a timeout so it feels like it is going to a server.
-                            setTimeout(function() {
-                                if (form.user) {
-                                    // Call the updateRecord method of formpanel with the user record instance. This will update the user record
-                                    // with the latest values.
-                                    form.updateRecord(form.user, true);
-                                }
-
-                                // Unmask the formpanel
-                                form.setMasked(false);
-                            }, 1000);
-                        }
                     },
 
                     { xtype: 'spacer' },
@@ -115,7 +95,6 @@ Ext.define("Igor.view.task.NewClassTask", {
                         handler: function() {
                             // Call the form.reset method
                             Ext.getCmp('newClassTaskForm').reset();
-
                         }
                     }
                 ]

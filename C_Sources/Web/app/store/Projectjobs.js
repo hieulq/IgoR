@@ -4,7 +4,5 @@ Ext.define("Igor.store.Projectjobs", {
     config: {
         model: 'Igor.model.Projectjob',
         autoLoad: true,
-
-        
     }
 });
