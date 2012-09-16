@@ -96,7 +96,7 @@ Ext.define("Igor.controller.SubjectDetails", {
 
             success: function(result, request) {
                 if (result.status == 'OK' && result.message != '') {
-                    Ext.Msg.alert('Succeeded!');
+                    Ext.Msg.alert('Success!');
                 } else {
                     Ext.Msg.alert('Failed! Try again, please!');
                 }

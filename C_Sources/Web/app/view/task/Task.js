@@ -82,7 +82,7 @@ Ext.define("Igor.view.task.Task", {
                                     cls: 'x-phapphui-in'
                                 },
                                 style: {
-                                        'width': '95px',
+                                        'width': '100%',
                                         'transition':'width 10s',
                                         '-webkit-transition':'width 10s'
                                     },

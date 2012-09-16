@@ -277,13 +277,14 @@ Ext.define("Igor.controller.Main", {
 
     onTaskTapHold: function(list, index, target, record) {
         //var rec = list.getStore().getAt(index);
+        mainPnl = this.getMainPnl();
         var userId = Ext.getStore('Users').getAt(0).get('userid');
         Ext.Msg.confirm(
             "Delete",
             "Are you sure you want to delete this scheduler ?",
             function(buttonId) {
                 if (buttonId === 'yes') {
-                    this.getMainPnl().setMasked({
+                    mainPnl.setMasked({
                         xtype: 'loadmask',
                         message: 'Loading...'
                     });
@@ -480,7 +481,8 @@ Ext.define("Igor.controller.Main", {
             url: 'https://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_subject/',
             params: {
                 subject_id: '4007',
-                term      : '20111'
+                // term      : '20111'
+                term : '',
             },
 
             disableCaching: false,
@@ -697,7 +699,7 @@ Ext.define("Igor.controller.Main", {
             url: 'http://igor-assistant-ca-2012.appspot.com/igor/class_subject/call/jsonp/get_classes_by_user_time',
             params: {
                 user_id: userId,
-                term: '20113', 
+                // term: '20113', 
                 day_of_week: day_of_week
             },
             disableCaching: false,
